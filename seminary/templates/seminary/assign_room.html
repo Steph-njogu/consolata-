@@ -1,0 +1,30 @@
+{% extends 'users/base.html' %}
+{% load django_bootstrap5%}
+{% load crispy_forms_tags %}
+{% load seminary_markdown %}
+
+
+{% block content %}
+  <h1 class="mb-4">Assign Room</h1>
+
+  {% if messages %}
+    <div class="alert alert-warning">
+      <ul class="mb-0">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <form method="post" class="needs-validation" novalidate>
+    {% csrf_token %}
+    <div class="form-group">
+      {{ form|crispy }}
+    </div>
+    <button type="submit" class="btn btn-primary">Assign Room</button>
+  </form>
+
+  <br>
+  <a href="{% url 'seminary:room_details' %}" class="btn btn-secondary">Back to Rooms</a>
+{% endblock %}

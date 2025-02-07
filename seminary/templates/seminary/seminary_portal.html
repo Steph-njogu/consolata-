@@ -1,0 +1,11 @@
+{% extends 'users/base.html' %}
+{% load django_bootstrap5%}
+{% load seminary_markdown %}
+
+{% block content %}
+  <h1 class="mb-5">Welcome to the Seminary Portal!</h1>
+  <p>Only verified users can access the privileges of this page.</p>
+
+  <a href="{% url 'seminary:room_details' %}" class="btn btn-info mr-2">View Room Details</a>
+  <a href="{% url 'seminary:request_membership' %}" class="btn btn-success">Request Membership</a>
+{% endblock %}

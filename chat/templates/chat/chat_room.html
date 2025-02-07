@@ -1,0 +1,42 @@
+{% extends 'users/base.html' %}
+{% load django_bootstrap5 %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h2>Chat Room: {{ my_chat }}</h2>
+    <div id="chat-box">
+        {% for msg in messages %}
+            <p><strong>{{ msg.sender.username }}:</strong> {{ msg.content }} <small>{{ msg.timestamp }}</small></p>
+        {% endfor %}
+    </div>
+    
+    <input id="message-input" type="text" placeholder="Type your message..." class="form-control mb-3">
+    <button onclick="sendMessage()" class="btn btn-primary">Send</button>
+
+    <script>
+        const roomName = "{{ room_name }}";
+        const ws = new WebSocket("ws://" + window.location.host + "/ws/chat/" + roomName + "/");
+
+        ws.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            const chatBox = document.getElementById("chat-box");
+            chatBox.innerHTML += `<p><strong>${data.sender}:</strong> ${data.message} <small>${data.timestamp}</small></p>`;
+            chatBox.scrollTop = chatBox.scrollHeight;  // Scroll to the latest message
+        };
+
+        function sendMessage() {
+            const messageInput = document.getElementById("message-input");
+            const message = messageInput.value.trim();
+
+            // Don't send empty messages
+            if (message === "") {
+                return;
+            }
+
+            // Send message to WebSocket
+            ws.send(JSON.stringify({"message": message}));
+            messageInput.value = "";  // Clear the input field
+            messageInput.focus();  // Focus back on input field
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,196 @@
+{% extends 'users/base.html' %}
+{% load django_bootstrap5 %}
+{% load blog_extras %}
+
+{% block content %}
+<div class="container my-8">
+    <!-- Title Section -->
+    <h2 class="text-center mb-6 text-dark font-weight-bold" style="font-size: 2.5rem; text-transform: uppercase;">Consolata News</h2>
+
+    <div class="row">
+        <!-- Left Sidebar (Categories) -->
+        <div class="col-md-12 mb-4"> <!-- Full-width for top section -->
+            <h4 class="mb-4 text-dark font-weight-bold" style="font-size: 1.2rem;">Categories</h4>
+            {% if categories %}
+                <div class="row">
+                    {% for category in categories %}
+                        <div class="col-md-4 mb-2"> <!-- Each category takes up 1/3 of the width -->
+                            <div class="list-group shadow-sm">
+                                <a href="{% url 'blogs:category_news' category.slug %}" class="list-group-item py-2 border-0 text-decoration-none text-dark" style="font-size: 1.1rem;">
+                                    {{ category.name }}
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No categories available.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Latest News Section -->
+    <div class="row">
+        <!-- Main Content Section (Latest News) -->
+        <div class="col-md-12"> <!-- Full-width for the news section -->
+            <h4 class="mb-4 text-dark font-weight-bold" style="font-size: 1.5rem;">Latest News</h4>
+            {% if latest_news %}
+                <div class="row">
+                    {% for article in latest_news %}
+                        <div class="col-md-6 mb-3"> <!-- 2 articles per row -->
+                            <div class="list-group shadow-sm">
+                                <li class="list-group-item py-3 border-0">
+                                    <!-- Article Tags -->
+                                    <p>Tags: 
+                                        {% for tag in article.tags.all %}
+                                            <a href="?tag={{ tag.name }}" class="badge badge-secondary">{{ tag.name }}</a>
+                                        {% endfor %}
+                                    </p>
+
+                                    <!-- Article Title -->
+                                    <h5 class="font-weight-bold" style="font-size: 1.3rem;">
+                                        <a href="{% url 'blogs:news_detail' article.slug %}" class="text-decoration-none text-dark">
+                                            {{ article.title|markdown }}
+                                        </a>
+                                    </h5>
+
+                                    <!-- Article Date -->
+                                    <small class="text-muted" style="font-size: 0.9rem;">Posted on {{ article.date_added|date:"F d, Y" }}</small>
+
+                                    <!-- Article Image -->
+                                    {% if article.image %}
+                                        <div class="my-2">
+                                            <img src="{{ article.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ article.title }}">
+                                        </div>
+                                    {% endif %}
+
+                                    <!-- Article Content (truncated) -->
+                                    <p class="text-dark" style="font-size: 1rem;">{{ article.content|markdown|truncatewords:30 }}</p>
+
+                                    <!-- Read More Button -->
+                                    <a href="{% url 'blogs:news_detail' article.slug %}" class="btn btn-primary btn-sm mt-2">Read More</a>
+                                </li>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+               <!-- Pagination Controls -->
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        {% if latest_news.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1">&laquo; First</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ latest_news.previous_page_number }}">Previous</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link">Previous</a>
+            </li>
+        {% endif %}
+        
+        <!-- Dynamic page numbers -->
+        {% for i in latest_news.paginator.page_range %}
+            {% if latest_news.number == i %}
+                <li class="page-item active">
+                    <span class="page-link">{{ i }}</span>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+        
+        {% if latest_news.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ latest_news.next_page_number }}">Next</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ latest_news.paginator.num_pages }}">Last &raquo;</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link">Next</a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+
+            {% else %}
+                <p>No news articles available.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Embedded CSS for this page -->
+<style>
+    /* Title Styling */
+    h2.text-center {
+        font-family: 'Arial', sans-serif;
+        font-size: 2.5rem;
+        text-transform: uppercase;
+        color: #2c3e50;
+    }
+
+    /* Category Sidebar */
+    .list-group-item {
+        padding: 15px;
+        font-size: 1.1rem;
+    }
+
+    .list-group-item a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    .list-group-item a:hover {
+        color: #007bff;
+    }
+
+    /* Tags in the Latest News Section */
+    .badge {
+        font-size: 0.9rem;
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
+
+    /* Article Card Styling */
+    .list-group-item {
+        margin-bottom: 20px;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+    }
+
+    .list-group-item h5 {
+        font-size: 1.3rem;
+        color: #333;
+    }
+
+    .list-group-item img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .list-group-item p {
+        font-size: 1rem;
+        color: #333;
+    }
+
+    /* Pagination Controls */
+    .pagination .btn {
+        font-size: 0.9rem;
+    }
+
+    .pagination .d-flex {
+        margin-top: 30px;
+    }
+</style>
+
+{% endblock %}

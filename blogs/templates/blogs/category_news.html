@@ -1,0 +1,104 @@
+{% extends 'users/base.html' %}
+{% load django_bootstrap5 %}
+{% load blog_extras %}
+
+{% block content %}
+<div class="container">
+    <!-- Canonical URL for SEO -->
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    <div class="row">
+        <!-- Main Content Area (Left Side) -->
+        <div class="col-md-11">
+            <!-- Boxed Content Section -->
+            <div class="content-box p-4 mb-4">
+
+                <h2 class="my-8 text-center text-dark">{{ category.name|markdown }}</h2>
+
+                {% if articles %}
+                    <div class="row">
+                        <!-- First Row of Articles -->
+                        {% for article in articles|slice:":articles|length/2" %}
+                            <div class="col-md-6 mb-4">
+                                <div class="list-group">
+                                    <li class="list-group-item mb-4 border-0 shadow-sm">
+                                        <!-- Article Title -->
+                                        <h5 class="font-weight-bold">
+                                            <a href="{% url 'blogs:news_detail' article.slug %}" class="text-decoration-none text-dark">
+                                                {{ article.title|markdown }}
+                                            </a>
+                                        </h5>
+
+                                        <!-- Article Date -->
+                                        <small class="text-muted d-block mb-2">Posted on {{ article.date_added|date:"F d, Y" }}</small>
+
+                                        <!-- Article Image -->
+                                        {% if article.image %}
+                                            <div class="my-2">
+                                                <img src="{{ article.image.url }}" class="img-fluid rounded shadow-sm" alt="Image for {{ article.title }}">
+                                            </div>
+                                        {% endif %}
+
+                                        <!-- Article Excerpt -->
+                                        <p>{{ article.content|markdown|truncatewords:30 }}</p>
+
+                                        <!-- Read More Button -->
+                                        <a href="{% url 'blogs:news_detail' article.slug %}" class="btn btn-primary btn-sm mt-2">Read More</a>
+                                    </li>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                   
+
+                {% else %}
+                    <p class="alert alert-warning">No articles found in this category.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Inline CSS for layout and appearance -->
+<style>
+    /* Style for category page */
+    .list-group-item {
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 20px;
+    }
+
+    .list-group-item:hover {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .list-group-item h5 a {
+        font-size: 1.4rem;
+        color: #333;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .list-group-item h5 a:hover {
+        color: #007bff;
+    }
+
+    .list-group-item small {
+        font-size: 0.9rem;
+    }
+
+    .list-group-item p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #444;
+    }
+
+    .list-group-item .btn {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,315 @@
+{% load django_bootstrap5 %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Consolata Seminary Scouts - Fostering spiritual and intellectual growth in seminarians, with an emphasis on leadership and community service.">
+    <title>Consolata Seminary Scouts</title>
+
+    <!-- Bootstrap 5 CSS -->
+    {% bootstrap_css %}
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: hsl(0, 0%, 100%); /* Soft light blue background */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensures footer stays at the bottom */
+        }
+
+        header {
+            background-color: #003366; /* Deep blue */
+            color: #fff;
+            padding: 5px 0.9;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+            text-transform: uppercase;
+        }
+
+        .main-content {
+            flex: 1;
+            padding-bottom: 90px; /* To prevent content overlap with the footer */
+        }
+
+        .navbar {
+            border-bottom: 1px solid #ddd;
+            background-color: #0d3864;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: #ffd700 !important;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+        }
+
+        .nav-link {
+            color: #f8f9fa !important;
+            font-size: 1rem;
+        }
+
+        .nav-link:hover {
+            color: #ffd700 !important;
+        }
+
+        .container {
+            padding: 40px 15px;
+        }
+
+        .list-group-item {
+            padding: 20px;
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .list-group-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .chat-container .chat-message {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-message p {
+            margin-bottom: 4px;
+        }
+
+        .chat-message small {
+            color: #6c757d;
+        }
+
+        .navbar-toggler-icon {
+            background-color: #6c757d;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .carousel-item img {
+            max-height: 450px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .form-control {
+            background-color: #e8e8e8;
+            border-radius: 25px;
+        }
+
+        .btn-outline-dark {
+            border: 2px solid #ffd700;
+            color: #ffd700;
+        }
+
+        .btn-outline-dark:hover {
+            background-color: #ffd700;
+            color: #003366;
+        }
+
+        /* Footer Styles */
+        .footer {
+            opacity: 0;
+            visibility: hidden;
+            background-color: #9b9b9b;
+            color: #000000;
+            padding: 20px 0;
+            border-top: 0.1px solid #ffd700;
+            text-align: center;
+            font-size: 0.875rem;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            width: 100vw; 
+            position: relative; 
+            left: 0; 
+            margin: 0; 
+        }
+
+        .footer .social-links a {
+            margin: 0 10px;
+            color: #fff;
+        }
+
+        .footer .social-links a:hover {
+            color: #ffd700;
+        }
+
+        .footer.visible {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            .navbar-toggler {
+                border-color: #ffd700;
+            }
+
+            .container {
+                padding-top: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div>
+            <h1>Consolata Seminary</h1>
+            <link rel="canonical" href="{{ canonical_url }}">
+            {% block head %}
+            {% endblock %}
+        </div>
+    </header>
+
+    <!-- Navbar Section with Offcanvas -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="offcanvas offcanvas-start text-bg-primary" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'home:home' %}" aria-current="page">Home</a>
+                        </li>
+
+                        {% if user.is_authenticated %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Hello, {{ user.username }}
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="{% url 'users:profile' user.slug %}">View Profile</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{% url 'home:logout' %}">Logout</a></li>
+                                </ul>
+                            </li>
+
+                            <!-- Portal Dropdown -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="portalDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Portal
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="portalDropdown">
+                                    <li><a class="dropdown-item" href="{% url 'seminary:seminary_portal' %}">Seminary</a></li>
+                                    <li><a class="dropdown-item" href="#">Chat History</a></li>
+                                </ul>
+                            </li>
+
+                            <!-- Chat Dropdown -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="chatDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Chat
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="chatDropdown">
+                                    <li><a class="dropdown-item" href="{% url 'chat:thread_list' %}">Chat List</a></li>
+                                </ul>
+                            </li>
+
+                            <!-- News Link -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'blogs:news_home' %}">News</a>
+                            </li>
+
+                            <!-- Events Link -->
+                             
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'events:diaries_view' %}">Calendar</a>
+                            </li>
+
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'users:register1_view' %}">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'users:login' %}">Login</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+
+                    <!-- Search Form -->
+                    <ul class="navbar-nav ms-auto">
+                        <form class="d-flex" method="get" action="#">
+                            <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search" value="{{ request.GET.q }}">
+                            <button class="btn btn-outline-dark" type="submit" aria-label="Search for content">Search</button>
+                        </form>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Section -->
+    <div id="mainContent" class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Footer Section (Outside of Container) -->
+    <footer class="footer">
+        <div>
+            <h5>Contact Us</h5>
+            <p><strong>Address:</strong> Consolata Seminary, Nairobi, Kenya</p>
+            <p><strong>Email:</strong> <a href="mailto:info@consolataseminary.org">info@consolataseminary.org</a></p>
+            <p><strong>Phone:</strong> <a href="tel:+254712345678">+254 712 345 678</a></p>
+        </div>
+        <div class="social-links">
+            <a href="https://facebook.com" class="btn btn-primary btn-sm" target="_blank" aria-label="Visit our Facebook page">
+                <i class="fa fa-facebook"></i> Facebook
+            </a>
+            <a href="https://twitter.com" class="btn btn-info btn-sm" target="_blank" aria-label="Visit our Twitter profile">
+                <i class="fa fa-twitter"></i> Twitter
+            </a>
+            <a href="https://instagram.com" class="btn btn-danger btn-sm" target="_blank" aria-label="Visit our Instagram account">
+                <i class="fa fa-instagram"></i> Instagram
+            </a>
+        </div>
+        <p>&copy; 2025 Consolata Seminary Scouts. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const footer = document.querySelector('.footer');
+        
+        // Listen for scrolling and handle footer visibility
+        window.addEventListener('scroll', function() {
+            let scrollPosition = window.scrollY + window.innerHeight;
+            let pageHeight = document.documentElement.scrollHeight;
+    
+            // Show footer when scrolled to the bottom of the page
+            if (scrollPosition >= pageHeight) {
+                footer.classList.add('visible');
+            } else {
+                footer.classList.remove('visible');
+            }
+        });
+    </script>
+
+    {% bootstrap_javascript %}
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+{% extends 'users/base.html' %}
+{% load django_bootstrap5 %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Add Events:</h1>
+    
+    <div class="card">
+      <div class="card-body">
+        
+        <!-- Diary Creation Form -->
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <!-- Display form errors (if any) -->
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    <ul>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            
+            <!-- Render the form using crispy_forms for better styling -->
+            {{ form|crispy }}
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">Create Event</button>
+            
+        </form>
+
+        <!-- Link to go back to the Diary List or newly created diary view -->
+        <a href="{% url 'events:event_view' %}" class="btn btn-secondary mt-3">Back to Event List</a>
+      </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_css %}
+  <style>
+    /* General Styles */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    /* Container and Spacing */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* Header Styles */
+    h1, h4, h5 {
+        color: #343a40;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+    }
+
+    h4 {
+        font-size: 1.5rem;
+        margin-top: 20px;
+    }
+
+    h5 {
+        font-size: 1.25rem;
+        margin-top: 10px;
+    }
+
+    /* Event Detail Page */
+    .card {
+        border: 1px solid #ddd;
+        margin-top: 30px;
+        border-radius: 8px;
+    }
+
+    .card-body {
+        padding: 20px;
+        background-color: #ffffff;
+    }
+
+    button[type="submit"] {
+        width: 100%;
+    }
+
+    /* Alerts */
+    .alert {
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+
+    .alert-warning {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 576px) {
+        .container {
+            padding: 15px;
+        }
+
+        .card {
+            margin-top: 15px;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+        }
+    }
+
+  </style>
+{% endblock %}

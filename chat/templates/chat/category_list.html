@@ -1,0 +1,36 @@
+{% extends 'users/base.html' %}
+{% load django_bootstrap5 %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <link rel="canonical" href="{{ canonical_url }}">
+
+<div class="container md">
+    <h2 class="mb-3">University Thread</h2>
+    
+    <ul class="list-group">
+        {%if threads %}
+            {% for thread in threads %}
+                <li class="list-group-item">
+                    <span><a href="{% url 'chat:thread_detail' thread.slug  %}">comments</a></span>
+                </li>
+            {% endfor %}
+
+        {% else %}
+
+            <li class="list-group-item">
+                <span>No threads</span> <!-- Fallback message -->
+            </li>
+            
+
+        {% endif %}
+        <span>Create a <a href="{% url 'chat:create_thread' %}"> new thread.</a> </span>
+
+    </ul>
+</div>
+</div>
+
+ 
+{% endblock content %}

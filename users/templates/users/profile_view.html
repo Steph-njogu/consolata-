@@ -1,0 +1,47 @@
+{% extends 'users/base.html' %}
+{% load django_bootstrap5 %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div class="container mt-4">
+    
+
+    {% if messages %}
+      <div class="alert alert-info">
+        <ul class="mb-0">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <div class="row">
+      <div class="col-md-4 text-center">
+        <h2>{{ user.username|capfirst }}'s Profile</h2>
+        <!-- Display Profile Picture -->
+        {% if user.profile_pic %}
+          <img src="{{ user.profile_pic.url }}" class="img-fluid rounded-circle mb-3" alt="Profile Picture" style="width: 150px; height: 150px;">
+        {% else %}
+          <img src="https://via.placeholder.com/150" class="img-fluid rounded-circle mb-3" alt="Profile Picture">
+        {% endif %}
+      </div>
+
+      <div class="col-md-8">
+        <h4>Profile Details</h4>
+        <p><strong>Name:</strong> {{ user.first_name|capfirst }} {{ user.last_name|capfirst }}</p>
+        <p><strong>Phone no.:</strong> {{ user.phone }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Joined on:</strong> {{ user.date_joined|date:"F d, Y" }}</p>
+
+        
+        
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- You can also display some more details or options here -->
+
+  </div>
+{% endblock content %}

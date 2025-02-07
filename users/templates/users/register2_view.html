@@ -1,0 +1,128 @@
+{% extends 'users/base.html' %}
+{% load django_bootstrap5 %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="subscription-container">
+  <div class="subscription-card">
+    <div class="card-header text-center">
+      <h3 class="mb-0">Registration Page</h3>
+    </div>
+    <div class="card-body">
+      <p class="text-muted text-center">Step 2: Personal Details</p>
+
+      {% if messages %}
+        <div class="alert alert-info">
+          <ul class="mb-0">
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+          {{ form|crispy }}
+        </div>
+
+        <button type="submit" class="btn btn-success btn-lg btn-block">Register</button>
+      </form>
+    </div>
+    <div class="card-footer text-center">
+      <small>Your privacy is important to us. We will never share your email with anyone.</small>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Base styles */
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Container for the registration page */
+  .subscription-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    padding: 20px;
+  }
+
+  /* Form card style */
+  .subscription-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 100%;
+    max-width: 600px;
+  }
+
+  /* Header section */
+  .card-header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 20px;
+    font-size: 1.5em;
+    text-align: center;
+  }
+
+  /* Body section */
+  .card-body {
+    padding: 30px;
+  }
+
+  .card-body p {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    color: #555;
+  }
+
+  /* Form field styling */
+  .card-body form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-body form input,
+  .card-body form button {
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+  .card-body form input {
+    width: 100%;
+  }
+
+  .card-body form button {
+    background-color: #28a745;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .card-body form button:hover {
+    background-color: #218838;
+  }
+
+  /* Footer section */
+  .card-footer {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9em;
+    color: #6c757d;
+  }
+</style>
+
+{% endblock content %}

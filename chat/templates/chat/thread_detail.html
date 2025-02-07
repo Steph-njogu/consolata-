@@ -1,0 +1,37 @@
+{% extends 'users/base.html' %}
+{% load django_bootstrap5 %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-3">
+    <p><strong><h2>THREADS</h2></strong></p>
+
+    <link rel="canonical" href="{{ canonical_url }}">
+    
+
+    <p><strong>By:</strong> {{ thread.author.username }} | <strong>Created on:</strong> {{ thread.created_at }}</p>
+
+
+    <p>{{ thread.content }}</p>
+    
+    <h3>Replies</h3>
+    <ul class="list-group mb-4">
+        {% for reply in replies %}
+            <li class="list-group-item">
+                <p>{{ reply.content }}</p>
+                <p><strong>{{ reply.author.username }}</strong> | {{ reply.created_at }}</p>
+            </li>
+        {% empty %}
+            <li class="list-group-item">No replies yet.</li>
+        {% endfor %}
+    </ul>
+    
+    <h3>Post a Reply</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        
+        <button type="submit" class="btn btn-outline-primary">Post Reply</button>
+    </form>
+</div>
+{% endblock content %}

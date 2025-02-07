@@ -1,0 +1,109 @@
+{% extends 'users/base.html' %}
+{% load django_bootstrap5 %}
+{% load django_bootstrap5 %}
+{% load blog_extras %}
+
+{% block content %}
+  <head>
+      <title>Subscription Confirmed</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+
+  <body>
+    <div class="confirmation-container">
+        <div class="confirmation-card">
+            <div class="card-header">
+                Subscription Confirmed
+            </div>
+            <div class="card-body">
+                <h5>Thank you for subscribing!</h5>
+                <p>You have successfully subscribed to our newsletter. Stay tuned for the latest news!</p>
+                <a href="{% url 'home:home' %}" class="btn-primary">Go back to the homepage</a>
+            </div>
+            <div class="card-footer">
+                <small>You'll start receiving newsletters soon. Feel free to contact us for any inquiries.</small>
+            </div>
+        </div>
+    </div>
+
+    <style>
+
+
+        /* Base styles */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f7fc;
+        margin: 0;
+        padding: 0;
+    }
+    
+    /* Container for the confirmation page */
+    .confirmation-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        padding: 20px;
+    }
+    
+    /* Card style */
+    .confirmation-card {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        width: 100%;
+        max-width: 600px;
+    }
+    
+    /* Header section */
+    .card-header {
+        background-color: #28a745;
+        color: #fff;
+        padding: 20px;
+        font-size: 1.5em;
+        text-align: center;
+    }
+    
+    /* Body section */
+    .card-body {
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .card-body h5 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+    
+    .card-body p {
+        font-size: 1.1em;
+        margin-bottom: 20px;
+    }
+    
+    .card-body .btn-primary {
+        background-color: #007bff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1.2em;
+        border-radius: 5px;
+        text-decoration: none;
+        color: white;
+    }
+    
+    .card-body .btn-primary:hover {
+        background-color: #0056b3;
+    }
+    
+    /* Footer section */
+    .card-footer {
+        background-color: #f8f9fa;
+        text-align: center;
+        padding: 10px;
+        font-size: 0.9em;
+        color: #6c757d;
+    }
+    </style>
+  </body>
+
+{% endblock content %}

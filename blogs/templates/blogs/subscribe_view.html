@@ -1,0 +1,131 @@
+{% extends 'users/base.html' %}
+{% load crispy_forms_tags %}
+{% load django_bootstrap5 %}
+{% load blog_extras %}
+
+{% block content %}
+  
+  <body>
+    <div class="subscription-container">
+        <div class="subscription-card">
+            <div class="card-header">
+                Subscribe to Our Newsletter
+            </div>
+            <div class="card-body">
+                <h5>Stay Updated!</h5>
+                <p>Enter your email to subscribe to our newsletter and receive the latest news directly to your inbox.</p> 
+                {% if messages %}
+                    {% for message in messages %}
+                         <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}    
+
+                <form method="POST">
+                    {% csrf_token %}
+                    <!-- Use crispy_forms to render the form with better Bootstrap styling -->
+                    {{ form|crispy }}
+                    <button type="submit" class="btn btn-success btn-lg btn-block">Subscribe</button>
+                </form>
+            </div>
+            <div class="card-footer">
+                <small>Your privacy is important to us. We will never share your email with anyone.</small>
+            </div>
+        </div>
+    </div>
+
+    <style>
+
+        /* Base styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container for the subscription page */
+.subscription-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+/* Form card style */
+.subscription-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Header section */
+.card-header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 20px;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+/* Body section */
+.card-body {
+    padding: 30px;
+}
+
+.card-body h5 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.card-body p {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+}
+
+/* Form field styling */
+.card-body form {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body form input,
+.card-body form button {
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.card-body form input {
+    width: 100%;
+}
+
+.card-body form button {
+    background-color: #28a745;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.card-body form button:hover {
+    background-color: #218838;
+}
+
+/* Footer section */
+.card-footer {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9em;
+    color: #6c757d;
+}
+
+    </style>
+  </body>
+
+{% endblock content %}

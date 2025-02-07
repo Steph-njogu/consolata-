@@ -1,0 +1,170 @@
+{% extends 'users/base.html' %}
+{% load django_bootstrap5 %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Diaries List</h1>
+
+    {% if diaries %}
+        {% for diary in diaries %}
+            <div class="diary-entry">
+                <h2>{{ diary.name }} - Details</h2>
+                <p><strong>Date:</strong> {{ diary.date_added|date:"F d, Y" }}</p>
+
+                <!-- Display Document Content -->
+                {% if diary.document %}
+                    <hr>
+                    <h5>Document Content:</h5>
+                    <div class="card">
+                        <div class="card-body">
+                            {% if document_text %}
+                                {% if document_text|length > 500 %}
+                                    <pre>{{ document_text|slice:":500" }}...</pre>
+                                    <a href="{% url 'events:diary_view' diary.slug %}#document" class="btn btn-link">Read Full Document</a>
+                                {% else %}
+                                    <pre>{{ document_text }}</pre>
+                                {% endif %}
+                            {% else %}
+                                <p>No document content available.</p>
+                            {% endif %}
+                            <a href="{{ diary.document.url }}" class="btn btn-link" download>Download Document</a>
+                        </div>
+                    </div>
+                
+                {% endif %}
+
+                <!-- Display Image if Available -->
+                {% if diary.image %}
+                    <hr>
+                    <h5>Image Content:</h5>
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="{{ diary.image.url }}" alt="Diary image for {{ diary.name }}" class="img-fluid" style="max-height: 400px; object-fit: cover;">
+                            <a href="{{ diary.image.url }}" class="btn btn-link" download>Download Image</a>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <hr>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No diaries available at the moment.</p>
+    {% endif %}
+
+    <!-- Link to Add New Diary Entry -->
+    <h3 class="mt-4">Add Diary Entry</h3>
+    <a href="{% url 'events:add_diary' %}" class="btn btn-primary mt-3">Create New Diary</a>
+
+</div>
+{% endblock content %}
+
+
+{% block extra_css %}
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        /* Container and Spacing */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        h1, h4, h5 {
+            color: #343a40;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        h4 {
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+
+        h5 {
+            font-size: 1.25rem;
+            margin-top: 10px;
+        }
+
+        /* Diary Detail Page */
+        .card {
+            border: 1px solid #ddd;
+            margin-top: 30px;
+            border-radius: 8px;
+        }
+
+        .card-body {
+            padding: 20px;
+            background-color: #ffffff;
+        }
+
+        .card-body pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .card-body img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Button Styles */
+        button#registerBtn {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button#registerBtn:hover {
+            background-color: #0056b3;
+        }
+
+        #registerMessage {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .list-group-item {
+                font-size: 0.9rem;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            button#registerBtn {
+                width: 100%;
+            }
+
+            button#likeBtn, button#dislikeBtn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .card-body pre {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+{% endblock %}
