@@ -1,0 +1,39 @@
+{% extends 'users/base.html' %}
+{% load django_bootstrap5 %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Staff Admission</h2>
+    <hr>
+
+    <div class="card p-4 shadow-sm">
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label class="form-label">Staff Number</label>
+                {{ form.staff_no }}
+                {% if form.staff_no.errors %}
+                    <div class="text-danger">{{ form.staff_no.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                {{ form.password }}
+                {% if form.password.errors %}
+                    <div class="text-danger">{{ form.password.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Register</button>
+        </form>
+    </div>
+
+    <div class="text-center mt-3">
+        <a href="{% url 'admission:home' staff_user.slug %}" class="btn btn-secondary">Back to Home</a>
+    </div>
+</div>
+{% endblock %}

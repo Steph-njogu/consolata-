@@ -1,0 +1,15 @@
+{% extends 'users/base.html' %}
+{% load django_bootstrap5 %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container md-4">
+    <div> SUCCESS MESSAGE </div>
+
+    <p><strong>Name:</strong> {{ user.username }} </p>
+    <p><strong>Reg. no:</strong> {{ registration_no }} </p>
+
+    <a href="{% url 'home:home' %}" class="btn btn-primary">Back Home</a>
+</div> 
+
+{% endblock content %}

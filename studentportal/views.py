@@ -1,7 +1,14 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .forms import Step1Form, Step2Form
 from admission.models import AdmissionStudent
+from . models import ExamsResult
+
+def examresult_view(request):
+    results = ExamsResult.objects.all().order_by('-date_added')
+    context = {'results' : results }
+    return render (request, 'studentportal/examresult.html', context)
+
 
 def step1(request):
     if request.method == 'POST':
@@ -39,16 +46,14 @@ def step2(request):
             
             # Show success message and redirect
             messages.success(request, "Course registration successful!")
-            return redirect('success_url')  # Redirect to a success page
+            return redirect('sudentportal:success_url')  # Redirect to a success page
     else:
         form = Step2Form(user=user, campus_id=campus_id, department_id=department_id, semester_id=semester_id)
 
     return render(request, 'studentportal/step2.html', {'form': form})
 
 # sucess page
-def success_url(request, student_slug):
-    profile = AdmissionStudent.objects.all()
+def success_url(request, slug_student):
+    profile = get_object_or_404(AdmissionStudent, slug = slug_student)
     context = {'profile' : profile }
-    return render (request,'studentportal/success.html', context)
-
-
+    return render (request,'studentportal/success_url.html', context)

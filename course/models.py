@@ -72,6 +72,10 @@ class YearOfStudy(models.Model):
             self.slug = slugify(f"{self.department.university.name}-{self.department.department_name}-{self.year}")
         super().save(*args, **kwargs)
 
+    class Meta:
+        verbose_name = "Year of Study"
+        verbose_name_plural = "Years of Study"
+
 
 # Semester Model
 class Semester(models.Model):

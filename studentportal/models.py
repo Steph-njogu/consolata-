@@ -4,8 +4,7 @@ from admission.models import AdmissionStudent
 from course.models import Campus, Department, YearOfStudy, Semester, Field, Course
 from django.core.exceptions import ValidationError
 
-
-# Create your models here.
+# ExamsResult Model
 class ExamsResult(models.Model):
     student = models.ForeignKey(AdmissionStudent, on_delete=models.CASCADE)  # Related to the student
     image = models.ImageField(upload_to='images/', blank=True, null=True)
@@ -17,11 +16,10 @@ class ExamsResult(models.Model):
     def __str__(self):
         return f"{self.student.registration_no} - {self.title}"
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
 
-
-
-
-
+# CourseRegistration Model
 class CourseRegistration(models.Model):
     student = models.ForeignKey(AdmissionStudent, on_delete=models.CASCADE)
     campus = models.ForeignKey(Campus, on_delete=models.CASCADE)
@@ -34,17 +32,24 @@ class CourseRegistration(models.Model):
 
     class Meta:
         unique_together = ('student', 'course')  # student can register for a course only once
+        indexes = [
+            models.Index(fields=['student', 'course', 'semester']),  # Add index for faster lookups
+        ]
 
     def clean(self):
         """Ensure a student can't register for the same course multiple times in a given semester."""
-        if CourseRegistration.objects.filter(student=self.student, course=self.course, semester=self.semester).exists():
-            raise ValidationError(f"{self.student.registration_no} is already registered for {self.course.course_name} in this semester.")
+        if CourseRegistration.objects.filter(
+            student=self.student, course=self.course, semester=self.semester
+        ).exists():
+            raise ValidationError(
+                f"{self.student.registration_no} is already registered for {self.course.course_name} in this semester."
+            )
+
+    def save(self, *args, **kwargs):
+        # Check if the student is already registered for the same course in the semester
+        self.clean()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.student.registration_no} registered for {self.course.course_name} in {self.semester.semester}"
-
-
-
-
-
 

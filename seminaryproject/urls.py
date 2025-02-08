@@ -28,6 +28,7 @@ urlpatterns = [
     path('chat/', include('chat.urls')),
     path('blogs/', include('blogs.urls')),
     path('events/', include('events.urls')),
+    path('student/portal/', include('studentportal.urls')),
     
     
     # Override the default login view
