@@ -29,6 +29,10 @@ urlpatterns = [
     path('blogs/', include('blogs.urls')),
     path('events/', include('events.urls')),
     path('student/portal/', include('studentportal.urls')),
+    path('admission/', include('admission.urls')),
+    path('timetable/', include('timetable.urls')),
+    path('library/', include('library.urls')),
+    
     
     
     # Override the default login view

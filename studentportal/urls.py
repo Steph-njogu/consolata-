@@ -8,4 +8,5 @@ urlpatterns = [
     path('registration/', views.step2, name='step2'),
     path('success/<slug:slug_student>/', views.success_url, name='success_url'),
     path('examresult/', views.examresult_view, name='examresult_view'),
+    path('<slug:slug_result>/', views.results_view, name='results_view'),
 ]

@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'admission',
     'timetable',
     'course',
+    'library',
     'studentportal',
     'django_bootstrap5',
 ]

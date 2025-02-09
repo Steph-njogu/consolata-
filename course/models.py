@@ -64,12 +64,12 @@ class YearOfStudy(models.Model):
     ]
 
     department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='year_of_study')
-    year = models.CharField(max_length=20, choices=YEARS_OF_STUDY, default='Year1', verbose_name="Year of Study")
+    year = models.CharField(max_length=20, choices=YEARS_OF_STUDY, verbose_name="Year of Study")
     slug = models.SlugField(unique=True, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(f"{self.department.university.name}-{self.department.department_name}-{self.year}")
+            self.slug = slugify(f"{self.department.university}-{self.department.department_name}-{self.year}")
         super().save(*args, **kwargs)
 
     class Meta:
@@ -85,7 +85,7 @@ class Semester(models.Model):
     ]
 
     year = models.ForeignKey(YearOfStudy, on_delete=models.CASCADE, related_name='semesters')
-    semester = models.CharField(max_length=30, choices=SEMESTER_CHOICES, default='Semester1')
+    semester = models.CharField(max_length=30, choices=SEMESTER_CHOICES)
     slug = models.SlugField(unique=True, blank=True)
 
     def save(self, *args, **kwargs):

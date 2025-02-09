@@ -1,0 +1,21 @@
+{% extends 'users/base.html' %}
+{% load django_bootstrap5 %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+    <h1>{{ result.title }}</h1>
+
+    {% if result.image %}
+        <img src="{{ result.image.url }}" alt="{{ result.title }}" style="max-width: 500px;">
+    {% endif %}
+
+    {% if result.document %}
+        <a href="{{ result.document.url }}" download>Download Document</a>
+    {% endif %}
+
+    <p><strong>Added on:</strong> {{ timetable.date_added }}</p>
+    <p><strong>Slug:</strong> {{ timetable.slug }}</p>
+
+    <a href="{% url 'studentportal:examsresult_view' %}">Back to Results List</a>
+{% endblock %}

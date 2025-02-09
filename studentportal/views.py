@@ -3,13 +3,49 @@ from django.contrib import messages
 from .forms import Step1Form, Step2Form
 from admission.models import AdmissionStudent
 from . models import ExamsResult
+from django.http import HttpResponse
+from PyPDF2 import PdfReader
 
 def examresult_view(request):
     results = ExamsResult.objects.all().order_by('-date_added')
     context = {'results' : results }
     return render (request, 'studentportal/examresult.html', context)
 
+#this should open the document afetr download.
+def results_view(request, slug_result):
+    result = get_object_or_404(ExamsResult, slug = slug_result)
+    
+   
+    if result.document:
+        # Process PDF (e.g., extract text)
+        document_path = result.document.path
+        
+        try:
+            # Open the PDF file and read content (optional: extract text or metadata)
+            with open(document_path, 'rb') as file:
+                pdf_reader = PdfReader(file)
+                text = ''
+                # Extract text from each page
+                for page in pdf_reader.pages:
+                    text += page.extract_text()
 
+            # Optional: You can process the text (log it, save it, etc.)
+            print(text)  # For example, just print the extracted text to the console
+        except Exception as e:
+            print(f"Error processing PDF: {e}")
+
+        # Serve the file for download
+        with open(document_path, 'rb') as file:
+            response = HttpResponse(file.read(), content_type='application/pdf')
+            response['Content-Disposition'] = f'attachment; filename="{result.document.title}"'
+            return response
+    
+    else:
+        return redirect('studentportal:examresult_view')
+
+
+
+#students course registration 
 def step1(request):
     if request.method == 'POST':
         form = Step1Form(request.POST)
@@ -24,7 +60,7 @@ def step1(request):
 
 
 
-
+#students course registration 
 def step2(request):
     if not request.user.is_authenticated:
         return redirect('users:login')  # Redirect to login page if the user is not authenticated
@@ -52,7 +88,9 @@ def step2(request):
 
     return render(request, 'studentportal/step2.html', {'form': form})
 
-# sucess page
+
+
+# sucess after login and registration page
 def success_url(request, slug_student):
     profile = get_object_or_404(AdmissionStudent, slug = slug_student)
     context = {'profile' : profile }

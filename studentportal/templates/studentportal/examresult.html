@@ -10,24 +10,15 @@
             <div class="card-body">
                 {% for result in results %}
                     <div class="mb-4 p-3 border rounded">
-                        <h4>{{ result.title }}</h4>
-                        <p><strong>Student Name:</strong> {{ result.student.name }}</p>
-                        <p><strong>Registration No:</strong> {{ result.student.registration_no }}</p>
-                        <p><strong>Remarks:</strong> {{ result.remarks|default:"N/A" }}</p>
-                        <p><strong>Date Added:</strong> {{ result.date_added|date:"F d, Y" }}</p>
-                        
-                        {% if result.document %}
-                            <p><strong>Document:</strong> <a href="{{ result.document.url }}" target="_blank" class="btn btn-sm btn-success">Download Document</a></p>
-                        {% else %}
-                            <p><strong>Document:</strong> N/A</p>
-                        {% endif %}
 
-                        {% if result.image %}
-                            <p><strong>Image:</strong></p>
-                            <img src="{{ result.image.url }}" alt="Exam Image" class="img-thumbnail" style="width: 150px; height: auto;">
-                        {% else %}
-                            <p><strong>Image:</strong> N/A</p>
-                        {% endif %}
+                        <li>
+                            <a href="{% url 'studentportal:result_view' result.slug %}">
+                                {{ result.title }}
+                            </a>
+                            <p><strong>Date Added:</strong> {{ result.date_added|date:"F d, Y" }}</p>
+
+                        </li>   
+                                                                       
                     </div>
                 {% endfor %}
             </div>

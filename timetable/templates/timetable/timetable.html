@@ -1,0 +1,18 @@
+{% extends 'users/base.html' %}
+{% load django_bootstrap5 %}
+
+
+
+{% block content %}
+    <h1>Timetable</h1>
+    
+    <ul>
+        {% for entry in timetable %}
+            <li>
+                <h2><a href="{% url 'timetable_detail' entry.slug %}">{{ entry.title }}</a></h2>
+                
+                <p>Date Added: {{ entry.date_added }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

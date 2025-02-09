@@ -1,0 +1,21 @@
+{% extends 'users/base.html' %}
+{% load django_bootstrap5 %}
+
+
+
+{% block content %}
+    <h1><strong>{{ timetable.title }}</strong></h1>
+
+    {% if timetable.image %}
+        <img src="{{ timetable.image.url }}" alt="{{ timetable.title }}" style="max-width: 500px;">
+    {% endif %}
+
+    <p><strong>Added on:</strong> {{ timetable.date_added }}</p>
+
+
+    <a href="{% url 'timetable:timetable_detail' timetable.slug %}">
+        Download PDF Document
+    </a>
+
+    <a href="{% url 'timetable:timetable_view' %}">Back to Timetable List</a>
+{% endblock %}

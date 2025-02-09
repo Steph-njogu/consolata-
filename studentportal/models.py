@@ -7,6 +7,7 @@ from django.core.exceptions import ValidationError
 # ExamsResult Model
 class ExamsResult(models.Model):
     student = models.ForeignKey(AdmissionStudent, on_delete=models.CASCADE)  # Related to the student
+    slug = models.SlugField(unique=True, blank=True)
     image = models.ImageField(upload_to='images/', blank=True, null=True)
     document = models.FileField(upload_to='documents/pdfs/', blank=True, null=True)
     remarks = models.CharField(max_length=300, blank=True, null=True)
@@ -17,6 +18,8 @@ class ExamsResult(models.Model):
         return f"{self.student.registration_no} - {self.title}"
 
     def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
 # CourseRegistration Model
