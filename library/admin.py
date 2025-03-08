@@ -1,7 +1,6 @@
 # admin.py
 from django.contrib import admin
-from .models import Author, Publisher, EBook, LibraryUser, EBookLoan, Category, EBookHistory, EBookDownload, BookRecommendation
-
+from .models import Author, Publisher, EBook, LibraryUser, EBookLoan, Category, EBookHistory, EBookDownload
 @admin.register(EBook)
 class EbookAdmin(admin.ModelAdmin):
     list_display = ['category', 'author', 'title', 'isbn', 'genre']
@@ -16,7 +15,7 @@ admin.site.register(LibraryUser)
 admin.site.register(Category)
 admin.site.register(EBookHistory)
 admin.site.register(EBookDownload)
-admin.site.register(BookRecommendation)
+
 
 admin.site.register(EBookLoan)
 

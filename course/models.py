@@ -53,7 +53,6 @@ class Department(models.Model):
     def __str__(self):
         return self.department_name
 
-
 # Year of Study Model
 class YearOfStudy(models.Model):
     YEARS_OF_STUDY = [

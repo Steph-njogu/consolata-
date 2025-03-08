@@ -4,192 +4,1635 @@
 {% load home_markdown %}
 
 {% block content %}
-<!-- Welcome Section -->
-<div class="welcome-section text-center py-5 bg-primary text-white">
-    <h2 class="display-4">Welcome to Consolata Seminary</h2>
-    <p class="lead">Empowering the next generation of leaders, fostering spiritual and intellectual growth in our seminarians, and making a lasting impact on the world.</p>
-    <a href="#mission" class="btn btn-light btn-lg">Discover Our Mission</a>
-</div>
 
-<!-- Image Carousel Section -->
-<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="{% static 'images/seminary1.jpg' %}" class="d-block w-100" alt="Campus View">
+<!--1. Carousel Section -->
+<section>
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{% static 'admin/img/IMG_20240706_132833.jpg' %}" alt="Campus View">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Campus View</h5>
+                    <p>Explore the beautiful campus.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'admin/img/IMG_20240706_132833.jpg' %}" alt="Student Leadership">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Student Leadership</h5>
+                    <p>Empowering the next generation of leaders.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'admin/img/IMG_20240706_132833.jpg' %}" alt="Community Service">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Community Service</h5>
+                    <p>Making an impact in the community.</p>
+                </div>
+            </div>
         </div>
-        <div class="carousel-item">
-            <img src="{% static 'images/seminary2.jpg' %}" class="d-block w-100" alt="Student Leadership">
-        </div>
-        <div class="carousel-item">
-            <img src="{% static 'images/seminary3.jpg' %}" class="d-block w-100" alt="Community Service">
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="prev-icon" aria-hidden="true">&#8592;</span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="next-icon" aria-hidden="true">&#8594;</span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <!-- Styling for Carousel -->
+    <style>
+        body, html {
+            padding-top: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+            background-color: #f0f0f0;
+        }
+
+        #carouselExampleControls {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            padding-bottom: 0;
+        }
+
+        .carousel-inner {
+            height: auto;
+            width: 100%;
+            display: flex;
+            flex-direction: row; /* Stack items vertically */
+            padding-bottom: 0;
+        }
+
+        .carousel-item img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Custom Carousel Controls */
+        .prev-icon, .next-icon {
+            font-size: 100px;
+            color: rgb(255, 187, 0);
+            width: 50px;
+            height: 40%;
+        }
+
+        .prev-icon:hover, .next-icon:hover {
+            color: rgb(115, 255, 0);
+        }
+
+        /* Custom Carousel Captions */
+        .carousel-caption {
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+
+            body, html {
+            padding-top: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        #carouselExampleControls {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            padding-bottom: 0;
+        }
+            .carousel-item img {
+                height: 100%; 
+                width: 100%;
+            }
+
+            .carousel-inner {
+            height: 100%;
+            width: 100%;
+        }
+
+            .prev-icon, .next-icon {
+                font-size: 40px; 
+                width: 50px;
+                height: 50%;
+            }
+
+            .prev-icon:hover, .next-icon:hover {
+                color: rgb(115, 255, 0);
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .carousel-item img {
+                height: auto; 
+            }
+
+            .prev-icon, .next-icon {
+                font-size: 40px; 
+                width: 50px;
+                height: 40%;
+            }
+
+            .prev-icon:hover, .next-icon:hover {
+                color: rgb(115, 255, 0);
+            }
+        }
+    </style>
+
+    <!-- JavaScript for Auto Transition in Carousel -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var myCarousel = document.getElementById('carouselExampleControls');
+            var carousel = new bootstrap.Carousel(myCarousel, {
+                interval: 4000,  
+                ride: 'carousel' 
+            });
+        });
+    </script>
+</section>
+
+
+<hr>
+
+<section>
+    <div class="who-are-we">
+        <div class="boxes">
+            <div class="wordings">
+                <h2>WHO ARE WE</h2>
+                <hr>
+                <h3>BRIEF HISTORY OF THE SCHOOL</h3>
+                <p>Alliance High School is a top national school in Kenya offering 8.4.4. curriculum started in 1926 by the Alliance of Protestant Churches – The Church of Scotland Mission (later known as the Presbyterian Church of East Africa or PCEA), Church of the Province of Kenya (CPK) (later known as the Anglican Church of Kenya), African Inland Church (AIC), the Friends Church (Quakers) and the Methodist Church. The school was one of the first schools in Kenya to offer secondary school education to Africans. It is located approximately 22 kilometres from the Capital city, Nairobi, 10-minute walk from the Alliance Girls’ High School, the sister school started later in 1948 and about 2km from Kikuyu town.</p>
+                <a href="#" class="read">Read More></a>
+            </div>
+
+            <div class="vertical-line"></div>
+
+            <div class="photo-box">
+                <img src="{% static 'admin/img/IMG_20240706_132833.jpg' %}" alt="school image">
+            </div>
         </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
 
-<!-- Mission Section -->
-<div class="mission-section py-5 bg-light">
-    <div class="container">
-        <h3 class="text-center mb-4" id="mission">Our Mission</h3>
-        <p class="lead text-center">
-            The Consolata Seminary is dedicated to the formation of future Church leaders, emphasizing the integration of academic excellence, spiritual formation, and service to the community. We strive to foster a vibrant faith and a compassionate leadership style that impacts both the Church and the world.
-        </p>
-        <p class="text-center">
-            We are committed to providing a holistic education grounded in Christian values, enabling our seminarians to grow spiritually, intellectually, and emotionally as they prepare for their ministries.
-        </p>
+    <style>
+        .who-are-we {
+            padding: 60px;
+        }
+
+        .boxes {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .wordings, .photo-box {
+            width: 48%;
+            min-width: 300px; /* Ensures it adapts on smaller screens */
+            height: 450px;
+            margin-bottom: 20px;
+            border-bottom: 4px solid blue;
+        }
+
+        .wordings h2 {
+            text-align: left;
+            font-size: 30px;
+            font-weight: bolder;
+            color: blueviolet;
+        }
+
+        .wordings hr {
+            width: 50%;
+            left: 0;
+            border: 4px solid yellowgreen;
+        }
+
+        .wordings p {
+            text-align: start;
+            font-size: 15px;
+            padding-right: 50px;
+        }
+
+        .read{
+            color: blueviolet;
+            text-decoration: none;
+        }
+
+        .read:hover{
+            color: blue;
+        }
+
+        .vertical-line {
+            border-left: 2px solid black;
+            height: auto;
+            min-height: 300px; 
+            padding-left: 10px;
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        .photo-box img {
+            width: 100%;
+            height: auto;
+            object-fit: cover; /* Ensures the image fits well */
+        }
+
+        @media (max-width: 768px) {
+            .who-are-we {
+                padding: 20px;
+            }
+
+            .boxes {
+                flex-direction: column;
+                gap: 80px;
+            }
+
+            .wordings, .photo-box {
+                width: 100%;
+            }
+
+            .vertical-line {
+                display: none; /* Hides vertical line on smaller screens */
+            }
+
+            .wordings, .photo-box {
+            margin-bottom: 20px;
+            border-bottom: 0;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .vertical-line {
+                display: none; /* Hides vertical line on smaller screens */
+            }
+
+            .wordings, .photo-box {
+            width: 100%;
+            min-width: auto; 
+            height: 450px;
+            margin-bottom: 0;
+            border-bottom: 0;
+        }
+        .boxes {
+                gap: 0px;
+            }
+        }
+
+        @media (min-width: 1025px) and (max-width: 1200px){
+            .wordings, .photo-box {
+            width: 48%;
+            min-width: 300px; /* Ensures it adapts on smaller screens */
+            height: 510px;
+            margin-bottom: 0;
+            border-bottom: 3px solid blue;
+        }
+
+        .wordings p {
+            text-align: start;
+            font-size: 15px;
+            padding-right: 50px;
+        }
+
+        }
+    </style>
+</section>
+
+
+<hr>
+
+
+
+<!--2. Two Cards Section -->
+<section>
+    <div class="two-card-container">
+        <div class="card1">
+            <p>STUDY</p> 
+            <div class="card-links">
+                <ul>
+                    <li>
+                        <a href="#">Undergraduate -> </a>
+                        <a href="#">Graduate -> </a>
+                        <a href="#">Postgraduate -> </a>
+                        <a href="#">Diploma -> </a>
+                        <a href="#">Languages-> </a>
+                    </li>
+                </ul>
+            </div>           
+            
+        </div>
+
+        <div class="card2">
+            <p>RESEARCH</p>
+            <div class="card-links">
+                <ul>
+                    <li>
+                        <a href="#">Undergraduate -> </a>
+                        <a href="#">Graduate -> </a>
+                        <a href="#">Postgraduate -> </a>
+                        <a href="#">Diploma -> </a>
+                        <a href="#">Languages-> </a>
+                    </li>
+                </ul>
+            </div>           
+        </div>
     </div>
-</div>
+
+    <style>
+        .two-card-container {
+            width: 100%;
+            background-image: url('path-to-background-image.jpg'); /* Replace with actual background image */
+            position: relative;
+            
+        }
+
+        .card1 {
+            overflow: hidden;
+            position: relative; /* Removed absolute positioning to prevent overlap */
+            background: url("{% static 'admin/img/IMG_20240706_132833.jpg' %}");
+            background-size: cover;
+            background-position: calc(100%);
+            width: 400px;
+            height: 300px;
+            margin-top: 50px;
+            margin-left: 300px; /* Added margin to space out cards */
+        }
+
+        .card1::before {
+            content: ""; /* Empty content for pseudo-element */
+            position: absolute; /* Position it over the card */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+            z-index: 1; /* Ensure the overlay is above the image but below the content */
+        }
+
+        .card2 {
+            overflow: hidden;
+            position: relative; /* Removed absolute positioning to prevent overlap */
+            background: url("{% static 'admin/img/IMG_20240706_132833.jpg' %}");
+            background-size: cover;
+            background-position: calc(100%);
+            width: 400px;
+            height: 300px;
+            margin-top: -180px;
+            margin-left: 600px; /* Added margin to space out cards */
+            z-index: 1;/*  above the image card1 */
+            
+        }
+        .card2::before {
+            content: ""; /* Empty content for pseudo-element */
+            position: absolute; /* Position it over the card */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+            z-index: 1; /* Ensures the overlay is above the image but below the content */
+        }
 
 
-<!-- News & Updates Section -->
-<div class="news-section py-5">
-    <div class="container">
-        <h3 class="text-center mb-4">Latest News & Updates</h3>
-        <div class="row">
-            {% for content in contents %}
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow-sm border-light rounded">
-                        <img src="{{ content.image_url }}" class="card-img-top" alt="News Image">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ content.title }}</h5>
-                            <p class="card-text">{{ content.summary }}</p>
-                            <a href="{{ content.url }}" class="btn btn-primary">Read More</a>
+        .card1 p, .card2 p{
+            text-align: start;
+            padding-left: 40px;
+            padding-top: 20px;
+            font-weight: bolder;
+            position: relative; /* Move text above the overlay */
+            z-index: 2; /* Ensure text appears above overlay */
+            color: white; /* Text color */
+            font-size: 28px; /* Adjust text size */
+            
+        }
+
+        /* Style for the card-links */
+        .card-links {
+            position: relative;
+            z-index: 4;
+        }
+
+        .card-links ul {
+            list-style-type: none; /* Removes default list styling */
+            padding: 0;
+            margin: 0;
+        }
+
+        .card-links li {
+            display: flex;
+            flex-direction: column; /* Stacks links vertically */
+            align-items: start;
+            padding-left: 20px;
+            z-index: 4;
+        }
+
+        .card-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 20px; 
+            margin-bottom: 10px; /* Space between links */
+            transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
+            font-weight: bold;
+            z-index: 4;
+        }
+
+        .card-links a:hover {
+            color: #FFD700; 
+            transform: translateX(5px); /* Slight move effect on hover */
+        }
+
+        /* Responsive adjustments for cards */
+        @media (max-width: 768px) {
+            .two-card-container {
+                display: block;
+                background-image: url('path-to-background-image.jpg'); 
+                position: relative;
+            }
+
+            .card1 {
+                width: 100%; /*  cards full-width on smaller screens */
+                height: auto; 
+                margin-left: 10px;
+                margin-right: 10px;
+                margin-top: 0;
+            }
+
+            .card2 {
+                width: 100%; /* cards full-width on smaller screens */
+                height: auto; 
+                margin-top: 20px; /* Space between stacked cards */
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .two-card-container {
+                display: block;
+                background-image: url('path-to-background-image.jpg'); 
+                padding: 30px;
+            }
+
+            .card1 {
+                width: 100%; /* Make cards full-width on smaller screens */
+                height: 100%; 
+                margin-top: 10px; 
+                margin-left: 10px;
+                margin-right: 10px;
+                overflow: hidden;
+                margin-bottom: 40px;
+            }
+
+            .card2 {
+                width: 100%; 
+                height: auto; 
+                margin-top: 5px; 
+                margin-left: 10px;
+                margin-right: 10px;
+                overflow: hidden;
+            }
+        }
+
+    </style>
+</section>
+
+<hr>
+
+<!--3. Study with Us Section -->
+<section>
+    <div class="stay-with-us-container">
+        <h3>Why Join Us</h3>
+
+        <div class="card-one">
+            <div class="card-content1">
+                <img src="{% static 'admin/img/IMG_20240706_132833.jpg' %}" alt="" class="img-content1">
+
+                <div class="body-card">
+                    <h2>here we come</h2>
+                    <p>At Consolata Seminary, we believe in fostering a strong sense of teamwork, service, and integrity through the Scout movement. Our Scouts participate in a variety of activities designed to build skills, promote community engagement, and encourage the values of scouting.</p>
+                </div>
+            </div>
+
+            <div class="card-content2">
+                <img src="{% static 'admin/img/IMG_20240706_132833.jpg' %}" alt="" class="img-content2">
+
+                <div class="body-card">
+                    <h2>hows are you</h2>
+                    <p>At Consolata Seminary, we believe in fostering a strong sense of teamwork, service, and integrity through the Scout movement. Our Scouts participate in a variety of activities designed to build skills, promote community engagement, and encourage the values of scouting.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .stay-with-us-container {
+            padding: 60px;
+            text-align: center;
+            margin-bottom: 40px; 
+        }
+
+        h3 {
+            font-size: 30px;
+            color: blue;
+            margin-bottom: 20px;
+            font-weight: bolder;
+        }
+
+        .card-one {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center; 
+        }
+
+        .card-content1, .card-content2 {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 20px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .card-content1 img, .card-content2 img {
+            width: 400px;
+            height: 250px;
+            padding: 0;
+            border-radius: 40px;
+        }
+
+        .card-content1 {
+            flex-direction: row-reverse; 
+        }
+
+        .body-card {
+            text-align: center;
+            max-width: 500px;
+        }
+
+        .card-content1 h2, .card-content2 h2 {
+            font-size: 20px;
+            color: blueviolet;
+            font-weight: bolder;
+        }
+
+        .card-content1 p, .card-content2 p {
+            font-size: 16px;
+            color: #333;
+        }
+
+        /* Media Query for smaller screens */
+        @media (max-width: 768px) {
+            .stay-with-us-container {
+                padding: 20px;
+            }
+
+            .card-one {
+                display: block;
+                gap: 20px;
+                margin: 0;
+                padding: 0;
+                align-items: center;
+            }
+
+            .card-content1, .card-content2 {
+                display: block;
+                margin: 0;
+                text-align: center;
+                gap: 10px;
+            }
+
+            .card-content1 img, .card-content2 img {
+                width: 100%; 
+                height: auto; 
+            }
+
+            .body-card {
+                max-width: 100%;
+                padding-top: 10px;
+            }
+
+            .card-content1, .card-content2 {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .stay-with-us-container {
+                padding: 20px;
+            }
+
+            .card-one {
+                display: block;
+                gap: 20px;
+                margin: 0;
+                padding: 0;
+                align-items: center;
+            }
+
+            .card-content1, .card-content2 {
+                display: block;
+                margin: 0;
+                text-align: center;
+                gap: 10px;
+            }
+
+            .card-content1 img, .card-content2 img {
+                width: 100%; 
+                height: auto; 
+            }
+
+            .body-card {
+                max-width: 100%;
+                padding-top: 10px;
+            }
+
+            .card-content1, .card-content2 {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+
+    </style>
+</section>
+
+
+<!--4. Bright Future -->
+<section>
+    <div class="Bright-future-container">
+        <h1>YOUR FUTURE IS BRIGHT</h1>
+        <div class="future-text">
+            <p> At Consolata Seminary, we believe in fostering a strong sense of teamwork, service,
+                and integrity through the Scout movement. 
+                Our Scouts participate in a variety of activities designed to build skills, 
+                promote community engagement, and encourage the values of scouting.
+            </p>     
+        </div>
+        <div class="future-grid">
+
+            <div class="box1">
+                <h3>HERE WE GO</h3>
+                <p>Our Scouts participate in a variety of activities designed to build skills, 
+                    promote community engagement, and encourage the values of scouting.</p>
+            </div>
+
+            <div class="box2">
+                <h3>JOIN US</h3>
+                <p>Our Scouts participate in a variety of activities designed to build skills, 
+                    promote community engagement, and encourage the values of scouting.</p>
+            </div>
+
+            <div class="box3">
+                <h3>EXPLORE MORE</h3>
+                <p>Our Scouts participate in a variety of activities designed to build skills, 
+                    promote community engagement, and encourage the values of scouting.</p>
+            </div>
+
+            <div class="box4">
+                <h3>LEARN & GROW</h3>
+                <p>Our Scouts participate in a variety of activities designed to build skills, 
+                    promote community engagement, and encourage the values of scouting.</p>
+            </div>
+
+            <div class="box5">
+                <h3>EMBRACE FUTURE</h3>
+                <p>Our Scouts participate in a variety of activities designed to build skills, 
+                    promote community engagement, and encourage the values of scouting.</p>
+            </div>
+
+            <div class="box6">
+                <h3>BUILD YOUR LEGACY</h3>
+                <p>Our Scouts participate in a variety of activities designed to build skills, 
+                    promote community engagement, and encourage the values of scouting.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <style>
+        .Bright-future-container {
+            width: 100%;
+            padding: 60px;
+            margin-top: 40px; 
+        }
+        
+        .Bright-future-container h1 {
+            font-weight: bolder;
+            font-size: 28px;
+            color: blue;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .future-text p {
+            font-size: medium;
+            padding-bottom: 30px;
+            text-align: center;
+        }
+        
+        .future-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .box1, .box2, .box3, .box4, .box5, .box6 {
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+            position: relative;
+            background: url("{% static 'admin/img/IMG_20240706_132833.jpg' %}");
+            background-size: cover;
+            background-position: calc(100%);
+            width: 100%;
+            height: 300px;
+            margin-top: 50px;
+            display: block;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;  
+        }
+
+        
+        /* Assign individual colors to each box */
+        .box1::before {
+            background-color: #ff6347ec; 
+        }
+        .box2::before {
+            background-color: #892be2e5; 
+        }
+        .box3::before {
+            background-color: #1e8fffdc; 
+        }
+        .box4::before {
+            background-color: #892be2da;
+        }
+        .box5::before {
+            background-color: #ff4400ce; 
+        }
+        .box6::before {
+            background-color: #892be2d8; 
+        }
+    
+        /* Center the h3 text initially */
+        .box1 h3, .box2 h3, .box3 h3, .box4 h3, .box6 h3 {
+            position: relative;
+            top: 90%;
+            justify-content: center;
+            text-align: center;   
+            transform: translate(0);
+            font-weight: bolder;
+            color: #ffffff;
+            opacity: 1;
+            z-index: 2;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        }
+
+        .box5 h3 {
+            position: relative;
+            top: 90%;
+            justify-content: center;
+            text-align: center;   
+            transform: translate(0);
+            font-weight: bolder;
+            color: #ffffff;
+            opacity: 1;
+            z-index: 2;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        }
+        
+        /* Add an overlay effect on hover */
+        .box1::before, .box2::before, .box3::before, .box4::before, .box5::before, .box6::before {
+            content: ''; 
+            position: absolute;
+            bottom: 0; 
+            width: 100%;
+            z-index: 1; 
+            left: 0;
+            height: 100%; 
+            transform: translateY(100%); 
+            transition: transform 0.5s ease-out; 
+        }
+    
+        /* Hover effect: move the overlay upwards */
+        .box1:hover::before, .box2:hover::before, .box3:hover::before, .box4:hover::before, .box5:hover::before, .box6:hover::before {
+            transform: translateY(0); 
+        }
+        
+        .box1:hover, .box2:hover, .box3:hover, .box4:hover, .box5:hover, .box6:hover {
+            transform: scale(1.05); 
+        }
+        
+        /* Move the h3 up when hovered to make space for content */
+        .box1:hover h3, .box2:hover h3, .box3:hover h3, .box4:hover h3, .box5:hover h3, .box6:hover h3 {
+            transform: translate(100%); 
+            text-align: center;
+            position: relative;
+            color: #ffffff;
+            z-index: 1000; 
+            transform: translateY(-680%); 
+            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+        }
+    
+        /* Text animation */
+        .box1 p, .box2 p, .box3 p,
+        .box4 p, .box5 p, .box6 p {
+            position: relative;
+            z-index: 2; 
+            transform: translateY(100%); 
+            opacity: 0; 
+            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+        }
+        
+        /* Hover effect for text: move from bottom to top and fade in */
+        .box1:hover p,
+        .box2:hover p,
+        .box3:hover p,
+        .box4:hover p,
+        .box5:hover p,
+        .box6:hover p {
+            transform: translateY(0); /* Move text up */
+            opacity: 1; 
+            color: #ffffff;
+            z-index: 1000;
+        }
+        
+        @media (max-width: 1024px) and (min-width: 768px) {
+            .Bright-future-container {
+            width: 100%;
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 0; 
+        }
+            .future-grid {
+                grid-template-columns: repeat(2, 1fr); 
+
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .Bright-future-container {
+            padding: 10px;
+            margin-top: 0; 
+            
+        }
+            .future-grid {
+                display: block;
+
+            }
+        }
+    </style>
+    
+</section>
+
+
+
+
+<!--5. OUR SCHOOLS-->
+<section>
+    <div class="schools-container">
+        <h2>OUR SCHOOLS</h2>
+        <div class="schools-row">
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </div>
+    
+        <hr class="line1">
+        <hr class="line2">
+    
+        <div class="icons">
+            <button id="arrow-left" class="arrow-icon" onclick="moveContent(-1)">←</button>
+            <button id="arrow-right" class="arrow-icon" onclick="moveContent(1)">→</button>
+        </div>
+    </div>
+    
+    <script>
+        let currentIndex = 0;
+        const schoolsRow = document.querySelector('.schools-row');
+        const schoolsBoxes = document.querySelectorAll('.schools-row .box');
+        const schoolsRowCount = schoolsBoxes.length;
+        const schoolsRowWidth = schoolsBoxes[0].offsetWidth + 10; // Assuming 10px margin
+    
+        function moveContent(direction) {
+            currentIndex += direction;
+    
+            if (currentIndex < 0) {
+                currentIndex = 0;
+            } else if (currentIndex >= schoolsRowCount) {
+                currentIndex = schoolsRowCount - 1;
+            }
+    
+            const translateX = -currentIndex * schoolsRowWidth;
+            schoolsRow.style.transform = `translateX(${translateX}px)`;
+            schoolsRow.style.transition = "transform 0.5s ease-in-out";
+        }
+    </script>
+    
+
+    <style>
+        .schools-container {
+            padding: 60px;
+        }
+
+        .schools-container h2 {
+            font-weight: bolder;
+            font-size: 24px;
+            color: blue;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+  
+        .schools-row {
+            display: flex;
+            justify-content: space-between;
+            overflow: hidden; 
+            flex-direction: row;
+            flex-wrap: wrap;
+            flex: content;
+        }
+
+        .box {
+            border: 1px solid #000000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s ease-in-out;
+            background: url("{% static 'admin/img/IMG_20240706_132833.jpg' %}");
+            background-size: cover;
+            background-position: calc(100%);
+            width: 100%;
+            height: 300px;           
+        }
+
+        .box::before {
+            content: ""; 
+            position: absolute; 
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); 
+            z-index: 1; 
+        }
+
+        .line1{
+            opacity: 0;
+            border: 2px solid;
+            color: #000000;
+            margin-right: 58%;
+        }
+
+        .line2{
+            opacity: 0;
+            border: 2px solid;
+            color: #000000;
+            margin-left: 58%;
+            margin-top: -20px;
+        }
+
+        .icons{
+            display: none;
+            justify-content: space-between;
+            margin: 0 43%;
+            margin-top: -56px;
+            position: relative;
+        
+        }
+
+        .arrow-icon {
+            margin-top: 10px;
+            color: #000000;
+            font-size: 40px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease; 
+            }
+
+            .arrow-icon:hover{
+                color: #033857;
+            }
+
+       
+
+        @media (max-width: 768px) {
+            .schools-container {
+                padding: 10px;
+                padding-top: 50px;
+            }
+            .schools-row {
+                display: block;
+            }
+            .box{
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1023px) {
+            .schools-row{
+                flex-wrap: nowrap;
+                gap: 30px;
+            }
+            .box {
+                flex: 0 0 48%; 
+                margin-bottom: 20px;
+            } 
+
+            .line1, .line2 {
+                opacity: 1;
+            }
+
+            .icons{
+            display: flex;
+            justify-content: space-between;
+            margin: 0 43%;
+            margin-top: -66px;
+            position: relative; 
+        }
+
+        .arrow-icon {
+            color: #02ff02;
+            font-size: 40px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease; 
+            }
+
+        }
+
+        @media (min-width: 1024px) {
+            .box {
+                flex: 0 0 30%; 
+            }
+        }
+    </style>
+</section>
+
+
+
+<!--6. Students life Section -->
+<section>
+    <div class="student-container">
+        <div class="student">
+            <div class="student-body">
+                <img src="{% static 'admin/img/IMG_20240706_132833.jpg' %}" alt="student1" class="student-img-left">
+                <div class="wording">
+                    <h3>Student 1</h3>
+                    <p>Flexbox Layout for. <br><em>student-body:</em> This makes it easier to control the alignment of images and text. For smaller screens, I set the flex-direction: column; to stack the image and text vertically. For larger screens, the flex-direction: row; keeps them side by side.
+                        Padding for .wordings: Added padding inside the .wordings container for spacing between the image and text, making it more responsive.</p>
+                </div>
+            </div>
+            <div class="student-body">
+                <img src="{% static 'admin/img/IMG_20240706_132833.jpg' %}" alt="student2" class="student-img-right">
+                
+                <div class="wording">
+                    <h3>Student 2</h3>
+                    <p>Flexbox Layout for .student-body: This makes it easier to control the alignment of images and text. For smaller screens, I set the flex-direction: column; to stack the image and text vertically. For larger screens, the flex-direction: row; keeps them side by side.
+                        Padding for .wordings: Added padding inside the .wordings container for spacing between the image and text, making it more responsive.</p>
+                </div>
+            </div>
+            <div class="student-body">
+                <img src="{% static 'admin/img/IMG_20240706_132833.jpg' %}" alt="student3" class="student-img-left">
+                
+                <div class="wording">
+                    <h3>Student 3</h3>
+                    <p>Flexbox Layout for .student-body: This makes it easier to control the alignment of images and text. For smaller screens, I set the flex-direction: column; to stack the image and text vertically. For larger screens, the flex-direction: row; keeps them side by side.
+                        Padding for .wordings: Added padding inside the .wordings container for spacing between the image and text, making it more responsive.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .student-container {
+            padding: 60px;
+            
+        }
+
+        .student {
+            display: block;
+        }
+
+        .student-body {
+            margin-bottom: 40px;
+            overflow: hidden; /* Prevents content from wrapping around floated images */
+        }
+
+        .wording{
+            justify-content: center;
+            align-items: center;
+           
+        }
+
+        .student-body h3 {
+            font-size: large;
+            font-weight: bold;
+            color: blue;
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .wording p {
+            font-size: medium;
+            color: rgb(0, 0, 0);
+            text-align: justify;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        /* Image on the left */
+        .student-img-left {
+            float: left;
+            margin-right: 20px; /* Adds space between the image and text */
+            width: 40%; 
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Image on the right */
+        .student-img-right {
+            float: right;
+            margin-left: 20px; /* Adds space between the image and text */
+            width: 40%; 
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Clearfix to prevent overlapping */
+        .student-body::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+            /* Mobile / Small Screen Styles */
+        @media (max-width: 768px) {
+            .student-body {
+                flex-direction: column; /* Stacks image and text vertically */
+                text-align: center;
+            }
+
+            .student-img-left,
+            .student-img-right {
+                width: 100%; 
+                
+            }
+
+            .wording {
+                padding: 15px;
+            }
+
+            .student-body h3 {
+                font-size: 1.2rem; /* Adjust text size for mobile */
+            }
+
+            .student-body p {
+                font-size: 1rem; /* Adjust text size for mobile */
+            }
+        }
+
+        /* Tablet and Larger Screen Styles */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .student-body {
+                flex-direction: column; /* Stacks image and text vertically */
+                text-align: center;
+            }
+
+            .student-img-left,
+            .student-img-right {
+                width: 100%; 
+                
+            }
+
+            .wording {
+                padding: 15px;
+            }
+
+            .student-body h3 {
+                font-size: 1.2rem; /* Adjust text size for mobile */
+            }
+
+            .student-body p {
+                font-size: 1rem; /* Adjust text size for mobile */
+            }
+        }
+     
+    </style>
+</section>
+
+
+<!-- Latest News Section -->
+<section>
+    <div class="latest-news-container">
+        <h2> Latest News </h2> 
+        
+        {% if latest_news %}
+        <div class="news-row">
+            {% for article in latest_news %}
+            <div class="card-news" onclick="window.location.href='{% url 'blogs:news_detail' article.slug %}'">
+                    {% if article.image %}
+                        <div class="image">
+                            <img src="{{ article.image.url }}" class="img-fluid" alt="{{ article.title }}">
                         </div>
+                    {% endif %}
+                    
+                    <div class="card-text">
+                        <h5>
+                            <a href="{% url 'blogs:news_detail' article.slug %}">
+                                {{ article.title }}
+                            </a>
+                        </h5>
+
+                        <p class="text-muted">By {{ article.author }} | {{ article.date_added|date:"F d, Y" }}</p>
+
+                        <p>{{ article.content|truncatewords:15 }}</p>
+
+                        <a href="{% url 'blogs:news_detail' article.slug %}" class="read-more-link">Read More ></a>
                     </div>
                 </div>
             {% endfor %}
         </div>
-    </div>
-</div>
-
-<!-- Church & World Affairs Section -->
-<div class="church-world-affairs-section py-5 bg-info text-white">
-    <div class="container">
-        <h3 class="text-center mb-4">Church & World Affairs</h3>
-        <p class="text-center">
-            Our seminary is deeply committed to engaging with global and local affairs that challenge and shape the Church’s mission in the world. We train seminarians to be leaders who are not only theologically grounded but also socially and politically aware of the issues impacting the lives of the people they serve.
-        </p>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card text-center border-light">
-                    <div class="card-body">
-                        <h5 class="card-title">Global Social Justice</h5>
-                        <p class="card-text">Our seminarians are encouraged to advocate for the oppressed, ensuring that social justice remains at the heart of their work.</p>
-                        <a href="#" class="btn btn-outline-light">Learn More</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card text-center border-light">
-                    <div class="card-body">
-                        <h5 class="card-title">Environmental Stewardship</h5>
-                        <p class="card-text">We equip seminarians with the tools to advocate for environmental justice, taking care of God’s creation and the people it sustains.</p>
-                        <a href="#" class="btn btn-outline-light">Learn More</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card text-center border-light">
-                    <div class="card-body">
-                        <h5 class="card-title">Interfaith Dialogue</h5>
-                        <p class="card-text">Consolata Seminary emphasizes the importance of dialogue between faiths, promoting mutual respect and understanding in a diverse world.</p>
-                        <a href="#" class="btn btn-outline-light">Learn More</a>
-                    </div>
-                </div>
-            </div>
+        {% endif %}
+        
+        <div class="scroll-icons">
+            <button id="scroll-left" class="scroll-icon" aria-label="Scroll Left">←</button>
+            <button id="scroll-right" class="scroll-icon" aria-label="Scroll Right">→</button>
         </div>
     </div>
-</div>
+
+    <style>
+        .latest-news-container {
+            padding-top: 40px;
+            height: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: blue;
+            font-weight: bolder;
+        }
+
+        .news-row {
+            display: flex;
+            overflow-x: auto; /* Allow horizontal scrolling */
+            gap: 20px;
+            padding-bottom: 20px;
+        }
+
+        .card-news {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgb(255, 255, 255);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            width: 300px;
+            flex-shrink: 0; /* Prevent shrinking */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-news:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-news img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 0 solid #ddd;
+        }
+
+        .card-text {
+            padding: 10px;
+            flex-grow: 1;
+        }
+
+        .card-text p {
+            font-size: 13px;
+        }
+
+        .card-text h5 a {
+            color: #033857;
+            text-decoration: none;
+            font-size: 1.0rem;
+            font-weight: bold;
+        }
+
+        .card-text h5 a:hover {
+            color: #0f85c9;
+        }
+
+        .read-more-link {
+            margin-top: auto;
+            text-decoration: none;
+            color: #2b2b2b;
+            font-weight: bold;
+        }
+
+        .read-more-link:hover {
+            text-decoration: none;
+            color: #064970;
+        }
+
+        .scroll-icons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .scroll-icon {
+            color: rgb(0, 0, 0);
+            font-size: 40px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Media Query Adjustments for Smaller Screens */
+        @media (max-width: 768px) {
+            .news-row {
+                flex-direction: column; /* Stack articles vertically on smaller screens */
+            }
+
+            .card-news {
+                width: 100%; /* Make each card take full width on small screens */
+            }
+        }
+    </style>
+
+    <script>
+        // Adjust scrolling for the news row
+        const scrollLeftBtn = document.getElementById('scroll-left');
+        const scrollRightBtn = document.getElementById('scroll-right');
+        const newsRow = document.querySelector('.news-row');
+
+        scrollLeftBtn.addEventListener('click', function () {
+            newsRow.scrollBy({ left: -300, behavior: 'smooth' });
+        });
+
+        scrollRightBtn.addEventListener('click', function () {
+            newsRow.scrollBy({ left: 300, behavior: 'smooth' });
+        });
+    </script>
+</section>
+
 
 <!-- Seminary Portal Section -->
-<div class="seminary-portal-section py-5 bg-light">
-    <div class="container">
-        <h3 class="text-center mb-4">Seminary Portal</h3>
-        <div class="row">
-            <div class="col-md-3 mb-4">
-                <div class="card border-primary">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Student Login</h5>
-                        <a href="#" class="btn btn-primary btn-lg">Access Portal</a>
-                    </div>
-                </div>
+<section>
+    <div class="Consolata">
+        <h3 class="text-center mb-4">Consolata University</h3>
+        <div class="containers">  
+            <div class="container1">
+                <h5> Student Login </h5>
+                <a href="{% url 'admission:admission_student' %}" class="btn btn-primary btn-lg">Students Portal</a>       
             </div>
-            <div class="col-md-3 mb-4">
-                <div class="card border-secondary">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Faculty Portal</h5>
-                        <a href="#" class="btn btn-secondary btn-lg">Manage Classes</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-4">
-                <div class="card border-success">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Course Catalog</h5>
-                        <a href="#" class="btn btn-success btn-lg">Explore Courses</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-4">
-                <div class="card border-danger">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Seminary Calendar</h5>
-                        <a href="#" class="btn btn-danger btn-lg">View Calendar</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- Featured Faculty Section -->
-<div class="faculty-section py-5">
-    <div class="container">
-        <h3 class="text-center mb-4">Meet Our Faculty</h3>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card text-center border-light">
-                    <img src="{% static 'images/faculty1.jpg' %}" class="card-img-top" alt="Faculty Member">
-                    <div class="card-body">
-                        <h5 class="card-title">Dr. John Smith</h5>
-                        <p class="card-text">Professor of Theology. Passionate about nurturing a deep understanding of Christian faith and spirituality.</p>
-                        <a href="#" class="btn btn-outline-primary">View Profile</a>
-                    </div>
+            <div class="container2">
+                <h5>Library</h5>
+                <a href="{% url 'library:home' %}" class="btn btn-secondary btn-lg">Library Registration</a>
+            </div>
+
+            <div class="container3">
+                <h5 class="card-title">Course Catalog</h5>
+                <a href="#" class="btn btn-success btn-lg">Explore Courses</a>
+            </div>
+
+            <div class="container4">
+                <h5 class="card-title">University Calendar</h5>
+                <a href="#" class="btn btn-danger btn-lg">View Calendar</a>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Flexbox container for all items */
+        .containers {
+            display: flex;
+            flex-wrap: wrap; 
+            justify-content: space-between;
+            padding: 0 40px; 
+            
+        }
+
+        /* Base styles for each container */
+        .container1, .container2, .container3, .container4 {
+            height: 150px;
+            width: 280px;
+            border-radius: 10px;
+            padding: 30px; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            text-align: center;
+            transition: all 0.3s ease-in-out; /* Smooth hover effect */
+        }
+
+        /* Specific border colors for each container */
+        .container1 {
+            border: 2px solid #0082fc;
+        }
+
+        .container2 {
+            border: 2px solid #262329;
+        }
+
+        .container3 {
+            border: 2px solid #33af23;
+        }
+
+        .container4 {
+            border: 2px solid #af2323;
+        }
+
+        /* Hover effect */
+        .container1:hover, .container2:hover, .container3:hover, .container4:hover {
+            transform: translateY(-10px); 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Styles for headings inside the containers */
+        .container1 h5, .container2 h5, .container3 h5, .container4 h5 {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        /* Ensuring buttons are centered and responsive */
+        .container1 .btn, .container2 .btn, .container3 .btn, .container4 .btn {
+            width: 100%; 
+            padding: 10px 0; 
+        }
+
+        /* Responsive design: Make the boxes stack on smaller screens */
+        @media (max-width: 768px) {
+            .containers{
+                padding: 0 15px; 
+            }
+            .container1, .container2, .container3, .container4 {
+                width: 100%; 
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1023px) {
+            .containers{
+                padding: 0 15px; 
+            }
+            .container1, .container2, .container3, .container4 {
+                width: 280px;  
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+        }
+
+        /* Larger screens: Maintain default layout */
+        @media (min-width: 1024px) and (max-width: 1250px) {
+            .containers{
+                padding: 0 10px; 
+            }
+
+            .container1, .container2, .container3, .container4 {
+                width: 280px; 
+            }
+        }
+    </style>
+</section>
+
+<!-- Featured Leadership Section -->
+<section>
+    <div class="faculty">
+        <h3>Consolata Voices</h3>
+        <div class="faculty-row">
+
+            <div class="facultybox">
+                <div class="contents">
+                    <p> Professor of Theology. Passionate about nurturing a deep understanding of Christian faith and spirituality.</p>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card text-center border-light">
-                    <img src="{% static 'images/faculty2.jpg' %}" class="card-img-top" alt="Faculty Member">
-                    <div class="card-body">
-                        <h5 class="card-title">Dr. Sarah Jenkins</h5>
-                        <p class="card-text">Associate Professor of Church History. Leading efforts to bridge historical theology with modern applications.</p>
-                        <a href="#" class="btn btn-outline-primary">View Profile</a>
-                    </div>
+
+            <div class="facultybox">
+                <div class="contents">
+                    <p> Professor of Theology. Passionate about nurturing a deep understanding of Christian faith and spirituality.</p>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card text-center border-light">
-                    <img src="{% static 'images/faculty3.jpg' %}" class="card-img-top" alt="Faculty Member">
-                    <div class="card-body">
-                        <h5 class="card-title">Rev. Mark Thompson</h5>
-                        <p class="card-text">Spiritual Director. Guiding seminarians on their spiritual journeys with wisdom, compassion, and understanding.</p>
-                        <a href="#" class="btn btn-outline-primary">View Profile</a>
-                    </div>
+
+            <div class="facultybox">
+                <div class="contents">
+                    <p> Professor of Theology. Passionate about nurturing a deep understanding of Christian faith and spirituality.</p>
+                </div>
+            </div>
+
+            <div class="facultybox">
+                <div class="contents">
+                    <p> Professor of Theology. Passionate about nurturing a deep understanding of Christian faith and spirituality.</p>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+    <style>
+        .faculty {
+            padding: 100px 30px;
+        }
+
+        .faculty h3 {
+            font-weight: bolder;
+            font-size: 24px;
+            color: blue;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+  
+        .faculty-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            justify-content: space-between;
+            overflow: hidden; 
+            gap: 20px;
+        }
+
+        .facultybox {
+            border: 1px solid #000000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+            background: url("{% static 'admin/img/IMG_20240706_132833.jpg' %}");
+            background-size: cover;
+            background-position: calc(100%);
+            width: 100%;
+            height: 300px;  
+            z-index: -1;         
+        }
+
+        .contents p {
+            font-size: 1em;
+            line-height: 1.5;
+            text-align: center;
+            padding-top: 220px;
+            color: #ffffff;
+        }
+
+        .facultybox::before {
+            content: ""; 
+            position: absolute; 
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); 
+            z-index: -1;  
+        }
+
+        @media (max-width: 1200px) and (min-width: 768px) {
+            .faculty {
+                width: 100%;
+                padding: 50px 10px;
+            }
+
+            .faculty-row {
+                grid-template-columns: repeat(2, 1fr); 
+            }
+
+            .contents p {
+                padding-top: 250px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .faculty {
+            padding: 100px 15px;    
+        }
+            .faculty-row {
+                display: block;       
+            }
+
+            .facultybox{
+                margin-bottom: 20px;
+            }
+
+            .contents p {
+                padding-top: 250px;
+            }
+        }
+    </style>
+</section>
+ 
+
 
 <!-- Upcoming Events Section -->
-<div class="upcoming-events-section py-5 bg-light">
+<div class="upcoming-events-section py-5 ">
     <div class="container">
         <h3 class="text-center mb-4">Upcoming Events</h3>
         <div class="row">
@@ -216,72 +1659,25 @@
                     </div>
                 </div>
             </div>
+            <!-- Portal Card -->
             <div class="col-md-4 mb-4">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title">Global Mission Sunday</h5>
+                        <h5 class="card-title">Portal</h5>
                         <p>Date: February 15, 2025</p>
-                        <a href="#" class="btn btn-primary">Learn More</a>
+                        <a href="{% url 'admission:admission_staff' %}" class="btn btn-primary">Lecturer portal</a>
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
 </div>
 
-<!-- Testimonials Section -->
-<div class="testimonials-section py-5 bg-info text-white">
-    <div class="container">
-        <h3 class="text-center mb-4">What Our Students Say</h3>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card text-center border-light">
-                    <div class="card-body">
-                        <img src="{% static 'images/student1.jpg' %}" class="img-fluid rounded-circle mb-3" alt="Student Testimonial">
-                        <h5 class="card-title">John Doe</h5>
-                        <p class="card-text">"The Consolata Seminary experience has truly transformed my life. The blend of academic rigor and spiritual development is unmatched."</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card text-center border-light">
-                    <div class="card-body">
-                        <img src="{% static 'images/student2.jpg' %}" class="img-fluid rounded-circle mb-3" alt="Student Testimonial">
-                        <h5 class="card-title">Jane Smith</h5>
-                        <p class="card-text">"I am grateful for the incredible community at Consolata Seminary. The leadership training and personal growth I have gained are invaluable."</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card text-center border-light">
-                    <div class="card-body">
-                        <img src="{% static 'images/student3.jpg' %}" class="img-fluid rounded-circle mb-3" alt="Student Testimonial">
-                        <h5 class="card-title">Alex Johnson</h5>
-                        <p class="card-text">"The Seminary has not only deepened my faith but has also provided me with the tools to serve my community effectively."</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<!-- About Us Section -->
-<div id="about" class="about-section py-5">
-    <div class="container">
-        <h3 class="text-center mb-4">About Us</h3>
-        <p class="lead text-center">
-            At Consolata Seminary, we believe in fostering a strong sense of teamwork, service, and integrity through
-            the Scout movement. Our Scouts participate in a variety of activities designed to build skills, promote
-            community engagement, and encourage the values of scouting.
-        </p>
-    </div>
-</div>
 
 <!-- Conditional Member Section -->
 {% if user.is_authenticated %}
-    <div class="member-section py-5 text-center bg-light">
+    <div class="member-section py-5 text-center">
         <h3>Welcome, {{ user.username }}!</h3>
         <p>We are glad to have you as part of the Consolata Seminary Scouts family. Explore your courses and activities!</p>
     </div>

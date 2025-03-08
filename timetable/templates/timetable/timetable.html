@@ -1,18 +1,52 @@
-{% extends 'users/base.html' %}
+{% extends 'library/home.html' %}
 {% load django_bootstrap5 %}
 
-
-
 {% block content %}
-    <h1>Timetable</h1>
+    <h1 class="timetable-title">Timetable</h1>
     
-    <ul>
+    <ul class="timetable-list">
         {% for entry in timetable %}
-            <li>
-                <h2><a href="{% url 'timetable_detail' entry.slug %}">{{ entry.title }}</a></h2>
+            <li class="timetable-item">
+                <h2>
+                    <a href="{% url 'timetable:timetable_detail' entry.slug %}" class="timetable-link">
+                        {{ entry.title }}
+                    </a>
+                </h2>
                 
-                <p>Date Added: {{ entry.date_added }}</p>
+                <p class="timetable-date">Date Added: {{ entry.date_added }}</p>
             </li>
         {% endfor %}
     </ul>
+    <style>
+        /* Timetable Styles */
+.timetable-title {
+    text-align: center;
+    color: #2C3E50;
+}
+
+.timetable-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.timetable-item {
+    background-color: #ECF0F1;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.timetable-link {
+    color: #3498DB;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.timetable-date {
+    font-size: 14px;
+    color: #7F8C8D;
+}
+
+    </style>
 {% endblock %}

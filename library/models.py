@@ -1,5 +1,5 @@
 from django.db import models
-from django.conf import settings
+from users.models import User
 import taggit.managers
 from django.utils.text import slugify
 from django.utils import timezone
@@ -66,7 +66,7 @@ class EBook(models.Model):
     # ForeignKey fields
     author = models.ForeignKey(Author, null=True, on_delete=models.SET_NULL)
     publisher = models.ForeignKey(Publisher, null=True, on_delete=models.SET_NULL, blank=True)
-    category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL, blank=True)
+    category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL, blank=True, related_name="books")
 
     # Tags field using Taggit
     tags = taggit.managers.TaggableManager(help_text="A comma-separated list of tags.", verbose_name="Tags")
@@ -83,7 +83,8 @@ class EBook(models.Model):
 
 
 class LibraryUser(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    email = models.EmailField(null=True)
     membership_date = models.DateField(auto_now_add=True)
     preferences = models.TextField(blank=True, null=True)
     wishlist = models.ManyToManyField(EBook, blank=True, related_name='wishlist')
@@ -142,16 +143,3 @@ class EBookDownload(models.Model):
 
     def __str__(self):
         return f"Download by {self.user}"
-
-
-
-class BookRecommendation(models.Model):
-    recommended_date = models.DateField(auto_now_add=True)
-    reason = models.TextField(blank=True, null=True)
-
-    # ForeignKey fields
-    ebook = models.ForeignKey(EBook, on_delete=models.CASCADE)
-    user = models.ForeignKey(LibraryUser, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"Recommendation for {self.ebook.title} by {self.user}"

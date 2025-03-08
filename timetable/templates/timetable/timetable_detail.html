@@ -1,21 +1,60 @@
-{% extends 'users/base.html' %}
+{% extends 'library/home.html' %}
 {% load django_bootstrap5 %}
 
-
-
 {% block content %}
-    <h1><strong>{{ timetable.title }}</strong></h1>
+    <h1 class="timetable-detail-title">{{ timetable.title }}</h1>
 
     {% if timetable.image %}
-        <img src="{{ timetable.image.url }}" alt="{{ timetable.title }}" style="max-width: 500px;">
+        <img src="{{ timetable.image.url }}" alt="{{ timetable.title }}" class="timetable-image">
     {% endif %}
 
-    <p><strong>Added on:</strong> {{ timetable.date_added }}</p>
+    <p class="timetable-detail-date"><strong>Added on:</strong> {{ timetable.date_added }}</p>
 
+    <div class="timetable-links">
+        <a href="{% url 'timetable:timetable_detail' timetable.slug %}">
+            Download PDF Document
+        </a>
+        <a href="{% url 'timetable:timetable_view' %}">
+            Back to Timetable List
+        </a>
+    </div>
+    <style>
+        /* Timetable Detail Styles */
+.timetable-detail-title {
+    text-align: center;
+    color: #2C3E50;
+    font-weight: bold;
+    font-size: 24px;
+}
 
-    <a href="{% url 'timetable:timetable_detail' timetable.slug %}">
-        Download PDF Document
-    </a>
+.timetable-image {
+    display: block;
+    margin: 20px auto;
+    max-width: 500px;
+    border-radius: 8px;
+}
 
-    <a href="{% url 'timetable:timetable_view' %}">Back to Timetable List</a>
+.timetable-detail-date {
+    font-size: 14px;
+    color: #7F8C8D;
+    margin-bottom: 15px;
+}
+
+.timetable-links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.timetable-links a {
+    color: #3498DB;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.timetable-links a:hover {
+    text-decoration: underline;
+}
+
+    </style>
 {% endblock %}

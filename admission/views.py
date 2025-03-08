@@ -1,37 +1,48 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import AdmissionStaff, AdmissionStudent
 from .forms import AdmissionStudentForm, AdmissionStaffForm
+from datetime import datetime
+from users.models import User
 
-# Students registration to the portal
-def admission_student(request, student_slug):
-    student_user = get_object_or_404(AdmissionStudent, slug=student_slug)
 
+def home(request):
+    
+    return render(request, 'admission/home.html')
+
+
+# Student registration to the portal
+def admission_student(request):    
     if request.method == 'POST':
-        form = AdmissionStudentForm(request.POST)
+        form = AdmissionStudentForm(request.POST, initial={'user': request.user})
         if form.is_valid():
-            new_user = form.save(commit=False)
-            new_user.user = request.user  # Associate student with logged-in user
-            new_user.save()
-            return redirect('admission:home', student_slug=student_user.slug)
+            try:
+                new_user = form.save(user=request.user)
+                # Redirect after a successful registration
+                return redirect('library:home')
+            except ValueError:
+                 form.add_error(None, "You have already registered with this account.")
     else:
-        form = AdmissionStudentForm()
+        form = AdmissionStudentForm(initial={'user': request.user})
 
-    context = {'student_user': student_user, 'form': form}
+    context = {'form': form}
     return render(request, 'admission/admission.html', context)
 
-# The staffs registration to the portal
-def admission_staff(request, staff_slug):
-    staff_user = get_object_or_404(AdmissionStaff, slug=staff_slug)
 
+# Staff registration to the portal
+def admission_staff(request):
     if request.method == 'POST':
-        form = AdmissionStaffForm(request.POST)
+        form = AdmissionStaffForm(request.POST, initial={'user': request.user})
         if form.is_valid():
-            new_user = form.save(commit=False)
-            new_user.user = request.user  # Associate staff with logged-in user
-            new_user.save()
-            return redirect('admission:home', staff_slug=staff_user.slug)
+            try:
+                new_user = form.save(user=request.user)
+                # Redirect after a successful registration
+                return redirect('library:home')
+            except ValueError:
+                 form.add_error(None, "You have already registered with this account.")
     else:
-        form = AdmissionStaffForm()
+        form = AdmissionStaffForm(initial={'user': request.user})
 
-    context = {'staff_user': staff_user, 'form': form}
+    context = {'form': form}
     return render(request, 'admission/admission_staff.html', context)
+
+

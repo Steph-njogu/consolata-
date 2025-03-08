@@ -1,4 +1,4 @@
-{% extends 'users/base.html' %}
+{% extends 'blogs/base2.html' %}
 {% load django_bootstrap5 %}
 {% load blog_extras %}
 
@@ -11,9 +11,9 @@
         <!-- Main Content Area (Left Side) -->
         <div class="col-md-8">
             <!-- Boxed Content Section -->
-            <div class="content-box p-4 mb-4">
+            <div class="content-box">
                 <!-- Article Title -->
-                <h2 class="my-4">{{ article.title|markdown }}</h2>
+                <h2 class="text">{{ article.title|markdown }}</h2>
 
                 <!-- Article Author and Date -->
                 <p class="text-muted">By {{ article.author }} | {{ article.date_added|date:"F d, Y" }}</p>
@@ -34,8 +34,7 @@
                 {% if article.video_file %}
                     <div class="my-3">
                         <video width="100%" controls>
-                            <source src="{{ article.video_file.url }}" type="video/mp4">
-                            Your browser does not support the video tag.
+                            <source src="{{ article.video_file.url }}" type="video/mp4">                            
                         </video>
                     </div>
                 {% elif article.vedio %}
@@ -44,25 +43,21 @@
                     </div>
                 {% endif %}
 
-                <!-- Back to News Home -->
-                <div class="my-4">
-                    <a href="{% url 'blogs:news_home' %}" class="btn btn-secondary">Back to News Home</a>
-                </div>
             </div>
         </div>
 
         <!-- Sidebar (Right Side) for Similar Articles -->
         <div class="col-md-4">
-            <div class="sidebar my-4">
+            <div class="sidebar">
                 <h2>Similar News</h2>
                 <div class="similar_articles">
                     {% for similar_article in similar_articles %}
                         <div class="similar_article-card mb-3">
                             <a href="{% url 'blogs:news_detail' similar_article.slug %}">
                                 {% if similar_article.image %}
-                                    <img src="{{ similar_article.image.url }}" alt="{{ similar_article.title }}" class="img-fluid rounded" loading="lazy">
+                                    <img src="{{ similar_article.image.url }}" alt="{{ similar_article.title }}" class="img" loading="lazy">
                                 {% endif %}
-                                <p>{{ similar_article.title|markdown|truncatewords:50 }}</p>  <!-- Truncating title here -->
+                                <p style="font-weight: bold">{{ similar_article.title|truncatewords:50 }}</p>  <!-- Truncating title here -->
                             </a>
                         </div>
                     {% endfor %}
@@ -77,9 +72,14 @@
     /* Styling for markdown-rendered content */
     .markdown-content h1, .markdown-content h2, .markdown-content h3 {
         font-family: 'Arial', sans-serif;
-        color: #06397a;
+        color: #353535;
         margin-top: 20px;
         font-weight: bold;
+        font-size: medium;        
+    }
+
+    .container{
+        padding-top: 60px;
     }
 
     .markdown-content p {
@@ -103,6 +103,9 @@
         background-color: #f9f9f9;
         border-radius: 5px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 50px;
+        padding-top: 20px;
+        padding-left: 20px;
     }
 
     /* Similar Article Card Styling */
@@ -122,22 +125,30 @@
 
     .similar_article-card a {
         text-decoration: none;
-        color: #333;
+        color: rgb(0, 138, 202);
+        font-size: 1.0rem;
     }
 
     .similar_article-card a:hover {
-        color: #007bff;
+        color: rgb(6, 197, 255);
     }
 
     .sidebar {
         margin-top: 30px;
     }
 
-    /* Styling the Back Button */
-    .btn-secondary {
-        font-size: 1rem;
-        padding: 10px 20px;
+    .sidebar h2{
+        padding-left: 50px;
+        font-weight: bold;
+        color: rgb(0, 138, 202);;
     }
+    .sidebar img{
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-bottom: 0 solid #ddd;
+    }
+
 
     /* Sidebar styling */
     .col-md-4 {

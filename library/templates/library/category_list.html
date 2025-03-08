@@ -1,0 +1,234 @@
+{% extends 'library/home.html' %}
+{% load django_bootstrap5 %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Library Book List
+{% endblock %}
+
+{% block content %}
+<style>
+    /* Body Styling */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8f9fa;
+        color: #333;
+        overflow-x: hidden; /* Prevent horizontal scroll when sidebar is collapsed */
+        margin: 0;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 250px;
+        background-color: #343a40;
+        padding-top: 20px;
+        transition: all 0.4s ease;
+        z-index: 1000;
+    }
+
+    .sidebar.collapsed {
+        width: 80px; /* Reduced width for collapsed state */
+        padding: 20px 0;
+    }
+
+    .sidebar .category-item {
+        padding: 12px 15px;
+        color: white;
+        text-decoration: none;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        opacity: 1;
+        transition: opacity 0.3s ease, padding 0.3s ease;
+    }
+
+    .sidebar.collapsed .category-item {
+        opacity: 0;
+        padding-left: 15px;
+    }
+
+    .sidebar .category-item:hover {
+        background-color: #495057;
+        color: #ffc107;
+    }
+
+    .sidebar .category-item.active {
+        background-color: #007bff;
+        font-weight: bold;
+    }
+
+    .sidebar .category-item i {
+        margin-right: 10px;
+        font-size: 1.2rem;
+    }
+
+    /* Sidebar Toggle Button */
+    .sidebar-toggle {
+        position: absolute;
+        top: 10px;
+        right: -40px;
+        background-color: #007bff;
+        color: white;
+        font-size: 20px;
+        padding: 10px;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        z-index: 1001;
+    }
+
+    .sidebar-toggle:hover {
+        background-color: #0056b3;
+    }
+
+    /* Main Content Styling */
+    .content-container {
+        margin-left: 250px;
+        padding: 20px;
+        transition: margin-left 0.4s ease, padding 0.4s ease;
+    }
+
+    .content-container.collapsed {
+        margin-left: 80px; /* Adjust content area to accommodate collapsed sidebar */
+    }
+
+    h2 {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #343a40;
+    }
+
+    /* Table Styles */
+    table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    table th, table td {
+        padding: 15px;
+        text-align: left;
+        border: 1px solid #ddd;
+        font-size: 1rem;
+    }
+
+    table th {
+        background-color: #007bff;
+        color: white;
+    }
+
+    table td {
+        background-color: #f8f9fa;
+    }
+
+    table tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    /* Action Button Styles */
+    .btn-info {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+        padding: 5px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-info:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .sidebar {
+            width: 200px;
+        }
+
+        .content-container {
+            margin-left: 0;
+        }
+
+        /* Adjust table layout for smaller screens */
+        table th, table td {
+            padding: 12px;
+            font-size: 0.9rem;
+        }
+    }
+</style>
+
+<div class="container-fluid">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <!-- Sidebar Toggle Button -->
+        <button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()">&#9776;</button>
+        
+        <div class="categories">
+            <!-- 'All Categories' Link -->
+            <a href="{% url 'library:category_list' %}?category=all" class="category-item {% if request.GET.category == 'all' %}active{% endif %}">
+                <i class="bi bi-house-door"></i> All Categories
+            </a>
+    
+            <!-- Loop through categories -->
+            {% for category in categories %}
+                <a href="{% url 'library:category_list' %}?category={{ category.slug }}" class="category-item {% if request.GET.category == category.slug %}active{% endif %}">
+                    <i class="bi bi-book"></i>{{ category.name }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="content-container" id="contentContainer">
+        <h2>Books in Library</h2>
+
+        <!-- Table for books -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Category</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                    <tr>
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.author.name }}</td>
+                        <td>
+                            <a href="{% url 'library:category_list' %}?category={{ book.category.slug }}">
+                                {{ book.category.name }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{% url 'library:ebook_detail' book.slug %}" class="btn btn-info btn-sm">View Details</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // Function to toggle sidebar visibility
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const contentContainer = document.getElementById('contentContainer');
+        sidebar.classList.toggle('collapsed');
+        contentContainer.classList.toggle('collapsed');
+    }
+</script>
+
+{% endblock %}

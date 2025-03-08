@@ -1,0 +1,169 @@
+{% extends 'library/home.html' %}
+{% load django_bootstrap5 %}
+{% block title %}
+    {{ ebook.title }} by {{ ebook.author }}
+{% endblock %}
+
+{% block content %}
+<style>
+    /* Ebook Detail Layout */
+    .main-content {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 80px;
+        padding: 30px;
+    }
+
+    /* Ebook Section */
+    .col-md-8 {
+        flex: 3;
+        padding-right: 20px;
+    }
+
+    .col-md-8 h1 {
+        color: #ffffff;
+        font-size: 2.5rem;
+    }
+
+    .col-md-8 p {
+        font-size: 1.1rem;
+        color: #666;
+    }
+
+    .col-md-8 .btn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 25px;
+        font-size: 1.1rem;
+        border-radius: 5px;
+    }
+
+    .col-md-8 .btn:hover {
+        background-color: #45a049;
+    }
+
+    /* Sidebar Section */
+    .sidebar-container {
+        flex: 1;
+        position: sticky;
+        top: 20px;
+    }
+
+    .sidebar {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar .card-header {
+        background-color: #f8f9fa;
+        color: #333;
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    .sidebar .card-body a {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        color: #343a40;
+    }
+
+    .sidebar .card-body a:hover {
+        color: #007bff;
+    }
+
+    .sidebar .card-body a img {
+        width: 60px;
+        margin-right: 20px;
+        border-radius: 8px;
+    }
+
+    .sidebar .list-group-item {
+        background-color: #f7f7f7;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .sidebar .list-group-item:hover {
+        background-color: #e1e1e1;
+    }
+
+    .sidebar .list-group-item img {
+        width: 45px;
+        height: 70px;
+        margin-right: 10px;
+        border-radius: 6px;
+    }
+
+    @media (max-width: 768px) {
+        .main-content {
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .sidebar-container {
+            margin-top: 20px;
+        }
+    }
+</style>
+
+<div class="container">
+    <div class="row main-content">
+        <!-- Ebook Details Section -->
+        <div class="col-md-8">
+            <h1>{{ ebook.title }}</h1>
+            <p><strong>Author:</strong> {{ ebook.author.name }}</p>
+            <p><strong>Category:</strong> <a href="{% url 'library:category_list' %}">{{ ebook.category.name }}</a></p>
+            <p>{{ ebook.description }}</p>
+            {% if ebook.e_book_file %}
+                <a href="{{ ebook.e_book_file.url }}" class="btn btn-success btn-lg" download>Download eBook</a>
+            {% endif %}
+        </div>
+
+        <!-- Sidebar Section: Recommended Books & My Downloads -->
+        <div class="col-md-4 sidebar-container">
+            <div class="card sidebar">
+                <div class="card-header">
+                    <h5>Recommended Books</h5>
+                </div>
+                <div class="card-body">
+                    {% for recommended_book in recommended_books %}
+                        <a href="{% url 'library:ebook_detail' recommended_book.slug %}" class="text-dark">
+                            <img src="{{ recommended_book.cover_image.url }}" class="rounded" style="width: 50px; height: 75px;">
+                            <div>
+                                <p>{{ recommended_book.title }}</p>
+                                <small>{{ recommended_book.author.name }}</small>
+                            </div>
+                        </a>
+                    {% empty %}
+                        <p>No recommendations available.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="card sidebar mt-4">
+                <div class="card-header bg-success text-white">
+                    <h5>My eBook Downloads</h5>
+                </div>
+                <div class="card-body">
+                    {% for download in user_downloads %}
+                        <a href="{{ download.ebook.e_book_file.url }}" class="d-flex align-items-center mb-3 text-dark">
+                            <img src="{{ download.ebook.cover_image.url }}" class="rounded-circle" style="width: 50px; height: 75px;">
+                            <div>
+                                <p>{{ download.ebook.title }}</p>
+                                <small>Downloaded on {{ download.download_date|date:"M d, Y" }}</small>
+                            </div>
+                        </a>
+                    {% empty %}
+                        <p>No downloads found.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

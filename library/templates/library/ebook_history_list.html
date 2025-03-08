@@ -1,0 +1,144 @@
+{% extends 'library/home.html' %}
+{% load django_bootstrap5 %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Downloaded Books History
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Download History (Admin View)</h2>
+
+    {% if download_history %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped custom-table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">eBook Title</th>
+                        <th scope="col">User</th>
+                        <th scope="col">Date Downloaded</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for history in download_history %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ history.ebook.title }}</td>
+                            <td>{{ history.user.username }}</td>
+                            <td>{{ history.date_added|date:"F j, Y, g:i a" }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="alert alert-warning">No download history available.</p>
+    {% endif %}
+</div>
+
+
+
+<style>
+    /* Custom Table Styling */
+    .table {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .table thead {
+        background-color: #343a40;
+        color: white;
+        font-weight: bold;
+    }
+
+    .table th, .table td {
+        padding: 15px;
+        text-align: left;
+        font-size: 1rem;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f9f9f9;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f1f1f1;
+        cursor: pointer;
+        transform: scale(1.02);
+        transition: all 0.3s ease;
+    }
+
+    .table-bordered {
+        border: 1px solid #ddd;
+    }
+
+    .thead-dark th {
+        background-color: #333;
+        color: #fff;
+    }
+
+    /* Enhanced Alert Styling */
+    .alert-warning {
+        font-size: 1rem;
+        color: #856404;
+        background-color: #fff3cd;
+        border-color: #ffeeba;
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    /* Title Styling */
+    h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #343a40;
+    }
+
+    /* Hover effect on rows */
+    .custom-table tbody tr:hover {
+        background-color: #f4f4f4;
+        transform: scale(1.02);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    /* Adjust container width */
+    .container {
+        max-width: 90%;
+    }
+
+    /* Table styling */
+    .table-responsive {
+        margin-top: 20px;
+    }
+
+    /* Table borders */
+    .table-bordered th, .table-bordered td {
+        border: 1px solid #ddd;
+    }
+
+    /* Adding border radius to table */
+    .table-bordered {
+        border-radius: 8px;
+    }
+
+    /* Customizing alert box */
+    .alert-warning {
+        font-size: 1.2rem;
+        background-color: #fff3cd;
+        border-color: #ffeeba;
+        color: #856404;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    /* Adding some padding to the container */
+    .container.mt-5 {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+</style>
+{% endblock %}

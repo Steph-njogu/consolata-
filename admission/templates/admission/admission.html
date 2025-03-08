@@ -1,7 +1,6 @@
-{% extends 'users/base.html' %}
+{% extends 'library/home.html' %}
 {% load django_bootstrap5 %}
 {% load crispy_forms_tags %}
-
 
 {% block content %}
 <div class="container mt-5">
@@ -13,27 +12,29 @@
             {% csrf_token %}
             
             <div class="mb-3">
-                <label class="form-label">Registration Number</label>
-                {{ form.registration_no }}
-                {% if form.registration_no.errors %}
-                    <div class="text-danger">{{ form.registration_no.errors.0 }}</div>
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <ul>
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
                 {% endif %}
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Password</label>
-                {{ form.password }}
-                {% if form.password.errors %}
-                    <div class="text-danger">{{ form.password.errors.0 }}</div>
-                {% endif %}
+                
+                <!-- Display the form with crispy styling -->
+                {{ form|crispy }}
             </div>
 
             <button type="submit" class="btn btn-primary w-100">Register</button>
+            
         </form>
     </div>
 
     <div class="text-center mt-3">
-        <a href="{% url 'admission:home' student_user.slug %}" class="btn btn-secondary">Back to Home</a>
+        <a href="#" class="btn btn-secondary">Back to Home</a>
     </div>
 </div>
 {% endblock %}

@@ -37,6 +37,7 @@ class AdmissionStudent(models.Model):
     class Meta:
         ordering = ['registration_no']
 
+
 # AdmissionStaff model
 class AdmissionStaff(models.Model):
     slug = models.SlugField(unique=True, max_length=200, blank=True)
@@ -63,3 +64,4 @@ class AdmissionStaff(models.Model):
 
     class Meta:
         ordering = ['staff_no']
+        

@@ -1,0 +1,751 @@
+{% load django_bootstrap5 %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Consolata International University - Fostering spiritual and intellectual growth in seminarians, with an emphasis on leadership and community service.">
+    <title>Consolata International University</title>
+
+    <!-- Bootstrap 5 CSS -->
+    {% bootstrap_css %}
+    <style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    
+    body {
+        font-family: 'Roboto', sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: hsl(0, 0%, 100%); /* Soft light blue background */
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; /* Ensures footer stays at the bottom */
+        padding-top: var(--navbar-height, 0px); /* Adjust the padding based on navbar height */
+    }
+    
+    header {
+        color: #fff;
+        text-align: center;
+    }
+    
+    header h1 {
+        margin: 0;
+        font-size: 2rem;
+        font-family: 'open', sans-serif;
+        text-transform: uppercase;
+    }
+    
+    /* Sticky navbar */
+    .navbar-sticky {          
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #0099cc;
+        color: white;
+        padding: 10px 20px;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        width: 100%;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+       
+    }
+    
+    .navbar-sticky .logo {
+        display: flex;
+        align-items: center;
+    }
+    
+    .navbar-sticky .logo a {
+        color: white;
+        text-decoration: none;
+        font-size: 24px;
+        font-weight: bold;
+        margin-left: 10px;
+    }
+    
+    .logo img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+    }
+    
+    
+    /* Offcanvas Menu */
+    .offcanvas {
+        background-color: #0099cc;
+        color: white;
+        width: 250px;
+        padding: 20px;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        transition: transform 0.3s ease-in-out;
+        transform: translateX(-100%);
+        z-index: 1050; /* Make sure offcanvas is above other content */
+    }
+    
+    .offcanvas.show {
+        transform: translateX(0);
+    }
+    
+    .offcanvas-body ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .offcanvas-body ul li {
+        margin: 10px 0;
+    }
+    
+    .offcanvas-body ul li a {
+        display: block;
+        text-decoration: none;
+        color: white;
+        font-size: 1.2rem;
+        padding: 10px;
+        border-radius: 4px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    /* Hover Effect for Offcanvas Links */
+    .offcanvas-body ul li a:hover {
+        background-color: #0077b6; /* A deeper blue for hover effect */
+        color: #fff; /* White text on hover */
+    }
+    
+    /* Active Link Styling */
+    .offcanvas-body ul li a.active {
+        background-color: #0077b6;
+        color: white;
+    }
+    
+    .navbar-toggler {
+        display: none;
+        font-size: 24px;
+        cursor: pointer;
+    }
+    
+    .search-bar input {
+        padding: 3px;
+        border-radius: 2px;
+        border: none;
+    }
+    
+    .search-bar button {
+        padding: 3px 6px;
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        cursor: pointer;
+        border-radius: 2px;
+    }
+    
+    .user-profile img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    
+    /* Profile Dropdown Styles */
+    .profile-dropdown {
+        display: none;
+        position: absolute;
+        top: 40px;
+        right: 0;
+        background-color: white;
+        border: 1px solid #ddd;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        min-width: 150px;
+        z-index: 1001;
+    }
+    
+    .profile-dropdown a {
+        color: #333;
+        padding: 10px;
+        display: block;
+        text-decoration: none;
+    }
+    
+    .profile-dropdown a:hover {
+        background-color: #f8f9fa;
+    }
+    
+    #mainContent {
+        padding-top: 20px;
+        flex: 1;
+        display: flex;
+        min-height: calc(100vh - 100px);     
+    }
+    
+    /* General Footer Styling */
+    .footer {
+        opacity: 1;
+        background-color: #f5f2f2e0; /* Dark background color for footer */
+        color: #000000; /* White text color */
+        padding: 20px 0; /* Padding on top and bottom */
+        font-family: Arial, sans-serif; /* Font style */
+        text-align: center;
+        font-size: 0.875rem;
+        border-top: 0.1px ;
+        width: 100%;
+        position: relative;
+    }
+    
+    /* First Footer Section (Logo and Social Links) */
+    .first-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        width: 100%; /* Adjust the width as needed */
+        margin-bottom: 0;
+    }
+    
+    .first-footer ul {
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .first-footer li {
+        margin: 0;
+    }
+
+    .first-footer .social-links {
+    display: flex;
+    padding-top: 60px;
+    margin: 0;
+    }
+
+    .first-footer .logo{
+        display: block;
+        margin: 0;
+
+    }
+    
+    .first-footer .name p{
+        color: #000000;
+        padding-left: 75px;
+        padding-top: 70px;
+        margin: 0;
+        font-weight: bold;
+    }
+    
+    .first-footer .logo a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        justify-content: center;
+    }
+    
+    .first-footer .logo p{
+        color: #000000;
+    }
+    
+    .first-footer .logo img {
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+    }
+    
+    .first-footer .social-links a {
+        color: white;
+        margin: 0 20px;
+        font-size: 20px;
+        text-decoration: none;
+        padding-right: 60px;
+    }
+    
+    
+    .first-footer .social-links a:hover {
+        color: #00aaff; /* Hover effect */
+    }
+    
+    /* Footer HR */
+    footer hr {
+        border: 0;
+        border-top: 1px solid #444;
+        margin-top: 0;
+        margin-bottom: 40px;
+        width: 85%; /* Adjust the width as needed */
+        margin-left: auto; /* Center the HR */
+        margin-right: auto; /* Center the HR */
+    }
+    
+    /* Footer Grid Section */
+    .card-grid-footer {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        padding-left: 75px;
+        padding-right: 30px;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    
+    .card-about, .card-contact-us, .quick-links {   
+        padding: 0px;
+    }
+
+    .newsletter-subscription-form{
+        margin: -30px;
+    }
+    
+    .card-about h3, .quick-links h3, .card-contact-us h3 {
+        margin-bottom: 10px;
+        font-size: 14px;
+        font-weight: bold;
+        margin-left: 20px;
+        
+    }
+    
+    .card-body-about p, .card-body-contact p {
+        font-size: 12px;
+        line-height: 1.6;
+        margin-left: 20px;
+      
+    }
+    
+    .links-footer {
+        list-style: none;
+        padding: 0;
+        display: block;
+        font-size: 12px;
+    }
+
+    
+    .links-footer li {
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }
+    
+    .links-footer a {
+        text-decoration: none;
+        color: rgb(0, 0, 0);
+    }
+    
+    .links-footer a:hover {
+        color: #00aaff;
+    }
+    
+    /* Contact Us Section */
+    .card-body-contact .text-1 p,
+    .card-body-contact .text-2 p,
+    .card-body-contact .text-3 p {
+        margin: 5px 0;
+    }
+    
+    /* Subscription Form */
+.newsletter-subscription-form form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px; /* Increased gap between the input and button */
+    padding: 10px;
+    width: 80%; /* Ensure the form takes up full width */
+}
+
+/* Paragraph Text Styling */
+.newsletter-subscription-form p {
+    color: #000000;
+    padding-right: 120px;
+    font-size: 14px; /* Ensure the text is readable */
+    font-weight: bold;
+    padding-top: 9px;
+}
+
+/* Input Field Styling */
+.newsletter-subscription-form input[type="email"] {
+    padding: 5px;
+    border: 1px solid #ccc; /* Add border for better visibility */
+    border-radius: 4px; /* Slightly more rounded corners */
+    width: 50%; /* Increase width to take up more space */
+    font-size: 14px; /* Slightly larger font size */
+    box-sizing: border-box; /* Ensure padding doesn't break the layout */
+}
+
+/* Button Styling */
+.newsletter-subscription-form button {
+    padding: 6px; /* Adjust padding for more balance */
+    background-color: #00aaff;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px; /* Make the text inside the button more readable */
+    width: auto; /* Allow button to adjust based on content */
+    min-width: 120px; /* Set a minimum width for consistency */ 
+}
+
+/* Button Hover Effect */
+.newsletter-subscription-form button:hover {
+    background-color: #0088cc;
+}
+
+    
+    /* Footer Copyright Section */
+    footer p {
+        margin-top: 20px;
+        font-size: 14px;
+        color: #000000;
+        
+    }
+
+    .designer {
+    display: flex;
+    justify-content: space-between;  /* Spreads out items to the extremes */
+    padding: 0 30px;
+    width: 100%;
+    font-size: small;
+    padding-right: 70px;
+    padding-left: 80px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;  /* Ensures that the items go to the extreme ends */
+}
+
+.licence, .by {
+    display: flex;
+    align-items: center;
+}
+
+.by a {
+    text-decoration: underline;
+    color: rgb(0, 0, 0);
+}
+
+.by a:hover {
+    color: #00aaff;
+}
+
+    
+    .footer.visible {
+        visibility: visible;
+        opacity: 1;
+    }
+    
+    /* Responsiveness */
+    @media (max-width: 768px) {
+        .navbar-toggler {
+            display: block;
+        }
+        
+    
+        .offcanvas-body ul li a {
+            font-size: 1.2rem; /* Larger text for better readability on small screens */
+        }
+    
+        .navbar-scrollable {
+            display: none; /* Hide the static navbar on mobile */
+        }
+    
+        /* Adjust the offcanvas for mobile */
+        .offcanvas.show {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1050;
+            height: 100%;
+            background-color: #0099cc;
+        }
+    
+        .offcanvas-body {
+            padding-top: 10px;
+        }
+    
+        .card-grid-footer {
+            grid-template-columns: 1fr; /* Stack sections vertically */
+            gap: 15px; /* Reduced gap between sections */
+        }
+    
+        .first-footer {
+            flex-direction: column; /* Stack logo and social links vertically */
+            align-items: center;
+        }
+    
+        .first-footer ul {
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .first-footer li {
+            margin: 10px 0;
+        }
+    
+        .newsletter-subscription-form form {
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .newsletter-subscription-form input[type="email"] {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    
+        .card-about, .card-contact-us, .quick-links, .newsletter-subscription-form {
+            padding: 15px;
+            width: 100%; /* Make each section fill the available width */
+        }
+    }
+</style>
+    
+</head>
+
+<body>
+
+    <!-- Navbar Section (Sticky) -->
+    <nav class="navbar-sticky">
+
+        <!-- Offcanvas Button for Mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+            ☰
+        </button>
+
+        <div class="logo">
+            <a href="{% url 'home:home' %}">
+                <img src="#" alt="" class="profile-icon"> Consolata University
+            </a>
+        </div>
+
+       
+
+        <!-- Offcanvas Menu -->
+        <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+            <div class="offcanvas-header">
+                <h3 class="offcanvas-title" id="offcanvasScrollingLabel">Consolata University</h3>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-links">
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'home:home' %}" aria-current="page">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'blogs:news_home' %}">News</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'seminary:seminary_portal' %}">Seminary</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'events:diaries_view' %}">Calendar</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'home:logout' %}">Logout</a></li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'users:register1_view' %}">Register</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'users:login' %}">Login</a></li>
+                    {% endif %}
+                </ul>
+
+                <!-- Search Form -->
+                <form class="d-flex" method="get" action="#">
+                    <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search" value="{{ request.GET.q }}">
+                    <button class="btn btn-outline-dark" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+        <!-- Profile Dropdown -->
+        <div class="user-profile" onclick="toggleProfileDropdown()">
+            <img src="#" alt="Profile" class="profile-icon">
+            <div class="profile-dropdown" id="profileDropdown">
+                <a href="#">Profile</a>
+                <a href="{% url 'home:logout' %}">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <!-- Main Content Section -->
+    <div id="mainContent" class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        
+        <!-- school logo -->
+        <div class="first-footer">
+            <ul>
+                <!--  Left edge -->
+                <li class="name"> <p> Consolata Seminary, Nairobi, Kenya</p></li>
+                
+                <!--  Center edge -->
+                <li class="logo"><a href="{% url 'home:home' %}"><img src="#" alt="" class="profile-icon"> </a>
+                    <p>Consolata International University</p>
+                </li>
+                
+                <!--  The right edge -->
+                <li class="social-links">
+                    <!-- Facebook Icon as a Link -->
+                    <a href="https://facebook.com" target="_blank" aria-label="Visit our Facebook page">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" style="width: 24px; height: 24px;">
+                    </a>              
+                
+                    <!-- Instagram Icon as a Link -->
+                    <a href="https://instagram.com" target="_blank" aria-label="Visit our Instagram account">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" style="width: 24px; height: 24px;">
+                    </a>
+                
+                
+                    <!-- YouTube Icon as a Link -->
+                    <a href="https://youtube.com" target="_blank" aria-label="Visit our YouTube channel">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube" style="width: 24px; height: 24px;">
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+        
+        <hr>
+
+         <!--  grid -->
+        <div class="card-grid-footer">
+            <!--  About us column -->
+            <div class="card-about">
+                <h3>
+                    About Consolata University
+                </h3>
+                <div class="card-body-about">
+                    <p>ncnewfcnj behwbihg rig hut2v4 uhu43yt u43 22ur 542 uuy24t y34y2t y324yt 34y2v t8132 </p>
+                </div>
+            </div>
+            
+             <!-- Contact us column -->
+            <div class="card-contact-us">
+                <h3>Contact Us</h3>
+
+                <div class="card-body-contact">
+                    <div class="text-1">
+                        <p> <a href="mailto:info@consolataseminary.org">info@consolataseminary.org</a></p>
+                        <p> <a href="tel:+254712345678">+254 712 345 678</a></p>
+                    </div>
+
+                    <div class="text-2">
+                        <p> jkn n4r 41b 21333y5r 7hfq qbv </p>
+                    </div>
+
+                    <div class="text-3">
+                        <p> 3cnu43 1hwejf gapfcu gugd </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!--  Quick links column -->
+            <div class="quick-links">
+                <h3>Quick Links</h3>
+                <ul class="links-footer">
+                    <li>
+                        <a href="#">magizine</a>
+                    </li>
+                    <li>
+                        <a href="#">magizine</a>
+                    </li>
+                    <li>
+                        <a href="#">magizine</a>
+                    </li>
+                    <li>
+                        <a href="#">magizine</a>
+                    </li>
+                    <li>
+                        <a href="#">magizine</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!--  Subscription Column -->
+            <div class="newsletter-subscription-form">
+                <p>Subscribe for News Updates</p>
+                <form action="#" method="post" >
+                    <input type="email" placeholder="Email" aria-label="Email">
+                    <button type="submit">submit</button>
+                </form>
+                
+            </div>   
+        </div>
+
+       
+        
+        <div class="designer">
+            <ul>
+                <li class="licence"> 
+                    <p>&copy; {{ current_year }} | Consolata University | All Rights Reserved.</p>
+                </li>
+                <li class="by"> 
+                    <p>Website by <a href="mailto:stephennjogu124@gmail.com">StangWeb</a></p>
+                </li>
+            </ul>
+        </div>
+        
+    </footer>
+
+    {% bootstrap_javascript %}
+    <script>
+
+        // Toggle for the offcanvas menu
+document.querySelector('.navbar-toggler').addEventListener('click', function () {
+    const offcanvas = document.getElementById('offcanvasScrolling');
+    offcanvas.classList.toggle('show'); // Toggle the show class to slide in/out the offcanvas
+});
+
+
+
+// Close the offcanvas menu when clicking outside
+document.addEventListener('click', function (e) {
+    const offcanvas = document.getElementById('offcanvasScrolling');
+    const toggler = document.querySelector('.navbar-toggler');
+
+    if (!offcanvas.contains(e.target) && !toggler.contains(e.target)) {
+        offcanvas.classList.remove('show');
+    }
+});
+
+        // JavaScript for profile dropdown toggle
+        function toggleProfileDropdown() {
+            const profileDropdown = document.getElementById('profileDropdown');
+            profileDropdown.style.display = (profileDropdown.style.display === 'block') ? 'none' : 'block';
+        }
+
+        const footer = document.querySelector('.footer');
+        
+        // Listen for scrolling and handle footer visibility
+        window.addEventListener('scroll', function() {
+            let scrollPosition = window.scrollY + window.innerHeight;
+            let pageHeight = document.documentElement.scrollHeight;
+
+            if (scrollPosition >= pageHeight) {
+                footer.classList.add('visible');
+            } else {
+                footer.classList.remove('visible');
+            }
+        });
+
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            document.querySelector('.navbar').classList.toggle('navbar-dark-mode');
+
+            const currentYear = new Date().getFullYear();
+            document.querySelector('.footer').innerHTML += ` ${currentYear}`;
+        });
+    </script>
+
+</body>
+
+</html>
+
+

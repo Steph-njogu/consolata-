@@ -8,7 +8,7 @@ from django.http import HttpResponse
 def timetable_view(request):
     timetable = Timetable.objects.all().order_by('-date_added')
     context = {'timetable' : timetable }
-    return render (request, 'timetable:timetable.html', context)
+    return render (request, 'timetable/timetable.html', context)
 
 
 
