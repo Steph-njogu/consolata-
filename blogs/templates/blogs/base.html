@@ -24,11 +24,11 @@
         line-height: 1.6;
         margin: 0;
         padding: 0;
-        background-color: hsl(0, 0%, 100%); /* Soft light blue background */
+        background-color: hsl(0, 0%, 100%); 
         display: flex;
         flex-direction: column;
-        min-height: 100vh; /* Ensures footer stays at the bottom */
-        padding-top: var(--navbar-height, 0px); /* Adjust the padding based on navbar height */
+        min-height: 100vh; 
+        padding-top: var(--navbar-height, 0px); 
     }
     
     header {
@@ -42,8 +42,7 @@
         font-family: 'open', sans-serif;
         text-transform: uppercase;
     }
-    
-    /* Sticky navbar */
+
     .navbar-sticky {          
         display: flex;
         justify-content: space-between;
@@ -77,22 +76,18 @@
         border-radius: 50%;
     }
     
-    /* Scrollable navbar */
     .navbar-scrollable {
-    position: relative;
-    background-color: #0099cc; /* Fallback background color */
-    background-image: url("{% static 'admin/img/IMG_20240706_132833.jpg' %}"); /* Corrected static URL */
-    background-size: cover;
-    background-position: center center;
-    color: white;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-    width: 100%;
-    height: 40vh; /* Full viewport height */
-}
+        position: relative;
+        background-color: #0099cc; 
+        background-image: url("{% static 'admin/img/IMG_20240706_132833.jpg' %}"); 
+        background-size: cover;
+        background-position: center center;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+        width: 100%;
+        height: 50vh; 
+    }
 
     .navbar-scrollable::after {
         content: '';
@@ -101,8 +96,8 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(0, 0, 0, 0.4); /* Semi-transparent black overlay */
-        z-index: -1; /* Make sure the overlay is behind the text */
+        background: rgba(0, 0, 0, 0.4); 
+        z-index: -1; 
     }
     
     .links-nav ul {
@@ -129,11 +124,10 @@
     }
 
     .scrolled {
-        background-color: rgba(0, 0, 255, 0.8); /* Blue with some opacity */
+        background-color: rgba(0, 0, 255, 0.8); 
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     
-    /* Offcanvas Menu */
     .offcanvas {
         background-color: #0099cc;
         color: white;
@@ -145,7 +139,7 @@
         left: 0;
         transition: transform 0.3s ease-in-out;
         transform: translateX(-100%);
-        z-index: 1050; /* Make sure offcanvas is above other content */
+        z-index: 1050; 
     }
     
     .offcanvas.show {
@@ -243,261 +237,6 @@
         min-height: calc(100vh - 100px);     
     }
     
-    /* General Footer Styling */
-    .footer {
-        opacity: 1;
-        background-color: #f5f2f2e0; /* Dark background color for footer */
-        color: #000000; /* White text color */
-        padding: 20px 0; /* Padding on top and bottom */
-        font-family: Arial, sans-serif; /* Font style */
-        text-align: center;
-        font-size: 0.875rem;
-        border-top: 0.1px ;
-        width: 100%;
-        position: relative;
-    }
-    
-    /* First Footer Section (Logo and Social Links) */
-    .first-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 20px;
-        width: 100%; /* Adjust the width as needed */
-        margin-bottom: 0;
-    }
-    
-    .first-footer ul {
-        list-style: none;
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-    }
-    
-    .first-footer li {
-        margin: 0;
-    }
-
-    .first-footer .social-links {
-    display: flex;
-    padding-top: 60px;
-    margin: 0;
-    }
-
-    .first-footer .logo{
-        display: block;
-        margin: 0;
-
-    }
-    
-    .first-footer .name p{
-        color: #000000;
-        padding-left: 75px;
-        padding-top: 70px;
-        margin: 0;
-        font-weight: bold;
-    }
-    
-    .first-footer .logo a {
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        justify-content: center;
-    }
-    
-    .first-footer .logo p{
-        color: #000000;
-    }
-    
-    .first-footer .logo img {
-        width: 40px;
-        height: 40px;
-        margin-right: 10px;
-    }
-    
-    .first-footer .social-links a {
-        color: white;
-        margin: 0 20px;
-        font-size: 20px;
-        text-decoration: none;
-        padding-right: 60px;
-    }
-    
-    
-    .first-footer .social-links a:hover {
-        color: #00aaff; /* Hover effect */
-    }
-    
-    /* Footer HR */
-    footer hr {
-        border: 0;
-        border-top: 1px solid #444;
-        margin-top: 0;
-        margin-bottom: 40px;
-        width: 85%; /* Adjust the width as needed */
-        margin-left: auto; /* Center the HR */
-        margin-right: auto; /* Center the HR */
-    }
-    
-    /* Footer Grid Section */
-    .card-grid-footer {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
-        padding-left: 75px;
-        padding-right: 30px;
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-    
-    .card-about, .card-contact-us, .quick-links {   
-        padding: 0px;
-    }
-
-    .newsletter-subscription-form{
-        margin: -30px;
-    }
-    
-    .card-about h3, .quick-links h3, .card-contact-us h3 {
-        margin-bottom: 10px;
-        font-size: 14px;
-        font-weight: bold;
-        margin-left: 20px;
-        
-    }
-    
-    .card-body-about p, .card-body-contact p {
-        font-size: 12px;
-        line-height: 1.6;
-        margin-left: 20px;
-      
-    }
-    
-    .links-footer {
-        list-style: none;
-        padding: 0;
-        display: block;
-        font-size: 12px;
-    }
-
-    
-    .links-footer li {
-        margin-left: 20px;
-        margin-bottom: 10px;
-    }
-    
-    .links-footer a {
-        text-decoration: none;
-        color: rgb(0, 0, 0);
-    }
-    
-    .links-footer a:hover {
-        color: #00aaff;
-    }
-    
-    /* Contact Us Section */
-    .card-body-contact .text-1 p,
-    .card-body-contact .text-2 p,
-    .card-body-contact .text-3 p {
-        margin: 5px 0;
-    }
-    
-    /* Subscription Form */
-.newsletter-subscription-form form {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 5px; /* Increased gap between the input and button */
-    padding: 10px;
-    width: 80%; /* Ensure the form takes up full width */
-}
-
-/* Paragraph Text Styling */
-.newsletter-subscription-form p {
-    color: #000000;
-    padding-right: 120px;
-    font-size: 14px; /* Ensure the text is readable */
-    font-weight: bold;
-    padding-top: 9px;
-}
-
-/* Input Field Styling */
-.newsletter-subscription-form input[type="email"] {
-    padding: 5px;
-    border: 1px solid #ccc; /* Add border for better visibility */
-    border-radius: 4px; /* Slightly more rounded corners */
-    width: 50%; /* Increase width to take up more space */
-    font-size: 14px; /* Slightly larger font size */
-    box-sizing: border-box; /* Ensure padding doesn't break the layout */
-}
-
-/* Button Styling */
-.newsletter-subscription-form button {
-    padding: 6px; /* Adjust padding for more balance */
-    background-color: #00aaff;
-    color: rgb(255, 255, 255);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px; /* Make the text inside the button more readable */
-    width: auto; /* Allow button to adjust based on content */
-    min-width: 120px; /* Set a minimum width for consistency */ 
-}
-
-/* Button Hover Effect */
-.newsletter-subscription-form button:hover {
-    background-color: #0088cc;
-}
-
-    
-    /* Footer Copyright Section */
-    footer p {
-        margin-top: 20px;
-        color: #000000;        
-    }
-
-    .designer {
-    display: flex;
-    justify-content: space-between;  /* Spreads out items to the extremes */
-    padding: 0 30px;
-    width: 100%;
-    font-size: 12px;
-    padding-right: 70px;
-    padding-left: 80px;
-}
-
-
-ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    width: 100%;
-    justify-content: space-between;  /* Ensures that the items go to the extreme ends */
-}
-
-.licence, .by {
-    display: flex;
-    align-items: center;
-}
-
-.by a {
-    text-decoration: underline;
-    color: rgb(0, 0, 0);
-}
-
-.by a:hover {
-    color: #00aaff;
-}
-
-    
-    .footer.visible {
-        visibility: visible;
-        opacity: 1;
-    }
-    
     /* Responsiveness */
     @media (max-width: 768px) {
         .navbar-toggler {
@@ -529,57 +268,6 @@ ul {
         .offcanvas-body {
             padding-top: 10px;
         }
-    
-        .card-grid-footer {
-            grid-template-columns: 1fr; /* Stack sections vertically */
-            gap: 15px; /* Reduced gap between sections */
-        }
-    
-        .first-footer {
-            flex-direction: column; /* Stack logo and social links vertically */
-            align-items: center;
-        }
-    
-        .first-footer ul {
-            flex-direction: column;
-            align-items: center;
-        }
-    
-        .first-footer li {
-            margin: 10px 0;
-        }
-    
-        .newsletter-subscription-form form {
-            flex-direction: column;
-            align-items: center;
-        }
-    
-        .newsletter-subscription-form input[type="email"] {
-            width: 100%;
-            margin-bottom: 10px;
-        }
-    
-        .card-about, .card-contact-us, .quick-links, .newsletter-subscription-form {
-            padding: 15px;
-            width: 100%; /* Make each section fill the available width */
-        }
-
-        .designer {
-        padding: 10px; /* Reduce padding for smaller screens */
-        }
-
-    .designer li {
-        display: block; /* Stack items vertically on small screens */
-        margin-bottom: 10px; /* Space between items */
-    }
-
-    .designer li:last-child {
-        margin-bottom: 0; /* Remove bottom margin from the last item */
-    }
-
-    .designer a {
-        text-decoration: none; /* Increase the font size slightly for readability */
-    }
 
     }
 </style>
@@ -598,11 +286,8 @@ ul {
 
         <div class="logo">
             <a href="{% url 'home:home' %}">
-                <img src="{%static 'admin/img/IMG_20240710_105426.jpg'%}" alt="" class="profile-icon"> Consolata University
+                <img src="{%static 'admin/img/IMG_20240710_105426.jpg'%}" alt="" class="profile"> Consolata University
             </a>
-
-            
-
         </div>
 
         <div class="links-nav">
@@ -651,7 +336,7 @@ ul {
         </div>
         <!-- Profile Dropdown -->
         <div class="user-profile" onclick="toggleProfileDropdown()">
-            <img src="{%static 'admin/img/IMG_20240710_105426.jpg'%}" alt="Profile" class="profile-icon">
+            <img src="{%static 'admin/img/IMG_20240710_105426.jpg'%}" alt="Profile" class="profile">
             <div class="profile-dropdown" id="profileDropdown">
                 <a href="#">Profile</a>
                 <a href="{% url 'home:logout' %}">Logout</a>
@@ -680,9 +365,7 @@ ul {
                 <li class="name"> <p> Consolata Seminary, Nairobi, Kenya</p></li>
                 
                 <!--  Center edge -->
-                <li class="logo"><a href="{% url 'home:home' %}"><img src="{%static 'admin/img/IMG_20240710_105426.jpg'%}" alt="" class="profile-icon"> </a>
-                    <p>Consolata International University</p>
-                </li>
+                <li><a href="{% url 'home:home' %}"><img src="{%static 'admin/img/IMG_20240710_105426.jpg'%}" alt="" class="profile-icon"> </a></li>
                 
                 <!--  The right edge -->
                 <li class="social-links">
@@ -708,12 +391,14 @@ ul {
         
         <hr>
 
+      
+
          <!--  grid -->
         <div class="card-grid-footer">
             <!--  About us column -->
             <div class="card-about">
                 <h3>
-                    About Consolata University
+                    About 
                 </h3>
                 <div class="card-body-about">
                     <p>ncnewfcnj behwbihg rig hut2v4 uhu43yt u43 22ur 542 uuy24t y34y2t y324yt 34y2v t8132 </p>
@@ -725,17 +410,20 @@ ul {
                 <h3>Contact Us</h3>
 
                 <div class="card-body-contact">
-                    <div class="text-1">
+                    <div class="text">
                         <p> <a href="mailto:info@consolataseminary.org">info@consolataseminary.org</a></p>
+                    </div>
+
+                    <div class="text">
                         <p> <a href="tel:+254712345678">+254 712 345 678</a></p>
                     </div>
 
-                    <div class="text-2">
-                        <p> jkn n4r 41b 21333y5r 7hfq qbv </p>
+                    <div class="text">
+                        <p> card-body-contact </p>
                     </div>
 
-                    <div class="text-3">
-                        <p> 3cnu43 1hwejf gapfcu gugd </p>
+                    <div class="text">
+                        <p> card-body-contact </p>
                     </div>
                 </div>
             </div>
@@ -764,7 +452,7 @@ ul {
             
             <!--  Subscription Column -->
             <div class="newsletter-subscription-form">
-                <p>Subscribe for News Updates</p>
+                <h3>Subscription</h3>
                 <form action="#" method="post" >
                     <input type="email" placeholder="Email" aria-label="Email">
                     <button type="submit">submit</button>
@@ -772,8 +460,6 @@ ul {
                 
             </div>   
         </div>
-
-       
         
         <div class="designer">
             <ul>
@@ -781,10 +467,249 @@ ul {
                     <p>&copy; {{ current_year }} | Consolata University | All Rights Reserved.</p>
                 </li>
                 <li class="by"> 
-                    <p>Website by <a href="mailto:stephennjogu124@gmail.com">StangWeb</a></p>
+                    <p>Powered by <a href="mailto:stephennjogu124@gmail.com">StangWeb</a></p>
                 </li>
             </ul>
         </div>
+
+        <style>
+            /* Footer Styles */
+            .footer {
+                opacity: 1;
+                visibility: visible;
+                padding-top: 30px;
+                background-color: #e2e2e2;
+                position: relative;
+                left: 0;
+                margin: 0;
+                font-size: small;
+            }
+
+            .footer hr {
+                border: 0;
+                border-top: 1px solid #444;
+                margin-bottom: 40px;
+                width: 95%; 
+                margin-left: auto; 
+                margin-right: auto; 
+            }
+
+            .footer h3 {
+                font-size: medium;
+                color: #4CAF50;
+            }
+
+            .first-footer ul {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                padding: 0 30px;
+                margin-bottom: -40px;
+                line-height: 4.0;
+            }
+
+            .first-footer ul li {
+                list-style: none;
+            }
+
+            .profile-icon {
+                width: 60px;
+                height: 60px;
+                border-radius: 30px;
+                margin-top: -40px;
+            }
+
+            .social-links a {
+                display: inline-block;
+                justify-content: space-between;
+                padding: 0 10px;
+                
+            }
+
+            .card-grid-footer{
+                display: flex;
+                flex-wrap: nowrap;
+                flex-direction: row;
+                justify-content: space-between; 
+                padding: 0 20px;              
+            }
+
+            .links-footer{
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                list-style: none;
+                margin-left: -30px;
+            }
+
+            .links-footer li a{
+                text-decoration: none; 
+                color: #000000;  
+            }
+
+            .card-contact-us, .card-body-contact {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                list-style: none;
+                             
+            }
+
+            .text p a {
+                text-decoration: none; 
+                color: #000000;  
+            }
+            
+            .card-body-about {
+                width: 400px;
+                margin-left: 0;
+            }
+
+            .card-body-about p {
+                text-align: justify;
+            }
+
+            .newsletter-subscription-form {
+                width: 200px;
+            }
+
+            .newsletter-subscription-form h3 {
+                margin-left: 0;
+                margin-bottom: 25px;
+            }
+
+           
+            .newsletter-subscription-form form {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .newsletter-subscription-form input[type="email"] {
+                border: 1px solid #ccc; 
+                border-radius: 4px; 
+                width: 90%; 
+                font-size: 14px; 
+                box-sizing: border-box; 
+            }
+
+            .newsletter-subscription-form button {
+                background-color: #00aaff;
+                color: rgb(255, 255, 255);
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px; 
+                width: auto; 
+                min-width: 100px; 
+            }
+
+            .designer ul{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .designer ul li{
+                list-style: none;
+            }
+
+            .designer ul li, .by p a{
+                text-decoration: none;
+                
+            }
+
+            .by p a:hover{
+                color: #305cd6;
+            }
+
+            .by p {
+                margin-right: 30px;
+            }
+
+            .by p a {
+                color: #970a50;
+            }
+
+            @media (max-width: 768px) {
+                .footer {
+                    width: 100%;
+                }
+
+                .card-grid-footer{
+                    flex-direction: column; 
+                    align-items: center;
+                    gap: 20px;      
+                }
+
+                .newsletter-subscription-form h3 {
+                    margin-left: 0;
+                }
+
+                .card-body-about {
+                    width: auto;
+                }
+                
+
+                .first-footer ul{
+                    flex-direction: column; 
+                    align-items: center;
+                    margin-bottom: 0;
+                    gap: 20px;
+                }
+                .card-contact-us {
+                    align-items: center;                             
+                }
+
+                .card-body-contact {
+                    align-items: justify;
+                    justify-content: start;
+                    margin-left: 75px;
+                }
+
+                .card-about {
+                    display: flex;
+                    flex-direction: column;
+                    flex-direction: column; 
+                    align-items: center;     
+                }
+
+                .card-body-about {
+                    width: auto;
+                    align-items: center;
+                }
+
+                .newsletter-subscription-form {
+                    width: auto;
+                    display: flex;
+                    flex-direction: column;
+                    flex-direction: column; 
+                    align-items: center; 
+                    margin-bottom: 50px; 
+           
+                }
+
+                .newsletter-subscription-form form {
+                    align-items: center;
+                    
+                }
+            }
+
+            @media (max-width: 1024px) and (min-width: 769px) {
+                .card-grid-footer{
+                    display: grid;
+                    grid-template-columns: repeat(2, minmax(500px, 1fr));
+                    justify-content: space-between;
+                    align-content: space-between;
+                    gap: 10px;    
+                }
+
+            }
+
+        </style>
         
     </footer>
 

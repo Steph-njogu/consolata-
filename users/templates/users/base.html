@@ -15,15 +15,14 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
+            line-height: 2.0;
             margin: 0;
             padding: 0;
-            background-color: hsl(0, 0%, 100%); /* Soft light blue background */
+            margin-bottom: 0;
+            background-color: hsl(0, 0%, 100%); 
             display: flex;
             flex-direction: column;
-            min-height: 100vh; /* Ensures footer stays at the bottom */
-            padding-top: var(--navbar-height, 0px); 
-
+            min-height: 100vh;   
         }
 
         header {
@@ -39,7 +38,6 @@
             text-transform: uppercase;
         }
 
-        /* Sticky navbar */
         .navbar-sticky {          
             display: flex;
             justify-content: space-between;
@@ -51,15 +49,13 @@
             top: 0;
             z-index: 1000;
             width: 100%;
-            
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
-
         }
+
         .navbar-sticky .logo {
             display: flex;
             align-items: center;
         }
-
 
         .navbar-sticky .logo a {
             color: white;
@@ -75,19 +71,18 @@
             border-radius: 50%;
         }
         
-
-        /* Scrollable navbar */
         .navbar-scrollable {
             background-color: #0099cc;
             color: white;
-            padding: 10px 20px;
+            padding: 0 20px;
+            line-height: 3.0;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 999; /* Ensure the navbar is above other content */
             width: 100%; 
             position: relative;
-            margin-bottom: 30px;
+            margin-bottom: 0;
         }
 
         .navbar-scrollable ul {
@@ -113,58 +108,55 @@
             border-radius: 4px;
         }
 
-        /* Offcanvas Menu */
         .offcanvas {
-    background-color: #0099cc;
-    color: white;
-    width: 250px;
-    padding: 20px;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    transition: transform 0.3s ease-in-out;
-    transform: translateX(-100%);
-    z-index: 1050; /* Make sure offcanvas is above other content */
-}
+            background-color: #0099cc;
+            color: white;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(-100%);
+            z-index: 1050;
+        }
 
-.offcanvas.show {
-    transform: translateX(0);
-}
-.offcanvas-body ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
+        .offcanvas.show {
+            transform: translateX(0);
+        }
 
-.offcanvas-body ul li {
-    margin: 10px 0;
-}
+        .offcanvas-body ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
 
-.offcanvas-body ul li a {
-    display: block;
-    text-decoration: none;
-    color: white;
-    font-size: 1.2rem;
-    padding: 10px;
-    border-radius: 4px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
+        .offcanvas-body ul li {
+            margin: 10px 0;
+        }
 
-/* Hover Effect for Offcanvas Links */
-.offcanvas-body ul li a:hover {
-    background-color: #0077b6; /* A deeper blue for hover effect */
-    color: #fff; /* White text on hover */
-}
-
-/* Active Link Styling */
-.offcanvas-body ul li a.active {
-    background-color: #0077b6;
-    color: white;
-}
+        .offcanvas-body ul li a {
+            display: block;
+            text-decoration: none;
+            color: white;
+            font-size: 1.2rem;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
 
 
-        
+        .offcanvas-body ul li a:hover {
+            background-color: #0077b6; 
+            color: #fff; 
+        }
+
+
+        .offcanvas-body ul li a.active {
+            background-color: #0077b6;
+            color: white;
+        }
+
         .navbar-toggler {
             display: none;
             font-size: 24px;
@@ -193,7 +185,6 @@
             cursor: pointer;
         }
 
-        /* Profile Dropdown Styles */
         .profile-dropdown {
             display: none;
             position: absolute;
@@ -218,80 +209,45 @@
         }
 
         #mainContent {
-       
-        width: 100%;
-    /* If you want more spacing, adjust the padding or use padding-top equal to navbar height */
+            width: 100%;    
         }
 
         .body-container{
-            padding-top: 0%;
+            margin-top: 0;
             width: 100%;
-        }
-
-        /* Footer Styles */
-        .footer {
-            opacity: 0;
-            visibility: hidden;
-            background-color: #dad9d9;
-            color: #000000;
-            padding: 20px 0;
-            border-top: 0.1px ;
-            text-align: center;
-            font-size: 0.875rem;
-            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-            width: 100%;
-            position: relative;
-            left: 0;
-            margin: 0;
-        }
-
-        .footer .social-links a {
-            margin: 0 10px;
-            color: #fff;
-        }
-
-        .footer .social-links a:hover {
-            color: #ffd700;
-        }
-
-        .footer.visible {
-            visibility: visible;
-            opacity: 1;
         }
 
         /* Responsiveness */
         @media (max-width: 768px) {
-    .navbar-toggler {
-        body {
-        padding-top: var(--navbar-height, 80px); /* Adjust the padding dynamically */
-    }
+            .navbar-toggler {
+                body {
+                padding-top: var(--navbar-height, 80px); 
+            }
     
-        display: block;
-    }
+                display: block;
+            }
 
-    .offcanvas-body ul li a {
-        font-size: 1.2rem; /* Larger text for better readability on small screens */
-        
-    }
+            .offcanvas-body ul li a {
+                font-size: 1.2rem; 
+            }
 
-    .navbar-scrollable {
-        display: none; /* Hide the static navbar on mobile */
-    }
+            .navbar-scrollable {
+                display: none; 
+            }
 
-    /* Adjust the offcanvas for mobile */
-    .offcanvas.show {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 1050;
-        height: 100%;
-        background-color: #0099cc;
-    }
+            .offcanvas.show {
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 1050;
+                height: 100%;
+                background-color: #0099cc;
+            }
 
-    .offcanvas-body {
-        padding-top: 10px;
-    }
-}
+            .offcanvas-body {
+                padding-top: 10px;
+            }
+        }
     </style>
 </head>
 
@@ -307,7 +263,7 @@
 
         <div class="logo">
             <a href="{% url 'home:home' %}">
-                <img src="{%static 'admin/img/IMG_20240710_105426.jpg'%}" alt="" class="profile-icon"> Consolata University
+                <img src="{%static 'admin/img/IMG_20240710_105426.jpg'%}" alt="" class="profile"> Consolata University
             </a>
         </div>
 
@@ -342,7 +298,7 @@
         </div>
         <!-- Profile Dropdown -->
         <div class="user-profile" onclick="toggleProfileDropdown()">
-            <img src="{%static 'admin/img/IMG_20240710_105426.jpg'%}" alt="Profile" class="profile-icon">
+            <img src="{%static 'admin/img/IMG_20240710_105426.jpg'%}" alt="Profile" class="profile">
             <div class="profile-dropdown" id="profileDropdown">
                 <a href="#">Profile</a>
                 <a href="{% url 'home:logout' %}">Logout</a>
@@ -374,24 +330,360 @@
 
     <!-- Footer Section -->
     <footer class="footer">
-        <div>
-            <h5>Contact Us</h5>
-            <p><strong>Address:</strong> Consolata Seminary, Nairobi, Kenya</p>
-            <p><strong>Email:</strong> <a href="mailto:info@consolataseminary.org">info@consolataseminary.org</a></p>
-            <p><strong>Phone:</strong> <a href="tel:+254712345678">+254 712 345 678</a></p>
+        
+        <!-- school logo -->
+        <div class="first-footer">
+            <ul>
+                <!--  Left edge -->
+                <li class="name"> <p> Consolata Seminary, Nairobi, Kenya</p></li>
+                
+                <!--  Center edge -->
+                <li><a href="{% url 'home:home' %}"><img src="{%static 'admin/img/IMG_20240710_105426.jpg'%}" alt="" class="profile-icon"> </a></li>
+                
+                <!--  The right edge -->
+                <li class="social-links">
+                    <!-- Facebook Icon as a Link -->
+                    <a href="https://facebook.com" target="_blank" aria-label="Visit our Facebook page">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" style="width: 24px; height: 24px;">
+                    </a>              
+                
+                    <!-- Instagram Icon as a Link -->
+                    <a href="https://instagram.com" target="_blank" aria-label="Visit our Instagram account">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" style="width: 24px; height: 24px;">
+                    </a>
+                
+                
+                    <!-- YouTube Icon as a Link -->
+                    <a href="https://youtube.com" target="_blank" aria-label="Visit our YouTube channel">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube" style="width: 24px; height: 24px;">
+                    </a>
+                </li>
+                
+            </ul>
         </div>
-        <div class="social-links">
-            <a href="https://facebook.com" class="btn btn-primary btn-sm" target="_blank" aria-label="Visit our Facebook page">
-                <i class="fa fa-facebook"></i> Facebook
-            </a>
-            <a href="https://twitter.com" class="btn btn-info btn-sm" target="_blank" aria-label="Visit our Twitter profile">
-                <i class="fa fa-twitter"></i> Twitter
-            </a>
-            <a href="https://instagram.com" class="btn btn-danger btn-sm" target="_blank" aria-label="Visit our Instagram account">
-                <i class="fa fa-instagram"></i> Instagram
-            </a>
+        
+        <hr>
+
+      
+
+         <!--  grid -->
+        <div class="card-grid-footer">
+            <!--  About us column -->
+            <div class="card-about">
+                <h3>
+                    About 
+                </h3>
+                <div class="card-body-about">
+                    <p>ncnewfcnj behwbihg rig hut2v4 uhu43yt u43 22ur 542 uuy24t y34y2t y324yt 34y2v t8132 </p>
+                </div>
+            </div>
+            
+             <!-- Contact us column -->
+            <div class="card-contact-us">
+                <h3>Contact Us</h3>
+
+                <div class="card-body-contact">
+                    <div class="text">
+                        <p> <a href="mailto:info@consolataseminary.org">info@consolataseminary.org</a></p>
+                    </div>
+
+                    <div class="text">
+                        <p> <a href="tel:+254712345678">+254 712 345 678</a></p>
+                    </div>
+
+                    <div class="text">
+                        <p> card-body-contact </p>
+                    </div>
+
+                    <div class="text">
+                        <p> card-body-contact </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!--  Quick links column -->
+            <div class="quick-links">
+                <h3>Quick Links</h3>
+                <ul class="links-footer">
+                    <li>
+                        <a href="#">magizine</a>
+                    </li>
+                    <li>
+                        <a href="#">magizine</a>
+                    </li>
+                    <li>
+                        <a href="#">magizine</a>
+                    </li>
+                    <li>
+                        <a href="#">magizine</a>
+                    </li>
+                    <li>
+                        <a href="#">magizine</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!--  Subscription Column -->
+            <div class="newsletter-subscription-form">
+                <h3>Subscription</h3>
+                <form action="#" method="post" >
+                    <input type="email" placeholder="Email" aria-label="Email">
+                    <button type="submit">submit</button>
+                </form>
+                
+            </div>   
         </div>
-        <p>&copy; {{ current_year }} | Consolata University | All Rights Reserved.</p>
+        
+        <div class="designer">
+            <ul>
+                <li class="licence"> 
+                    <p>&copy; {{ current_year }} | Consolata University | All Rights Reserved.</p>
+                </li>
+                <li class="by"> 
+                    <p>Powered by <a href="mailto:stephennjogu124@gmail.com">StangWeb</a></p>
+                </li>
+            </ul>
+        </div>
+
+        <style>
+            /* Footer Styles */
+            .footer {
+                opacity: 1;
+                visibility: visible;
+                padding-top: 30px;
+                background-color: #e2e2e2;
+                position: relative;
+                left: 0;
+                margin: 0;
+                font-size: small;
+            }
+
+            .footer hr {
+                border: 0;
+                border-top: 1px solid #444;
+                margin-bottom: 40px;
+                width: 95%; 
+                margin-left: auto; 
+                margin-right: auto; 
+            }
+
+            .footer h3 {
+                font-size: medium;
+                color: #4CAF50;
+            }
+
+            .first-footer ul {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                padding: 0 30px;
+                margin-bottom: -40px;
+                line-height: 4.0;
+            }
+
+            .first-footer ul li {
+                list-style: none;
+            }
+
+            .profile-icon {
+                width: 60px;
+                height: 60px;
+                border-radius: 30px;
+                margin-top: -40px;
+            }
+
+            .social-links a {
+                display: inline-block;
+                justify-content: space-between;
+                padding: 0 10px;
+                
+            }
+
+            .card-grid-footer{
+                display: flex;
+                flex-wrap: nowrap;
+                flex-direction: row;
+                justify-content: space-between; 
+                padding: 0 20px;              
+            }
+
+            .links-footer{
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                list-style: none;
+                margin-left: -30px;
+            }
+
+            .links-footer li a{
+                text-decoration: none; 
+                color: #000000;  
+            }
+
+            .card-contact-us, .card-body-contact {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                list-style: none;
+                             
+            }
+
+            .text p a {
+                text-decoration: none; 
+                color: #000000;  
+            }
+            
+            .card-body-about {
+                width: 400px;
+                margin-left: 0;
+            }
+
+            .card-body-about p {
+                text-align: justify;
+            }
+
+            .newsletter-subscription-form {
+                width: 200px;
+            }
+
+            .newsletter-subscription-form h3 {
+                margin-left: 0;
+                margin-bottom: 25px;
+            }
+
+           
+            .newsletter-subscription-form form {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .newsletter-subscription-form input[type="email"] {
+                border: 1px solid #ccc; 
+                border-radius: 4px; 
+                width: 90%; 
+                font-size: 14px; 
+                box-sizing: border-box; 
+            }
+
+            .newsletter-subscription-form button {
+                background-color: #00aaff;
+                color: rgb(255, 255, 255);
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px; 
+                width: auto; 
+                min-width: 100px; 
+            }
+
+            .designer ul{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .designer ul li{
+                list-style: none;
+            }
+
+            .designer ul li, .by p a{
+                text-decoration: none;
+                
+            }
+
+            .by p a:hover{
+                color: #305cd6;
+            }
+
+            .by p {
+                margin-right: 30px;
+            }
+
+            .by p a {
+                color: #970a50;
+            }
+
+            @media (max-width: 768px) {
+                .footer {
+                    width: 100%;
+                }
+
+                .card-grid-footer{
+                    flex-direction: column; 
+                    align-items: center;
+                    gap: 20px;      
+                }
+
+                .newsletter-subscription-form h3 {
+                    margin-left: 0;
+                }
+
+                .card-body-about {
+                    width: auto;
+                }
+                
+
+                .first-footer ul{
+                    flex-direction: column; 
+                    align-items: center;
+                    margin-bottom: 0;
+                    gap: 20px;
+                }
+                .card-contact-us {
+                    align-items: center;                             
+                }
+
+                .card-body-contact {
+                    align-items: justify;
+                    justify-content: start;
+                    margin-left: 75px;
+                }
+
+                .card-about {
+                    display: flex;
+                    flex-direction: column;
+                    flex-direction: column; 
+                    align-items: center;     
+                }
+
+                .card-body-about {
+                    width: auto;
+                    align-items: center;
+                }
+
+                .newsletter-subscription-form {
+                    width: auto;
+                    display: flex;
+                    flex-direction: column;
+                    flex-direction: column; 
+                    align-items: center; 
+                    margin-bottom: 50px; 
+           
+                }
+
+                .newsletter-subscription-form form {
+                    align-items: center;
+                    
+                }
+            }
+
+            @media (max-width: 1024px) and (min-width: 769px) {
+                .card-grid-footer{
+                    display: grid;
+                    grid-template-columns: repeat(2, minmax(500px, 1fr));
+                    justify-content: space-between;
+                    align-content: space-between;
+                    gap: 10px;    
+                }
+
+            }
+
+        </style>
+        
     </footer>
 
     {% bootstrap_javascript %}
@@ -445,6 +737,8 @@ document.addEventListener('click', function (e) {
             document.querySelector('.footer').innerHTML += ` ${currentYear}`;
         });
     </script>
+
+    
 
 </body>
 

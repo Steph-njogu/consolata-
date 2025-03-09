@@ -95,9 +95,9 @@
         }
 
         /* Mobile Adjustments */
-        @media (max-width: 768px) {
+    @media (max-width: 768px) {
 
-            body, html {
+        body, html {
             padding-top: 0;
             margin: 0;
             height: 100%;
@@ -111,26 +111,26 @@
             max-width: 100%;
             padding-bottom: 0;
         }
-            .carousel-item img {
-                height: 100%; 
-                width: 100%;
-            }
+        .carousel-item img {
+            height: 100%; 
+            width: 100%;
+        }
 
-            .carousel-inner {
+        .carousel-inner {
             height: 100%;
             width: 100%;
         }
 
-            .prev-icon, .next-icon {
-                font-size: 40px; 
-                width: 50px;
-                height: 50%;
-            }
-
-            .prev-icon:hover, .next-icon:hover {
-                color: rgb(115, 255, 0);
-            }
+        .prev-icon, .next-icon {
+            font-size: 40px; 
+            width: 50px;
+            height: 50%;
         }
+
+        .prev-icon:hover, .next-icon:hover {
+            color: rgb(115, 255, 0);
+        }
+    }
 
         @media (min-width: 769px) and (max-width: 1024px) {
             .carousel-item img {
@@ -197,8 +197,8 @@
 
         .wordings, .photo-box {
             width: 48%;
-            min-width: 300px; /* Ensures it adapts on smaller screens */
-            height: 450px;
+            min-width: 300px; 
+            height: 500px;
             margin-bottom: 20px;
             border-bottom: 4px solid blue;
         }
@@ -222,7 +222,7 @@
             padding-right: 50px;
         }
 
-        .read{
+        .read { 
             color: blueviolet;
             text-decoration: none;
         }
@@ -276,40 +276,37 @@
             }
 
             .wordings, .photo-box {
-            width: 100%;
-            min-width: auto; 
-            height: 450px;
-            margin-bottom: 0;
-            border-bottom: 0;
-        }
-        .boxes {
+                width: 100%;
+                min-width: auto; 
+                height: 450px;
+                margin-bottom: 0;
+                border-bottom: 0;
+            }
+
+            .boxes {
                 gap: 0px;
             }
         }
 
         @media (min-width: 1025px) and (max-width: 1200px){
             .wordings, .photo-box {
-            width: 48%;
-            min-width: 300px; /* Ensures it adapts on smaller screens */
-            height: 510px;
-            margin-bottom: 0;
-            border-bottom: 3px solid blue;
-        }
+                width: 48%;
+                min-width: 300px; 
+                height: 510px;
+                margin-bottom: 0;
+                border-bottom: 3px solid blue;
+            }
 
-        .wordings p {
-            text-align: start;
-            font-size: 15px;
-            padding-right: 50px;
-        }
-
+            .wordings p {
+                text-align: start;
+                font-size: 15px;
+                padding-right: 50px;
+            }
         }
     </style>
 </section>
 
-
 <hr>
-
-
 
 <!--2. Two Cards Section -->
 <section>
@@ -349,56 +346,56 @@
     <style>
         .two-card-container {
             width: 100%;
-            background-image: url('path-to-background-image.jpg'); /* Replace with actual background image */
+            background-image: url('path-to-background-image.jpg'); 
             position: relative;
             
         }
 
         .card1 {
             overflow: hidden;
-            position: relative; /* Removed absolute positioning to prevent overlap */
+            position: relative; 
             background: url("{% static 'admin/img/IMG_20240706_132833.jpg' %}");
             background-size: cover;
             background-position: calc(100%);
             width: 400px;
             height: 300px;
             margin-top: 50px;
-            margin-left: 300px; /* Added margin to space out cards */
+            margin-left: 300px; 
         }
 
         .card1::before {
-            content: ""; /* Empty content for pseudo-element */
-            position: absolute; /* Position it over the card */
+            content: ""; 
+            position: absolute; 
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
-            z-index: 1; /* Ensure the overlay is above the image but below the content */
+            background-color: rgba(0, 0, 0, 0.5); 
+            z-index: 1; 
         }
 
         .card2 {
             overflow: hidden;
-            position: relative; /* Removed absolute positioning to prevent overlap */
+            position: relative; 
             background: url("{% static 'admin/img/IMG_20240706_132833.jpg' %}");
             background-size: cover;
             background-position: calc(100%);
             width: 400px;
             height: 300px;
             margin-top: -180px;
-            margin-left: 600px; /* Added margin to space out cards */
-            z-index: 1;/*  above the image card1 */
+            margin-left: 600px; 
+            z-index: 1;
             
         }
         .card2::before {
-            content: ""; /* Empty content for pseudo-element */
-            position: absolute; /* Position it over the card */
+            content: ""; 
+            position: absolute; 
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
-            z-index: 1; /* Ensures the overlay is above the image but below the content */
+            background-color: rgba(0, 0, 0, 0.5); 
+            z-index: 1; 
         }
 
 
@@ -407,10 +404,10 @@
             padding-left: 40px;
             padding-top: 20px;
             font-weight: bolder;
-            position: relative; /* Move text above the overlay */
-            z-index: 2; /* Ensure text appears above overlay */
-            color: white; /* Text color */
-            font-size: 28px; /* Adjust text size */
+            position: relative; 
+            z-index: 2; 
+            color: white; 
+            font-size: 28px; 
             
         }
 
@@ -421,14 +418,14 @@
         }
 
         .card-links ul {
-            list-style-type: none; /* Removes default list styling */
+            list-style-type: none; 
             padding: 0;
             margin: 0;
         }
 
         .card-links li {
             display: flex;
-            flex-direction: column; /* Stacks links vertically */
+            flex-direction: column; 
             align-items: start;
             padding-left: 20px;
             z-index: 4;
@@ -438,15 +435,15 @@
             text-decoration: none;
             color: white;
             font-size: 20px; 
-            margin-bottom: 10px; /* Space between links */
-            transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
+            margin-bottom: 10px; 
+            transition: color 0.3s ease, transform 0.3s ease; 
             font-weight: bold;
             z-index: 4;
         }
 
         .card-links a:hover {
             color: #FFD700; 
-            transform: translateX(5px); /* Slight move effect on hover */
+            transform: translateX(5px); 
         }
 
         /* Responsive adjustments for cards */
@@ -458,7 +455,7 @@
             }
 
             .card1 {
-                width: 100%; /*  cards full-width on smaller screens */
+                width: 100%; 
                 height: auto; 
                 margin-left: 10px;
                 margin-right: 10px;
@@ -466,9 +463,9 @@
             }
 
             .card2 {
-                width: 100%; /* cards full-width on smaller screens */
+                width: 100%; 
                 height: auto; 
-                margin-top: 20px; /* Space between stacked cards */
+                margin-top: 20px; 
                 margin-left: 10px;
                 margin-right: 10px;
             }
@@ -482,7 +479,7 @@
             }
 
             .card1 {
-                width: 100%; /* Make cards full-width on smaller screens */
+                width: 100%; 
                 height: 100%; 
                 margin-top: 10px; 
                 margin-left: 10px;
@@ -908,38 +905,24 @@
             <div class="box"></div>
             <div class="box"></div>
         </div>
-    
+
         <hr class="line1">
         <hr class="line2">
-    
+
         <div class="icons">
-            <button id="arrow-left" class="arrow-icon" onclick="moveContent(-1)">←</button>
-            <button id="arrow-right" class="arrow-icon" onclick="moveContent(1)">→</button>
+            <button id="arrow-left" class="arrow-icon" onclick="moveContent(-400)">←</button>
+            <button id="arrow-right" class="arrow-icon" onclick="moveContent(400)">→</button>
         </div>
     </div>
-    
+
     <script>
-        let currentIndex = 0;
+
         const schoolsRow = document.querySelector('.schools-row');
-        const schoolsBoxes = document.querySelectorAll('.schools-row .box');
-        const schoolsRowCount = schoolsBoxes.length;
-        const schoolsRowWidth = schoolsBoxes[0].offsetWidth + 10; // Assuming 10px margin
-    
-        function moveContent(direction) {
-            currentIndex += direction;
-    
-            if (currentIndex < 0) {
-                currentIndex = 0;
-            } else if (currentIndex >= schoolsRowCount) {
-                currentIndex = schoolsRowCount - 1;
-            }
-    
-            const translateX = -currentIndex * schoolsRowWidth;
-            schoolsRow.style.transform = `translateX(${translateX}px)`;
-            schoolsRow.style.transition = "transform 0.5s ease-in-out";
+
+        function moveContent(distance) {
+            schoolsRow.scrollBy({ left: distance, behavior: 'smooth' });
         }
-    </script>
-    
+    </script> 
 
     <style>
         .schools-container {
@@ -985,7 +968,7 @@
             z-index: 1; 
         }
 
-        .line1{
+        .line1 {
             opacity: 0;
             border: 2px solid;
             color: #000000;
@@ -1016,13 +999,12 @@
             border: none;
             cursor: pointer;
             transition: background-color 0.3s ease; 
-            }
+        }
 
-            .arrow-icon:hover{
-                color: #033857;
-            }
-
-       
+        .arrow-icon:hover {
+            color: #033857;
+        }
+      
 
         @media (max-width: 768px) {
             .schools-container {
@@ -1051,20 +1033,20 @@
                 opacity: 1;
             }
 
-            .icons{
-            display: flex;
-            justify-content: space-between;
-            margin: 0 43%;
-            margin-top: -66px;
-            position: relative; 
-        }
+            .icons {
+                display: flex;
+                justify-content: space-between;
+                margin: 0 43%;
+                margin-top: -66px;
+                position: relative; 
+            }
 
-        .arrow-icon {
-            color: #02ff02;
-            font-size: 40px;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease; 
+            .arrow-icon {
+                color: #02ff02;
+                font-size: 40px;
+                border: none;
+                cursor: pointer;
+                transition: background-color 0.3s ease; 
             }
 
         }
@@ -1075,6 +1057,7 @@
             }
         }
     </style>
+
 </section>
 
 
@@ -1269,6 +1252,21 @@
         </div>
     </div>
 
+    <script>
+        // Adjust scrolling for the news row
+        const scrollLeftBtn = document.getElementById('scroll-left');
+        const scrollRightBtn = document.getElementById('scroll-right');
+        const newsRow = document.querySelector('.news-row');
+
+        scrollLeftBtn.addEventListener('click', function () {
+            newsRow.scrollBy({ left: -300, behavior: 'smooth' });
+        });
+
+        scrollRightBtn.addEventListener('click', function () {
+            newsRow.scrollBy({ left: 300, behavior: 'smooth' });
+        });
+    </script>
+
     <style>
         .latest-news-container {
             padding-top: 40px;
@@ -1364,29 +1362,16 @@
         /* Media Query Adjustments for Smaller Screens */
         @media (max-width: 768px) {
             .news-row {
-                flex-direction: column; /* Stack articles vertically on smaller screens */
+                flex-direction: column; 
             }
 
             .card-news {
-                width: 100%; /* Make each card take full width on small screens */
+                width: 100%; 
             }
         }
     </style>
 
-    <script>
-        // Adjust scrolling for the news row
-        const scrollLeftBtn = document.getElementById('scroll-left');
-        const scrollRightBtn = document.getElementById('scroll-right');
-        const newsRow = document.querySelector('.news-row');
-
-        scrollLeftBtn.addEventListener('click', function () {
-            newsRow.scrollBy({ left: -300, behavior: 'smooth' });
-        });
-
-        scrollRightBtn.addEventListener('click', function () {
-            newsRow.scrollBy({ left: 300, behavior: 'smooth' });
-        });
-    </script>
+    
 </section>
 
 
@@ -1612,12 +1597,13 @@
         
         @media (max-width: 768px) {
             .faculty {
-            padding: 100px 15px;    
-        }
+                padding: 100px 15px;    
+            }
+
             .faculty-row {
                 display: block;       
             }
-
+        
             .facultybox{
                 margin-bottom: 20px;
             }
@@ -1629,7 +1615,7 @@
     </style>
 </section>
  
-
+<!-- Upcoming Events Section -->
 
 <!-- Upcoming Events Section -->
 <div class="upcoming-events-section py-5 ">
