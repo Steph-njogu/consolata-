@@ -3,6 +3,7 @@ from users.models import User
 import taggit.managers
 from django.utils.text import slugify
 from django.utils import timezone
+from django.urls import reverse
 
 
 class Author(models.Model):
@@ -20,7 +21,6 @@ class Author(models.Model):
         return self.name
 
 
-
 class Category(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
@@ -33,7 +33,6 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-
 
 
 class Publisher(models.Model):
@@ -62,6 +61,7 @@ class EBook(models.Model):
     e_book_file = models.FileField(blank=True, null=True, upload_to='ebooks/')
     cover_image = models.ImageField(blank=True, null=True, upload_to='book_covers/')
     slug = models.SlugField(blank=True, unique=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     
     # ForeignKey fields
     author = models.ForeignKey(Author, null=True, on_delete=models.SET_NULL)
@@ -78,8 +78,6 @@ class EBook(models.Model):
 
     def __str__(self):
         return self.title
-
-
 
 
 class LibraryUser(models.Model):
@@ -143,3 +141,32 @@ class EBookDownload(models.Model):
 
     def __str__(self):
         return f"Download by {self.user}"
+    
+#departments notes
+class Department(models.Model):
+    name = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=200)
+
+    def __str__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+        return reverse ('library:notes_list_by_department', args=[self.slug])
+
+
+#Students notes
+class Note(models.Model):
+    course = models.CharField(max_length=200)
+    lecturer = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=200)
+    updated = models.DateTimeField(auto_now_add=True)
+    yearOfStudy = models.CharField(max_length=200)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    file = models.FileField(upload_to='documents/')
+    approved = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"Added {self.course} notes by {self.lecturer}."
+    
+    def get_absolute_url(self):
+        return reverse ('library:notes_detail', args=[self.id, self.slug])

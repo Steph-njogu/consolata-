@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import LibraryUserRegistrationForm
 from django.db.models import Q
-from .models import EBook, EBookLoan, Category, EBookHistory, EBookDownload
+from .models import EBook, EBookLoan, Category, EBookHistory, EBookDownload, Note, Department
 from django.utils import timezone
 from django.core.paginator import Paginator
 from django.http import HttpResponse
@@ -46,7 +46,6 @@ def category_list(request):
     })
 
 
-
 # Detail view for a specific eBook
 def ebook_detail(request, slug):
     ebook = get_object_or_404(EBook, slug=slug)
@@ -82,6 +81,7 @@ def ebook_download(request, ebook_id):
     response['Content-Disposition'] = f'attachment; filename="{ebook.title}.pdf"'
     return response
 
+
 @staff_member_required
 def ebook_history_list(request):
     history = EBookHistory.objects.filter(user=request.user.libraryuser, action='Downloaded').order_by('-date_added')
@@ -100,7 +100,7 @@ def search_books(request):
             Q(category__name__icontains=query)
         ).distinct()
     else:
-        books = EBook.objects.none()  # Return no books if the query is empty
+        books = EBook.objects.none()  
 
 
     # Pagination
@@ -108,14 +108,37 @@ def search_books(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'library/recommendation_list.html', {
+    return render(request, 'library/search_books.html', {
         'books': books,
         'page_obj': page_obj,
         'query': query  
     })
 
+# students notes lists
+def notes_list(request):
+    department_slug = request.GET.get('department', None)
 
+    if department_slug == 'all':
+        notes = Note.objects.filter(approved=True)
+    elif department_slug:
+        department = get_object_or_404(Department, slug=department_slug)
+        notes = Note.objects.filter(department = department)
+    else:    
+        notes = Note.objects.all()
 
+    departments = Department.objects.all()
+
+    return render(request, 'library/notes_list.html', {
+        'departments': departments,
+        'notes': notes,
+    })
+
+#Notes detail
+def notes_detail(request, id, slug):
+    note = get_object_or_404(Note, id=id, slug=slug)
+    return render (request, 'library/notes_detail.html', {'note', note})
+
+    
 
 
 

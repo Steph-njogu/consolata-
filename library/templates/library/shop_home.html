@@ -31,7 +31,6 @@
             width: 100%;
             position: sticky;
             top: 0;
-            margin-bottom: 40px;
         }
 
         nav .logo {
@@ -77,6 +76,30 @@
         nav ul li a:hover {
             background-color: #2b8cfc;
             border-radius: 4px;
+        }
+
+        .search-bar input{
+            padding: 4px;  
+            width: 400px;
+            border-radius: 2px;
+            border: 1px solid black;
+            margin-right: 10px;
+            font-style: normal;
+            font-size: small;             
+        }
+
+        .search-bar input::placeholder { 
+            padding: 0 10px;
+            margin: 0;
+        }
+
+        .search-bar button {
+            padding: 3px 6px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 10px;
         }
 
         /* Hamburger Icon (Visible only in small screens) */
@@ -140,7 +163,6 @@
 
         /* Footer */
         .footer {
-            margin-top: 40px;
             opacity: 0;
             visibility: hidden;
             background-color: #858484;
@@ -177,22 +199,6 @@
             nav ul {
                 display: none;
                 width: 100%;
-            }
-
-            .search-bar-top input {
-                padding: 3px;
-                border-radius: 2px;
-                border: none;
-                margin-right: 5px;
-            }
-
-            .search-bar-top button {
-                padding: 3px 6px;
-                background-color: #4CAF50;
-                border: none;
-                color: white;
-                cursor: pointer;
-                border-radius: 2px;
             }
 
             .search-bar input {
@@ -241,19 +247,17 @@
             </a>
         </div>
 
-        <!-- Desktop Navbar Links -->
-        <ul id="navbarLinks">
-            <li><a href="{% url 'library:home' %}">Home</a></li>
-            <li><a href="{% url 'library:notes_list' %}">Library</a></li>
-            <li><a href="{% url 'timetable:timetable_view' %}">Timetable</a></li>
-            <li><a href="{% url 'admission:admission_student' %}">Student Portal</a></li>
-            <li><a href="{% url 'admission:admission_staff' %}">Lecturer Portal</a></li>
-            <li><a href="{% url 'library:category_list' %}">Bookshop</a></li>
-        </ul>
+        <!-- Search Form for Offcanvas -->
+        <div class="search-bar">
+            <form action="{% url 'library:search_books' %}" method="get">
+                <input type="search" name="q" placeholder="Search" aria-label="Search" value="{{ request.GET.q }}">
+                <button type="submit" aria-label="Search for content">Search</button>
+            </form>
+        </div>
 
 
         <div class="user-profile">
-            <img src="#" alt="Profile" class="profile-icon">
+            <img src="#" alt="Your cart" class="profile-icon">
         </div>
     </nav>
 
@@ -272,13 +276,7 @@
                 <li><a href="{% url 'admission:admission_staff' %}">Lecturer Portal</a></li>
             </ul>
 
-            <!-- Search Form for Offcanvas -->
-            <div class="search-bar-top">
-                <form action="{% url 'library:search_books' %}" method="get">
-                    <input type="search" name="q" placeholder="Search" aria-label="Search" value="{{ request.GET.q }}">
-                    <button type="submit" aria-label="Search for content">Search</button>
-                </form>
-            </div>
+            
         </div>
     </div>
 

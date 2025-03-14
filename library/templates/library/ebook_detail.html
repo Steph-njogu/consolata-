@@ -1,169 +1,118 @@
-{% extends 'library/home.html' %}
+{% extends 'library/shop_home.html' %}
 {% load django_bootstrap5 %}
+{% load crispy_forms_tags %}
+
 {% block title %}
-    {{ ebook.title }} by {{ ebook.author }}
+    {{ebook.title}} 
 {% endblock %}
 
 {% block content %}
-<style>
-    /* Ebook Detail Layout */
-    .main-content {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 80px;
-        padding: 30px;
-    }
 
-    /* Ebook Section */
-    .col-md-8 {
-        flex: 3;
-        padding-right: 20px;
-    }
+<div class="shop-detail">
 
-    .col-md-8 h1 {
-        color: #ffffff;
-        font-size: 2.5rem;
-    }
-
-    .col-md-8 p {
-        font-size: 1.1rem;
-        color: #666;
-    }
-
-    .col-md-8 .btn {
-        background-color: #4CAF50;
-        color: white;
-        padding: 12px 25px;
-        font-size: 1.1rem;
-        border-radius: 5px;
-    }
-
-    .col-md-8 .btn:hover {
-        background-color: #45a049;
-    }
-
-    /* Sidebar Section */
-    .sidebar-container {
-        flex: 1;
-        position: sticky;
-        top: 20px;
-    }
-
-    .sidebar {
-        background-color: #ffffff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    .sidebar .card-header {
-        background-color: #f8f9fa;
-        color: #333;
-        font-size: 1.25rem;
-        font-weight: bold;
-    }
-
-    .sidebar .card-body a {
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        margin-bottom: 15px;
-        color: #343a40;
-    }
-
-    .sidebar .card-body a:hover {
-        color: #007bff;
-    }
-
-    .sidebar .card-body a img {
-        width: 60px;
-        margin-right: 20px;
-        border-radius: 8px;
-    }
-
-    .sidebar .list-group-item {
-        background-color: #f7f7f7;
-        border: 1px solid #ddd;
-        padding: 10px;
-        border-radius: 8px;
-    }
-
-    .sidebar .list-group-item:hover {
-        background-color: #e1e1e1;
-    }
-
-    .sidebar .list-group-item img {
-        width: 45px;
-        height: 70px;
-        margin-right: 10px;
-        border-radius: 6px;
-    }
-
-    @media (max-width: 768px) {
-        .main-content {
-            flex-direction: column;
-            padding: 20px;
-        }
-
-        .sidebar-container {
-            margin-top: 20px;
-        }
-    }
-</style>
-
-<div class="container">
-    <div class="row main-content">
-        <!-- Ebook Details Section -->
-        <div class="col-md-8">
-            <h1>{{ ebook.title }}</h1>
-            <p><strong>Author:</strong> {{ ebook.author.name }}</p>
-            <p><strong>Category:</strong> <a href="{% url 'library:category_list' %}">{{ ebook.category.name }}</a></p>
-            <p>{{ ebook.description }}</p>
-            {% if ebook.e_book_file %}
-                <a href="{{ ebook.e_book_file.url }}" class="btn btn-success btn-lg" download>Download eBook</a>
-            {% endif %}
+    <div class="box">
+        {% if ebook %}
+        <div class="book-box">   
+            <img src="{% if ebook.cover_image %}{{ ebook.cover_image.url }}{% endif %} ">
         </div>
+            
 
-        <!-- Sidebar Section: Recommended Books & My Downloads -->
-        <div class="col-md-4 sidebar-container">
-            <div class="card sidebar">
-                <div class="card-header">
-                    <h5>Recommended Books</h5>
-                </div>
-                <div class="card-body">
-                    {% for recommended_book in recommended_books %}
-                        <a href="{% url 'library:ebook_detail' recommended_book.slug %}" class="text-dark">
-                            <img src="{{ recommended_book.cover_image.url }}" class="rounded" style="width: 50px; height: 75px;">
-                            <div>
-                                <p>{{ recommended_book.title }}</p>
-                                <small>{{ recommended_book.author.name }}</small>
-                            </div>
-                        </a>
-                    {% empty %}
-                        <p>No recommendations available.</p>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <div class="card sidebar mt-4">
-                <div class="card-header bg-success text-white">
-                    <h5>My eBook Downloads</h5>
-                </div>
-                <div class="card-body">
-                    {% for download in user_downloads %}
-                        <a href="{{ download.ebook.e_book_file.url }}" class="d-flex align-items-center mb-3 text-dark">
-                            <img src="{{ download.ebook.cover_image.url }}" class="rounded-circle" style="width: 50px; height: 75px;">
-                            <div>
-                                <p>{{ download.ebook.title }}</p>
-                                <small>Downloaded on {{ download.download_date|date:"M d, Y" }}</small>
-                            </div>
-                        </a>
-                    {% empty %}
-                        <p>No downloads found.</p>
-                    {% endfor %}
-                </div>
-            </div>
+        <div class="text-description">
+            <h2> {{ ebook.title }} </h2>
+            <h3> {{ category.name.capitalize }} </h3>
+            <p class="price"> Ksh.{{ ebook.price }} </p>
+            <p class="description"> {{ ebook.description|linebreaks }}</p>
         </div>
+        {% endif %}
+    </div>
+    
+    <div class="recommended">
+        <h2>Recommended</h2>
+        <div class="items-box">
+            {% for book in recommended_books %}
+            <div class="book-boxes" onclick="window.location.href='{% url 'library:ebook_detail' book.slug %}'">
+                <img src="{% if book.cover_image %}{{ book.cover_image.url }}{% endif %} ">
+    
+                <br>
+                {{book.title|truncatewords:5}}
+                <br>
+                Ksh.{{ book.price }} 
+            </div>
+            {% endfor %}
+        </div>
+            
+        </div>   
     </div>
 </div>
+
+
+
+<style>
+    
+    .shop-detail {
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    .box {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(200px, 1fr));
+        width: 100%;
+        margin-top: 30px;
+        margin-bottom: 100px;
+    }
+
+    .book-box img {
+        width: 500px;
+        height: 500px;
+        object-fit: cover;
+        border-bottom: 0 solid #ddd;
+    }
+
+    .text-description {
+        width: 100%;
+    }
+
+    .recommended {
+        width: 100%;
+        padding: 0 20px;
+        background-color: rgb(255, 255, 255);
+    }
+
+    .items-box {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(200px, 1fr));
+        gap: 20px;
+        margin-top: 30px; 
+    }
+
+    .book-boxes {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgb(255, 255, 255);
+        overflow: hidden;
+        transition: all 0.3s ease;
+        margin-bottom: 20px;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column; 
+        justify-content: space-between; 
+        font-size: small;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+
+    .book-boxes img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-bottom: 0 solid #ddd;
+    }
+
+    .book-boxes:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    
+</style>
 {% endblock %}

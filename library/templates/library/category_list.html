@@ -1,234 +1,201 @@
-{% extends 'library/home.html' %}
+{% extends 'library/shop_home.html' %}
 {% load django_bootstrap5 %}
 {% load crispy_forms_tags %}
 
 {% block title %}
-    Library Book List
+    {% if category %}{{category.name}} {% else %} Consolata Bookshop {% endif %}
 {% endblock %}
 
 {% block content %}
-<style>
-    /* Body Styling */
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f8f9fa;
-        color: #333;
-        overflow-x: hidden; /* Prevent horizontal scroll when sidebar is collapsed */
-        margin: 0;
-    }
-
-    /* Sidebar Styles */
-    .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 250px;
-        background-color: #343a40;
-        padding-top: 20px;
-        transition: all 0.4s ease;
-        z-index: 1000;
-    }
-
-    .sidebar.collapsed {
-        width: 80px; /* Reduced width for collapsed state */
-        padding: 20px 0;
-    }
-
-    .sidebar .category-item {
-        padding: 12px 15px;
-        color: white;
-        text-decoration: none;
-        font-size: 1.1rem;
-        display: flex;
-        align-items: center;
-        opacity: 1;
-        transition: opacity 0.3s ease, padding 0.3s ease;
-    }
-
-    .sidebar.collapsed .category-item {
-        opacity: 0;
-        padding-left: 15px;
-    }
-
-    .sidebar .category-item:hover {
-        background-color: #495057;
-        color: #ffc107;
-    }
-
-    .sidebar .category-item.active {
-        background-color: #007bff;
-        font-weight: bold;
-    }
-
-    .sidebar .category-item i {
-        margin-right: 10px;
-        font-size: 1.2rem;
-    }
-
-    /* Sidebar Toggle Button */
-    .sidebar-toggle {
-        position: absolute;
-        top: 10px;
-        right: -40px;
-        background-color: #007bff;
-        color: white;
-        font-size: 20px;
-        padding: 10px;
-        border-radius: 50%;
-        border: none;
-        cursor: pointer;
-        z-index: 1001;
-    }
-
-    .sidebar-toggle:hover {
-        background-color: #0056b3;
-    }
-
-    /* Main Content Styling */
-    .content-container {
-        margin-left: 250px;
-        padding: 20px;
-        transition: margin-left 0.4s ease, padding 0.4s ease;
-    }
-
-    .content-container.collapsed {
-        margin-left: 80px; /* Adjust content area to accommodate collapsed sidebar */
-    }
-
-    h2 {
-        font-size: 2rem;
-        font-weight: bold;
-        color: #343a40;
-    }
-
-    /* Table Styles */
-    table {
-        width: 100%;
-        margin-top: 20px;
-        border-collapse: collapse;
-        background-color: white;
-        border-radius: 10px;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-    }
-
-    table th, table td {
-        padding: 15px;
-        text-align: left;
-        border: 1px solid #ddd;
-        font-size: 1rem;
-    }
-
-    table th {
-        background-color: #007bff;
-        color: white;
-    }
-
-    table td {
-        background-color: #f8f9fa;
-    }
-
-    table tr:hover {
-        background-color: #f1f1f1;
-    }
-
-    /* Action Button Styles */
-    .btn-info {
-        background-color: #007bff;
-        border-color: #007bff;
-        color: white;
-        padding: 5px 15px;
-        text-decoration: none;
-        border-radius: 5px;
-        transition: background-color 0.3s ease;
-    }
-
-    .btn-info:hover {
-        background-color: #0056b3;
-        border-color: #004085;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-        .sidebar {
-            width: 200px;
-        }
-
-        .content-container {
-            margin-left: 0;
-        }
-
-        /* Adjust table layout for smaller screens */
-        table th, table td {
-            padding: 12px;
-            font-size: 0.9rem;
-        }
-    }
-</style>
-
-<div class="container-fluid">
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <!-- Sidebar Toggle Button -->
-        <button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()">&#9776;</button>
-        
-        <div class="categories">
-            <!-- 'All Categories' Link -->
+<div class="shop-container">
+    <div class="shop-sidebar">
+        <h2>Categories</h2>
+        <div class="category">
             <a href="{% url 'library:category_list' %}?category=all" class="category-item {% if request.GET.category == 'all' %}active{% endif %}">
-                <i class="bi bi-house-door"></i> All Categories
+                <i class="bi bi-house-door"></i> All 
             </a>
-    
+
             <!-- Loop through categories -->
             {% for category in categories %}
                 <a href="{% url 'library:category_list' %}?category={{ category.slug }}" class="category-item {% if request.GET.category == category.slug %}active{% endif %}">
-                    <i class="bi bi-book"></i>{{ category.name }}
+                    <i class="bi bi-book"></i>{{ category.name.capitalize }}
                 </a>
             {% endfor %}
         </div>
     </div>
 
-    <!-- Main Content Area -->
-    <div class="content-container" id="contentContainer">
-        <h2>Books in Library</h2>
+    
+    
+    <div class="content-shop">
+        
+        <h2> {% if category %}{{ category.name }}{% else %} Publications and Journals {% endif %} </h2>
 
-        <!-- Table for books -->
-        <table>
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>Category</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for book in books %}
-                    <tr>
-                        <td>{{ book.title }}</td>
-                        <td>{{ book.author.name }}</td>
-                        <td>
-                            <a href="{% url 'library:category_list' %}?category={{ book.category.slug }}">
-                                {{ book.category.name }}
-                            </a>
-                        </td>
-                        <td>
-                            <a href="{% url 'library:ebook_detail' book.slug %}" class="btn btn-info btn-sm">View Details</a>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="items-box">
+            {% for book in books %}
+            <div class="book-boxes" onclick="window.location.href='{% url 'library:ebook_detail' book.slug %}'">
+                <img src="{% if book.cover_image %}{{ book.cover_image.url }}{% endif %} ">
+
+                <br>
+                {{book.title|truncatewords:5}}
+                <br>
+                Ksh.{{ book.price }} 
+            </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 
-<script>
-    // Function to toggle sidebar visibility
-    function toggleSidebar() {
-        const sidebar = document.getElementById('sidebar');
-        const contentContainer = document.getElementById('contentContainer');
-        sidebar.classList.toggle('collapsed');
-        contentContainer.classList.toggle('collapsed');
-    }
-</script>
 
+ <!-- Pagination Controls -->
+<section aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        {% if latest_news.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1">&laquo; First</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ latest_news.previous_page_number }}">Previous</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link">Previous</a>
+            </li>
+        {% endif %}
+    
+        <!-- Dynamic page numbers -->
+        {% for i in latest_news.paginator.page_range %}
+            <li class="page-item {% if latest_news.number == i %}active{% endif %}">
+                <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+            </li>
+        {% endfor %}
+    
+        {% if latest_news.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ latest_news.next_page_number }}">Next</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ latest_news.paginator.num_pages }}">Last &raquo;</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link">Next</a>
+            </li>
+        {% endif %}
+    </ul>
+</section>
+
+
+<style>
+    
+    .shop-container{
+        width: 100%;
+        padding: 20px;
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+    }
+
+    .shop-sidebar{
+        width: 20%;
+        padding: 10px 10px;
+        background-color: rgb(255, 255, 255); 
+        justify-content: center;
+        font-size: medium;
+        font-style: normal;
+        text-transform: capitalize; 
+    }
+
+    .category {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding-top: 20px;
+    }
+
+    .category-item {
+        text-decoration: none;
+        color: #000000;
+        padding-left: 10px;
+        transition: color 0.3s ease-in-out;
+    }
+
+    .category-item:hover {
+        color: #00eeffe1; 
+    }
+
+    .category-item.active {
+        font-weight: bold;
+        color: #008cfff8;
+    }
+
+    .content-shop {
+        width: 80%;
+        padding: 0 20px;
+        background-color: rgb(255, 255, 255);
+    }
+
+    .items-box {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(200px, 1fr));
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .book-boxes {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgb(255, 255, 255);
+        overflow: hidden;
+        transition: all 0.3s ease;
+        margin-bottom: 20px;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column; 
+        justify-content: space-between; 
+        font-size: small;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+
+    .book-boxes img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-bottom: 0 solid #ddd;
+    }
+
+    .book-boxes:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+        /* Pagination Controls */
+    .pagination .page-item {
+        margin: 0 5px;
+    }
+
+    .pagination .page-link {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+        border-radius: 50px;
+        transition: background-color 0.3s;
+    }
+
+    .pagination .page-link:hover {
+        background-color: #f1f1f1;
+    }
+
+    .pagination .page-item.active .page-link {
+        background-color: #007bff;
+        color: #fff;
+        border-color: #007bff;
+    }
+
+    .pagination .page-item.disabled .page-link {
+        background-color: #f1f1f1;
+        color: #494949;
+        border-color: #ddd;
+    }
+   
+</style>
 {% endblock %}

@@ -1,0 +1,239 @@
+{% extends 'library/home.html' %}
+{% load django_bootstrap5 %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Notes 
+{% endblock %}
+
+{% block content %}
+<style>
+    /* Body Styling */
+
+    .search-bar form {
+        display: flex;
+        justify-content: center;
+        padding-bottom: 20px;
+    }
+
+    .search-bar input {
+        padding: 2px;  
+        width: 400px;
+        border-radius: 20px;
+        border: 1px solid black;
+        margin-right: 10px;
+        font-style: normal;
+        font-size: small;
+    }
+
+    .search-bar input::placeholder { 
+        padding: 0 10px;
+        margin: 0;
+    }
+
+    .search-bar button {
+        padding: 5px 10px;
+        background-color: #8d8a8a80;
+        border: none;
+        color: rgb(0, 0, 0);
+        cursor: pointer;
+        border-radius: 10px;
+    }
+
+    .search-bar button:hover {   
+        color: rgb(0, 0, 0);
+    }
+
+    .container-library{
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container-library h2 {
+        font-size: 1.7rem;
+        font-weight: bold;
+        color: #004f7c;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+   
+    .departments {
+        display: flex;
+        gap: 10px; 
+        justify-content: center;
+        font-size: 14px;
+        font-style: normal;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    .container-library, .category-item {
+        text-decoration: none;
+        color: #000000;
+        padding-left: 10px;
+        transition: color 0.3s ease-in-out;
+    }
+
+    .category-item:hover {
+        color: #007bffd8; 
+    }
+
+    .category-item.active {
+        font-weight: bold;
+        color: #007bffc0;
+    }
+
+    /* Add vertical line separators */
+    .category-item:not(:last-child)::after {
+        content: "|";
+        color: #202020;
+        margin-left: 10px;
+    }
+
+    .content-container{
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    
+
+    /* Table Styles */
+    .content-container table {
+        width: 100%;
+        line-height: 2.5;
+        background-color: white;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        margin: 0;
+    }
+
+    table th{
+        text-align: justify;
+        padding-left: 15px;
+        border-bottom: 1px solid #ddd;
+        font-size: 1rem;
+    }
+
+    table td {
+        text-align: justify;
+        padding-left: 15px;
+        border-bottom: 1px solid #ddd;
+        font-size: 1rem;
+    }
+
+    table th {
+        background-color: #23bbee;
+        color: white;
+    }
+
+    .content-container table td a {
+        text-decoration: none;
+        color: #000000;
+    }
+
+    table td {
+        background-color: #f8f9fa;
+    }
+
+    table tr:hover {
+        background-color: #f1f1f1;
+    }
+    
+    /* Action Button Styles */
+    .btn {
+        border-color: #007bff;
+        color: white;
+        padding: 5px 10px;
+        text-decoration: none;
+        border-radius: 50px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #4e5052;
+        color: #fffbfb;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        
+        .content-container {
+            margin-left: 0;
+        }
+
+        /* Adjust table layout for smaller screens */
+        table th, table td {
+            font-size: 0.9rem;
+        }
+    }
+</style>
+
+<div class="container-library">
+
+    <h2>Notes</h2>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <form action="{% url 'library:search_books' %}" method="get">
+            <input type="search" name="q"  placeholder="search" aria-label="Search" value="{{ request.GET.q }}">
+            <button type="submit" aria-label="Search for content">Search</button>
+        </form>
+    </div>
+   
+        <div class="departments">
+            <!-- 'All Departments' Link -->
+            <a href="{% url 'library:notes_list' %}?department=all" class="category-item {% if request.GET.department == 'all' %}active{% endif %}">
+                <i class="bi bi-house-door"></i> All Departments
+            </a>
+    
+            <!-- Loop through departments -->
+            {% for department in departments %}
+                <a href="{% url 'library:notes_list' %}?department={{ department.slug }}" class="category-item {% if request.GET.department == department.slug %}active{% endif %}">
+                    <i class="bi bi-book"></i>{{ department.name }}
+                </a>
+            {% endfor %}
+        </div>
+   
+    <!-- Main Content Area -->
+    <div class="content-container">
+        
+
+        <!-- Table for books -->
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Lecturer</th>
+                    <th>Course</th>
+                    <th>Department</th>
+                    <th>YearofStudy</th>
+                    <th>Updated</th>
+                    <th>View</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in notes %}
+                    <tr>
+                        <td>{{ book.id }}</td>
+                        <td>{{ book.lecturer.capitalize }}</td>
+                        <td>{{ book.course.capitalize }}</td>
+                        <td>
+                            <a href="{% url 'library:notes_list' %}?department={{ book.department.slug }}">
+                                {{ book.department.name.capitalize }}
+                            </a>
+                        </td>
+                        <td>{{ book.yearOfStudy }}</td>
+                        <td>{{ book.updated }}</td>
+                        <td>
+                            <a href="{% url 'library:note_detail' book.slug %}" class="btn">Read</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
