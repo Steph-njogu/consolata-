@@ -20,8 +20,18 @@
         <div class="text-description">
             <h2> {{ ebook.title }} </h2>
             <h3> {{ category.name.capitalize }} </h3>
+            
             <p class="price"> Ksh.{{ ebook.price }} </p>
+
+            <form class="add-to-cart-form" action="{% url 'cart:cart_add' ebook.id %}" method="post">
+                {% csrf_token %}
+                {{ cart_product_form }}
+                
+                <input type="submit" value="🛒Add to Cart">
+            </form>
+
             <p class="description"> {{ ebook.description|linebreaks }}</p>
+
         </div>
         {% endif %}
     </div>

@@ -7,6 +7,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="description" content="Consolata International University - Fostering spiritual and intellectual growth in seminarians, with an emphasis on leadership and community service.">
     <title>Consolata International University</title>
 
@@ -17,7 +20,6 @@
             font-family: 'Roboto', sans-serif;
             line-height: 2.0;
             margin: 0;
-            padding: 0;
             margin-bottom: 0;
             background-color: hsl(0, 0%, 100%); 
             display: flex;
@@ -25,32 +27,69 @@
             min-height: 100vh;   
         }
 
-        header {
-            color: #fff;
-            text-align: center;
-         
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2rem;
-            font-family: 'open', sans-serif;
-            text-transform: uppercase;
+        body.devtools-open * {
+            display: none !important;
         }
 
         .navbar-sticky {          
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #0099cc;
-            color: white;
+            background-color: rgba(112, 188, 250, 0); 
+            backdrop-filter: blur(0px); 
             padding: 10px 20px;
-            position: sticky;
+            position: fixed;
+            z-index: 100;
             top: 0;
-            z-index: 1000;
             width: 100%;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            transition: border-bottom 0.3s ease-in-out;
         }
+
+        .navbar-sticky.scrolled {          
+            border-bottom: 2px solid #0099cc;
+            background-color: rgb(255, 255, 255); 
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-sticky ol {
+            display: none;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            justify-content: flex-start;
+        }
+
+        .navbar-sticky.scrolled ol {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            justify-content: flex-start;
+        }
+
+        .navbar-sticky ol li a {
+            color: #0099cc;
+            font-weight: 500;
+            text-decoration: none;
+            padding: 10px 15px;
+            position: relative;
+        }
+
+        .navbar-sticky ol li:not(:last-child) a::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 10%;
+            height: 60%;
+            width: 2px;
+            background-color: #0099cc; 
+            opacity: 1; 
+        }
+
+        .navbar-sticky ol li a:hover {
+            border-bottom: 3px solid #0099cc;
+        }
+
 
         .navbar-sticky .logo {
             display: flex;
@@ -58,11 +97,21 @@
         }
 
         .navbar-sticky .logo a {
-            color: white;
+            color: #0099cc;
             text-decoration: none;
-            font-size: 24px;
+            font-size: 16px;
             font-weight: bold;
             margin-left: 10px;
+        }
+
+        .university-name {
+            display: block;
+            margin-top: -40px;
+            margin-left: 50px ;
+        }
+
+        .university-name .break {
+            display: block; 
         }
 
         .logo img {
@@ -72,17 +121,17 @@
         }
         
         .navbar-scrollable {
-            background-color: #0099cc;
-            color: white;
+            background-color: rgba(112, 188, 250, 0); 
+            backdrop-filter: blur(0px); 
             padding: 0 20px;
             line-height: 3.0;
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 999; /* Ensure the navbar is above other content */
+            z-index: 5;
             width: 100%; 
             position: relative;
-            margin-bottom: 0;
+            padding-top: 70px;
         }
 
         .navbar-scrollable ul {
@@ -94,90 +143,33 @@
         }
 
         .navbar-scrollable ul li {
-            margin: 0 10px;
+            margin: 0;
+            padding: 0;
         }
 
         .navbar-scrollable ul li a {
-            color: white;
+            color: #000000;
+            font-weight: 300;
             text-decoration: none;
-            padding: 10px;
+            padding: 10px 15px;
+            position: relative;
+        }
+
+        .navbar-scrollable ul li:not(:last-child) a::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 10%;
+            height: 80%;
+            width: 2px;
+            background-color: #0099cc; 
+            opacity: 0.7; 
         }
 
         .navbar-scrollable ul li a:hover {
-            background-color: #2b8cfc;
-            border-radius: 4px;
+            border-bottom: 3px solid #0099cc;
         }
-
-        .offcanvas {
-            background-color: #0099cc;
-            color: white;
-            width: 250px;
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            transition: transform 0.3s ease-in-out;
-            transform: translateX(-100%);
-            z-index: 1050;
-        }
-
-        .offcanvas.show {
-            transform: translateX(0);
-        }
-
-        .offcanvas-body ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .offcanvas-body ul li {
-            margin: 10px 0;
-        }
-
-        .offcanvas-body ul li a {
-            display: block;
-            text-decoration: none;
-            color: white;
-            font-size: 1.2rem;
-            padding: 10px;
-            border-radius: 4px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-
-        .offcanvas-body ul li a:hover {
-            background-color: #0077b6; 
-            color: #fff; 
-        }
-
-
-        .offcanvas-body ul li a.active {
-            background-color: #0077b6;
-            color: white;
-        }
-
-        .navbar-toggler {
-            display: none;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        .search-bar input {
-            padding: 3px;
-            border-radius: 2px;
-            border: none;
-        }
-
-        .search-bar button {
-            padding: 3px 6px;
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            cursor: pointer;
-            border-radius: 2px;
-        }
-
+       
         .user-profile img {
             width: 30px;
             height: 30px;
@@ -194,7 +186,7 @@
             border: 1px solid #ddd;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             min-width: 150px;
-            z-index: 1001;
+            z-index: 1;
         }
 
         .profile-dropdown a {
@@ -208,6 +200,56 @@
             background-color: #f8f9fa;
         }
 
+        .navbar-toggler {
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .offcanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 700px;
+            height: 70vh;
+            background-color: #4CAF50;
+            z-index: 9999;
+        }
+
+        .offcanvas-header {
+            background-color: #0099cc;
+            color: white;
+            padding: 15px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .offcanvas-bodys {
+            padding: 10px 20px;
+            overflow-y: auto;
+            height: 100%;
+        }
+
+        .offcanvas-bodys ul  {
+            list-style: none;
+        }
+
+        .offcanvas-bodys ul li {
+            margin: 10px 0;
+        }
+
+        form.d-flex input {
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        form.d-flex button {
+            border-radius: 20px;
+            padding: 8px 15px;
+            background-color: #0099cc;
+            color: white;
+            border: none;
+        }
+
         #mainContent {
             width: 100%;    
         }
@@ -215,112 +257,120 @@
         .body-container{
             margin-top: 0;
             width: 100%;
+            position: relative;
+            z-index: 1;
         }
 
-        /* Responsiveness */
-        @media (max-width: 768px) {
-            .navbar-toggler {
-                body {
-                padding-top: var(--navbar-height, 80px); 
-            }
-    
-                display: block;
-            }
 
-            .offcanvas-body ul li a {
-                font-size: 1.2rem; 
-            }
-
+        @media (max-width: 950px) {
             .navbar-scrollable {
                 display: none; 
             }
 
-            .offcanvas.show {
-                position: fixed;
-                top: 0;
-                left: 0;
-                z-index: 1050;
-                height: 100%;
-                background-color: #0099cc;
+            .navbar-sticky ol li {
+                display: none;
+            }   
+                    
+        }
+
+        @media (min-width: 951px) {
+            .offcanvas {
+                display: none !important;
             }
 
-            .offcanvas-body {
-                padding-top: 10px;
+            .navbar-toggler {
+                display: none; 
             }
+
         }
     </style>
+
+        <!-- Navbar Section (Sticky) -->
+        <nav class="navbar-sticky">
+
+            <!-- Offcanvas Button for Mobile -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+                ☰
+            </button>
+    
+            <div class="logo">
+                <a href="{% url 'home:home' %}">
+                    <img src="{%static 'admin/img/IMG_20240710_105426.jpg'%}" alt="" class="profile"> 
+                    <span class="university-name">
+                        Consolata International <span class="break"> University</span>
+                    </span>
+                </a>
+            </div>
+
+            <ol>
+                <li><a  href="{% url 'home:home' %}" aria-current="page">Home</a></li>
+                <li><a  href="{% url 'blogs:news_home' %}">News</a></li>
+                <li><a  href="{% url 'seminary:seminary_portal' %}">Seminary</a></li>
+                <li><a  href="{% url 'events:diaries_view' %}">Calendar</a></li>
+                {% if user.is_authenticated %}
+                    <li><a  href="{% url 'home:logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a  href="{% url 'users:register1_view' %}">Register</a></li>
+                    <li><a  href="{% url 'users:login' %}">Login</a></li>
+                {% endif %}
+            </ol>
+    
+            
+            <!-- Offcanvas Menu -->
+            <div class="offcanvas" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+                <div class="offcanvas-header">
+                    <h3> Consolata University </h3>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-bodys">
+                    <ul>
+                        <li><a  href="{% url 'home:home' %}" aria-current="page">Home</a></li>
+                        <li><a  href="{% url 'blogs:news_home' %}">News</a></li>
+                        <li><a  href="{% url 'seminary:seminary_portal' %}">Seminary</a></li>
+                        <li><a  href="{% url 'events:diaries_view' %}">Calendar</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a  href="{% url 'home:logout' %}">Logout</a></li>
+                        {% else %}
+                            <li><a  href="{% url 'users:register1_view' %}">Register</a></li>
+                            <li><a  href="{% url 'users:login' %}">Login</a></li>
+                        {% endif %}
+                    </ul>                    
+               
+                    <!-- Search Form -->
+                    <form class="d-flex" method="get" action="#">
+                        <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search" value="{{ request.GET.q }}">
+                        <button class="btn btn-outline-dark" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Profile Dropdown -->
+            <div class="user-profile" onclick="toggleProfileDropdown()">
+                <img src="{%static 'admin/img/IMG_20240710_105426.jpg'%}" alt="Profile" class="profile">
+                <div class="profile-dropdown" id="profileDropdown">
+                    <a href="#">Profile</a>
+                    <a href="{% url 'home:logout' %}">Logout</a>
+                </div>
+            </div>
+        </nav>
+    
+        <!-- Scrollable Navbar Section (Static links) -->
+        <nav class="navbar-scrollable">
+            <ul>
+                <li><a  href="{% url 'home:home' %}" aria-current="page">Home</a></li>
+                <li><a  href="{% url 'blogs:news_home' %}">News</a></li>
+                <li><a  href="{% url 'seminary:seminary_portal' %}">Seminary</a></li>
+                <li><a  href="{% url 'events:diaries_view' %}">Calendar</a></li>
+                {% if user.is_authenticated %}
+                    <li><a  href="{% url 'home:logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a  href="{% url 'users:register1_view' %}">Register</a></li>
+                    <li><a  href="{% url 'users:login' %}">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
 </head>
 
 <body>
-
-    <!-- Navbar Section (Sticky) -->
-    <nav class="navbar-sticky">
-
-        <!-- Offcanvas Button for Mobile -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
-            ☰
-        </button>
-
-        <div class="logo">
-            <a href="{% url 'home:home' %}">
-                <img src="{%static 'admin/img/IMG_20240710_105426.jpg'%}" alt="" class="profile"> Consolata University
-            </a>
-        </div>
-
-       
-
-        <!-- Offcanvas Menu -->
-        <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-            <div class="offcanvas-header">
-                <h3 class="offcanvas-title" id="offcanvasScrollingLabel">Consolata University</h3>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <ul class="navbar-links">
-                    <li class="nav-item"><a class="nav-link active" href="{% url 'home:home' %}" aria-current="page">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'blogs:news_home' %}">News</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'seminary:seminary_portal' %}">Seminary</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'events:diaries_view' %}">Calendar</a></li>
-                    {% if user.is_authenticated %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'home:logout' %}">Logout</a></li>
-                    {% else %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'users:register1_view' %}">Register</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'users:login' %}">Login</a></li>
-                    {% endif %}
-                </ul>
-
-                <!-- Search Form -->
-                <form class="d-flex" method="get" action="#">
-                    <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search" value="{{ request.GET.q }}">
-                    <button class="btn btn-outline-dark" type="submit">Search</button>
-                </form>
-            </div>
-        </div>
-        <!-- Profile Dropdown -->
-        <div class="user-profile" onclick="toggleProfileDropdown()">
-            <img src="{%static 'admin/img/IMG_20240710_105426.jpg'%}" alt="Profile" class="profile">
-            <div class="profile-dropdown" id="profileDropdown">
-                <a href="#">Profile</a>
-                <a href="{% url 'home:logout' %}">Logout</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Scrollable Navbar Section (Static links) -->
-    <nav class="navbar-scrollable">
-        <ul>
-            <li><a  href="{% url 'home:home' %}" aria-current="page">Home</a></li>
-            <li><a  href="{% url 'blogs:news_home' %}">News</a></li>
-            <li><a  href="{% url 'seminary:seminary_portal' %}">Seminary</a></li>
-            <li><a  href="{% url 'events:diaries_view' %}">Calendar</a></li>
-            {% if user.is_authenticated %}
-                <li><a  href="{% url 'home:logout' %}">Logout</a></li>
-            {% else %}
-                <li><a  href="{% url 'users:register1_view' %}">Register</a></li>
-                <li><a  href="{% url 'users:login' %}">Login</a></li>
-            {% endif %}
-        </ul>
-    </nav>
 
     <!-- Main Content Section -->
     <div class="body-container">
@@ -437,7 +487,7 @@
         <div class="designer">
             <ul>
                 <li class="licence"> 
-                    <p>&copy; {{ current_year }} | Consolata University | All Rights Reserved.</p>
+                    <p>&copy; | Consolata University | All Rights Reserved.</p>
                 </li>
                 <li class="by"> 
                     <p>Powered by <a href="mailto:stephennjogu124@gmail.com">StangWeb</a></p>
@@ -456,6 +506,7 @@
                 left: 0;
                 margin: 0;
                 font-size: small;
+                width: 100%;
             }
 
             .footer hr {
@@ -502,7 +553,8 @@
 
             .card-grid-footer{
                 display: flex;
-                flex-wrap: nowrap;
+                width: 100%;
+                flex-wrap: wrap;
                 flex-direction: row;
                 justify-content: space-between; 
                 padding: 0 20px;              
@@ -535,7 +587,7 @@
             }
             
             .card-body-about {
-                width: 400px;
+                width: 100px;
                 margin-left: 0;
             }
 
@@ -544,7 +596,7 @@
             }
 
             .newsletter-subscription-form {
-                width: 200px;
+                width: 100px;
             }
 
             .newsletter-subscription-form h3 {
@@ -607,7 +659,7 @@
                 color: #970a50;
             }
 
-            @media (max-width: 768px) {
+            @media (max-width: 950px) {
                 .footer {
                     width: 100%;
                 }
@@ -671,10 +723,10 @@
                 }
             }
 
-            @media (max-width: 1024px) and (min-width: 769px) {
+            @media (max-width: 1024px) and (min-width: 950px) {
                 .card-grid-footer{
                     display: grid;
-                    grid-template-columns: repeat(2, minmax(500px, 1fr));
+                    grid-template-columns: repeat(2, minmax(200px, 1fr));
                     justify-content: space-between;
                     align-content: space-between;
                     gap: 10px;    
@@ -687,6 +739,18 @@
     </footer>
 
     {% bootstrap_javascript %}
+    <script>
+
+    document.addEventListener('scroll', function () {
+        const navbar = document.querySelector('.navbar-sticky');
+
+        if (window.scrollY > 50) {  // Trigger when scrolled down 50px
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+    </script>
     <script>
 
         // Toggle for the offcanvas menu
@@ -735,13 +799,18 @@ document.addEventListener('click', function (e) {
             document.body.classList.toggle('dark-mode');
             document.querySelector('.navbar').classList.toggle('navbar-dark-mode');
 
-            const currentYear = new Date().getFullYear();
-            document.querySelector('.footer').innerHTML += ` ${currentYear}`;
+
         });
     </script>
-
+    
+    <script>
+       
+    
+       
+    </script>
     
 
+  
 </body>
 
 </html>

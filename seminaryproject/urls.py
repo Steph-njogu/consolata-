@@ -32,6 +32,8 @@ urlpatterns = [
     path('admission/', include('admission.urls')),
     path('timetable/', include('timetable.urls')),
     path('library/', include('library.urls')),
+    path('cart/', include('cart.urls')),
+    path('orders/', include('order.urls')),
     
     
     

@@ -3,25 +3,15 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+
+
 <div class="login-container">
     <div class="login-card">
         <div class="card-header text-center">
             <h3 class="mb-0">Login Page</h3>
         </div>
         <div class="card-body">
-            <p class="text-muted">Enter your username and password.</p>
-
-            {% if form.errors %}
-                <div class="alert alert-danger">
-                    <ul>
-                        {% for field in form %}
-                            {% for error in field.errors %}
-                                <li>{{ error }}</li>
-                            {% endfor %}
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
+            <p class="text-muted">Enter your credentials.</p>
 
             <form method="post" action="{% url 'users:login' %}">
                 {% csrf_token %}
@@ -32,114 +22,197 @@
                 <input type="hidden" name="next" value="{% url 'home:home' %}" />
             </form>
 
-            <div class="mt-3 text-center">
-                <small>Forgot your password? <a href="{% url 'users:password_reset' %}">Reset it here</a>.</small>
-            </div>
+           
         </div>
         <div class="card-footer text-center">
-            <small>Don't have an account? <a href="{% url 'users:register1_view' %}">Register here</a>.</small>
+            <small>Forgot your password? <a href="{% url 'users:password_reset' %}">Reset here</a>.</small>
+            <br>
+            <small>Don't have an account? <a href="{% url 'users:register1_view' %}"> Register</a>.</small>
         </div>
     </div>
 </div>
 
-{% block extra_styles %}
+
 <style>
-    body {
-        font-family: 'Arial', sans-serif;
-        background-color: #f4f7fc;
-        margin: 0;
-        padding: 0;
-    }
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    .login-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        padding: 20px;
-    }
+.footer {
+    display: none;            
+}
 
+.navbar-scrollable {
+    display: none; 
+}
+
+.navbar-sticky {
+    display: none;
+}
+
+.offcanvas {
+    display: none !important;
+}
+
+.navbar-toggler {
+    display: none; 
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 100vw;
+    padding: 20px;
+}
+
+.login-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(7, 157, 184, 0.979);
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+}
+
+
+.card-header {
+    background-color: #036a7c;
+    color: #fff;
+    padding: 15px;
+    font-size: 1.5em;
+    border-radius: 8px 8px 0 0;
+}
+
+.card-body form input {
+    padding: 10px 12px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+    line-height: 1.5; /* Keeps text and placeholder vertically centered */
+}
+
+/* Make sure placeholders are aligned consistently */
+.card-body form input::placeholder {
+    color: #6c757d;
+    opacity: 1; /* Ensure placeholder visibility */
+    font-size: 1em;
+    vertical-align: middle; /* Helps keep placeholder centered */
+}
+
+/* Optionally, fine-tune for crispy forms fields */
+.form-group {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+/* Handle focus styling nicely */
+.card-body form input:focus {
+    border-color: #00b7ff;
+    box-shadow: 0 0 5px rgba(0, 255, 242, 0.774);
+    outline: none;
+}
+
+
+/* Form fields */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.card-body form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card-body form input,
+.card-body form button {
+    padding: 12px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* Button styles */
+.card-body form button {
+    background-color: #28a745;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: 0.3s ease;
+}
+
+.card-body form button:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+/* Footer styling */
+.card-footer {
+    background-color: #f8f9fa;
+    padding: 15px;
+    font-size: 0.9em;
+    color: #6c757d;
+}
+
+.card-footer a {
+    text-decoration: none;
+    color: blue;
+}
+/* Error alerts */
+.alert-danger ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.alert-danger li {
+    list-style-type: circle;
+}
+
+/* Utility classes */
+.text-muted {
+    color: #6c757d !important;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+
+/* Mobile-friendly tweaks */
+@media (max-width: 480px) {
     .login-card {
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         width: 100%;
-        max-width: 420px;
-        padding: 20px;
+        padding: 15px;
     }
 
     .card-header {
-        background-color: #007bff;
-        color: #fff;
-        padding: 15px;
-        font-size: 1.5em;
-        border-radius: 8px 8px 0 0;
-    }
-
-    .card-body {
-        padding: 20px;
-    }
-
-    .card-body p {
-        font-size: 1.1em;
-        margin-bottom: 20px;
-        color: #555;
-    }
-
-    .card-body form {
-        display: flex;
-        flex-direction: column;
+        font-size: 1.2em;
     }
 
     .card-body form input,
     .card-body form button {
-        padding: 12px;
-        margin-bottom: 15px;
-        font-size: 1.1em;
-        border-radius: 5px;
-        border: 1px solid #ccc;
+        font-size: 1em;
     }
+}
 
-    .card-body form button {
-        background-color: #28a745;
-        border: none;
-        color: #fff;
-        cursor: pointer;
-        font-size: 1.2em;
-    }
-
-    .card-body form button:hover {
-        background-color: #218838;
-    }
-
-    .card-footer {
-        background-color: #f8f9fa;
-        padding: 15px;
-        font-size: 0.9em;
-        color: #6c757d;
-    }
-
-    .alert-danger ul {
-        margin: 0;
-        padding-left: 20px;
-    }
-
-    .alert-danger li {
-        list-style-type: circle;
-    }
-
-    .text-muted {
-        color: #6c757d !important;
-    }
-
-    .btn-block {
-        width: 100%;
-    }
-
-    .mt-3 {
-        margin-top: 20px;
-    }
 
 </style>
 {% endblock %}
-{% endblock content %}
+
+
+
+

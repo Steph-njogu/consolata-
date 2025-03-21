@@ -3,7 +3,7 @@ from django.contrib import admin
 from .models import Author, Publisher, EBook, LibraryUser, EBookLoan, Category, EBookHistory, EBookDownload,Note,Department
 @admin.register(EBook)
 class EbookAdmin(admin.ModelAdmin):
-    list_display = ['category', 'author', 'title', 'isbn', 'genre']
+    list_display = ['category', 'author', 'title', 'isbn', 'genre', 'price']
     search_fields = ['author', 'title', 'category']
     
 @admin.register(Note)

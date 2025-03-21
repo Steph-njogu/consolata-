@@ -744,6 +744,32 @@ document.addEventListener('click', function (e) {
         });
     </script>
 
+<script>
+    // Block F12, Ctrl+Shift+I, Ctrl+U
+    document.addEventListener("keydown", (e) => {
+        if (
+            e.key === "F12" ||
+            (e.ctrlKey && e.shiftKey && e.key === "I") || 
+            (e.ctrlKey && e.key === "U")
+        ) {
+            e.preventDefault();
+            alert("Inspecting is disabled!");
+        }
+    });
+
+    // Detect DevTools open (clever trick with console timing)
+    const detectDevTools = () => {
+        const threshold = 160;
+        if (window.outerWidth - window.innerWidth > threshold || 
+            window.outerHeight - window.innerHeight > threshold) {
+            alert("Inspection blocked — redirecting!");
+            window.location.href = "/";  // Redirect to home or any safe page
+        }
+    };
+
+    setInterval(detectDevTools, 1000);
+</script>
+
 </body>
 
 </html>

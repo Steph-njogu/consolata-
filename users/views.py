@@ -31,8 +31,6 @@ def register2_view(request):
     return render(request, 'users/register2_view.html', {'form': form})
 
 
-
-
 def register3_view(request):
     if 'step1_data' not in request.session or 'step2_data' not in request.session:
         return redirect ('users:register1_view')

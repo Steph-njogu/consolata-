@@ -17,24 +17,19 @@ def get_categories():
 
 
 # Latest news display at the news page
-def news_home(request):
+def news_home(request, template_name= 'blogs/news_home.html'):
     categories = get_categories()
     latest_news = NewsArticle.objects.all().order_by('-date_added')  # Get all articles ordered by date
 
-    # Check if we're on the homepage (show 6 latest news)
-    if request.path == '/':  # Homepage (home/home.html)
-        latest_news = latest_news[:6]  # Limit to 6 latest news articles
-        paginator = None  # No pagination for homepage
-        
-    else:  # News page with pagination (blogs/news_page.html)
-        paginator = Paginator(latest_news, 10)  # 10 articles per page for the news page
-        page_number = request.GET.get('page')
-        try:
-            page = paginator.get_page(page_number)
-        except PageNotAnInteger:
-            page = paginator.get_page(1)  # Default to first page if not a valid integer
-        except EmptyPage:
-            page = paginator.get_page(paginator.num_pages)  # Handle empty page
+    paginator = Paginator(latest_news, 10)  # 10 articles per page for the news page
+    page_number = request.GET.get('page')
+
+    try:
+        page = paginator.get_page(page_number)
+    except PageNotAnInteger:
+        page = paginator.get_page(1)  # Default to first page if not a valid integer
+    except EmptyPage:
+        page = paginator.get_page(paginator.num_pages)  # Handle empty page
     
     # Canonical URL for SEO purposes
     canonical_url = request.build_absolute_uri(request.path)
@@ -44,15 +39,11 @@ def news_home(request):
     # Pass data to templates
     context = {
         'categories': categories,
-        'latest_news': page if paginator else latest_news,  # Use page object for paginated news
+        'latest_news': page,
         'canonical_url': canonical_url,
     }
 
-    # Render the appropriate template based on the request path
-    if request.path == '/':
-        return render(request, 'home/home.html', context)  
-    else:
-        return render(request, 'blogs/news_home.html', context) 
+    return render(request, template_name, context)
 
 
 

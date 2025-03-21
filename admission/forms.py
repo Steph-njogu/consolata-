@@ -7,6 +7,7 @@ from django.core.validators import RegexValidator
 registration_validator = RegexValidator(r'^\d{4,6}$', 'Enter a valid registration number (4-6 digits).')
 staff_no_validator = RegexValidator(r'^[A-Z]{2}\d{4}$', 'Enter a valid staff number (e.g., ST1234).')
 
+
 class AdmissionStudentForm(forms.ModelForm):
     registration_no = forms.CharField(
         label='Registration No.',
@@ -22,33 +23,30 @@ class AdmissionStudentForm(forms.ModelForm):
         model = AdmissionStudent
         fields = ['registration_no', 'password']
 
-
     def clean_registration_no(self):
         user = self.initial.get('user')
         registration_no = self.cleaned_data.get('registration_no')
 
+        # Ensure registration number is unique and within range
         if AdmissionStudent.objects.filter(registration_no=registration_no).exists():
             raise forms.ValidationError(f"The registration number {registration_no} is already in use.")
         
         elif AdmissionStudent.objects.filter(user=user).exists():
-            raise forms.ValidationError(f"You have already registered with this account.")
-
-        elif not (4000 <= int(registration_no) <= 7000): 
+            raise forms.ValidationError("You have already registered with this account.")
+        
+        elif not (4000 <= int(registration_no) <= 7000):
             raise forms.ValidationError("Registration number must be between 4000 and 7000.")
+        
         return registration_no
 
     def save(self, user, commit=True):
-        # Check if the logged-in user is already associated with a student
-        if AdmissionStudent.objects.filter(user=user).exists():
-            raise ValueError('You are already registered as a student.')
-
-        # If the user is not already registered, proceed with creating a new student record
-        user = super().save(commit=False)
-        user.password = make_password(self.cleaned_data["password"])  # Hash the password
-        user.user = user  # Associate the logged-in user with this student record
+        # Create a new student record linked to the user
+        student = super().save(commit=False)
+        student.user = user  # Link student record to logged-in user
+        student.password = make_password(self.cleaned_data["password"])  # Hash password
         if commit:
-            user.save()
-        return user
+            student.save()
+        return student
 
 
 
@@ -83,16 +81,12 @@ class AdmissionStaffForm(forms.ModelForm):
         
         return staff_no
 
-    def save(self, user, commit=True):
-        # Check if the user is already registered as a staff member
-        if AdmissionStaff.objects.filter(user=user).exists():
-            raise ValueError('You are already registered as a staff member.')
-        
+    def save(self, user, commit=True):          
         # If the user is not already registered, proceed with creating a new staff record
-        user = super().save(commit=False)
-        user.password = make_password(self.cleaned_data["password"])  # Hash password correctly
-        user.user = user  # Associate the logged-in user with this staff record
+        staff = super().save(commit=False)
+        staff.password = make_password(self.cleaned_data["password"])  # Hash password correctly
+        staff.user = user  # Associate the logged-in user with this staff record
 
         if commit:
-            user.save()
-        return user
+            staff.save()
+        return staff

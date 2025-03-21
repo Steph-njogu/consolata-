@@ -249,6 +249,7 @@
             <li><a href="{% url 'admission:admission_student' %}">Student Portal</a></li>
             <li><a href="{% url 'admission:admission_staff' %}">Lecturer Portal</a></li>
             <li><a href="{% url 'library:category_list' %}">Bookshop</a></li>
+            <li><a href="{% url 'library:register' %}">Lib register</a></li>
         </ul>
 
 
@@ -270,6 +271,8 @@
                 <li><a href="{% url 'timetable:timetable_view' %}">Timetable</a></li>
                 <li><a href="{% url 'admission:admission_student' %}">Student Portal</a></li>
                 <li><a href="{% url 'admission:admission_staff' %}">Lecturer Portal</a></li>
+                <li><a href="{% url 'library:category_list' %}">Bookshop</a></li>
+                <li><a href="{% url 'library:register' %}">Lib register</a></li>
             </ul>
 
             <!-- Search Form for Offcanvas -->
@@ -290,7 +293,7 @@
 
     <!-- Footer Section -->
     <footer class="footer">
-        &copy; {{ current_year }} | Consolata University | All Rights Reserved.
+        &copy;  | Consolata University | All Rights Reserved.
         <a href="#" class="text-white ms-3">Privacy Policy</a>
     </footer>
 
@@ -315,6 +318,32 @@
             document.querySelector('.footer').innerHTML += ` ${currentYear}`;
         });
     </script>
+
+<script>
+    // Block F12, Ctrl+Shift+I, Ctrl+U
+    document.addEventListener("keydown", (e) => {
+        if (
+            e.key === "F12" ||
+            (e.ctrlKey && e.shiftKey && e.key === "I") || 
+            (e.ctrlKey && e.key === "U")
+        ) {
+            e.preventDefault();
+            alert("Inspecting is disabled!");
+        }
+    });
+
+    // Detect DevTools open (clever trick with console timing)
+    const detectDevTools = () => {
+        const threshold = 160;
+        if (window.outerWidth - window.innerWidth > threshold || 
+            window.outerHeight - window.innerHeight > threshold) {
+            alert("Inspection blocked — redirecting!");
+            window.location.href = "/";  // Redirect to home or any safe page
+        }
+    };
+
+    setInterval(detectDevTools, 1000);
+</script>
 </body>
 
 </html>

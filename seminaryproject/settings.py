@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     'timetable',
     'course',
     'library',
+    'cart',
+    'order',
     'studentportal',
     'django_bootstrap5',
 ]
@@ -60,7 +62,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.static',  
+                'django.template.context_processors.static',
+                'cart.context_processors.cart',  
             ],
         },
     },
@@ -79,11 +82,11 @@ CHANNEL_LAYERS = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'steph',  # Use the correct database name
-        'USER': 'steph',  # Use the correct user
-        'PASSWORD': 'steph124en',  # Use the correct password
-        'HOST': 'localhost',  # Default localhost connection
-        'PORT': '5433',  # PostgreSQL port (keep as is)
+        'NAME': 'steph',  
+        'USER': 'steph',  
+        'PASSWORD': 'steph124en',  
+        'HOST': 'localhost', 
+        'PORT': '5433',  # PostgreSQL port 
     }
 }
 
@@ -126,4 +129,7 @@ LOGOUT_REDIRECT_URL = 'users:login'
 # Email backends
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
 AUTHENTICATE_BACKEND = ['django.contrib.auth.backends.ModelBackend', 'users.authentication.EmailAuthBackend']
+
+# shop session(cart)
+CART_SESSION_ID = 'cart'
 

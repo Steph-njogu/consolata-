@@ -3,38 +3,61 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2 class="text-center">Student Admission</h2>
+<div class="s-container">
+    <h2 class="text-center">Students Portal</h2>
     <hr>
 
-    <div class="card p-4 shadow-sm">
+    <div class="rcard">
         <form method="POST">
             {% csrf_token %}
-            
-            <div class="mb-3">
-                {% if form.errors %}
-                    <div class="alert alert-danger">
-                        <ul>
-                            {% for field in form %}
-                                {% for error in field.errors %}
-                                    <li>{{ error }}</li>
-                                {% endfor %}
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% endif %}
-                
-                <!-- Display the form with crispy styling -->
-                {{ form|crispy }}
-            </div>
-
-            <button type="submit" class="btn btn-primary w-100">Register</button>
+            {{ form|crispy }}
+            <button type="submit" class="button1">sign in</button>
             
         </form>
-    </div>
-
-    <div class="text-center mt-3">
-        <a href="#" class="btn btn-secondary">Back to Home</a>
+        <button type="submit" class="button2">Forgot password</button>
     </div>
 </div>
+
+<style>
+    /* Center the container vertically and horizontally */
+    .s-container {
+        width: 500px;
+        margin: 0;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #f9f9f9;
+        position: absolute;
+        left: 30%;
+        right: 35%;
+    }
+
+    .s-container h2 {
+        margin-bottom: 10px;
+    }
+
+    .rcard {
+        padding: 15px;
+    }
+
+    .button1 {
+        margin-top: 10px;
+        background-color: rgb(0, 87, 94);
+        color: #ddd;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 3px;
+    }
+
+    .button2 {
+        margin-top: 10px;
+        background-color: rgb(35, 94, 0);
+        color: #ddd;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 3px;
+        float: right;
+    }
+</style>
 {% endblock %}

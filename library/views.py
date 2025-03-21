@@ -6,19 +6,24 @@ from django.utils import timezone
 from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.contrib.admin.views.decorators import staff_member_required
+from cart.forms import CartAddProductForm
+from django.contrib.auth.decorators import login_required
 
 # Home page
 def home(request):
     return render(request, 'library/home.html')
 
+#Index page for the library
+def index(request):
+    return render(request, 'library/index.html')
+
 # The registration form for the library users
+@login_required
 def register(request):
     if request.method == 'POST':
         form = LibraryUserRegistrationForm(request.POST, initial={'user': request.user})
         if form.is_valid():
-            # Save the LibraryUser instance associated with the logged-in user
             library_user = form.save(user=request.user)
-            # Redirect after a successful registration
             return redirect('library:home')  
     else:
         form = LibraryUserRegistrationForm(initial={'user': request.user})
@@ -27,7 +32,7 @@ def register(request):
 
 
 # Detail view for a specific category
-def category_list(request):
+def category_list(request, template_name='library/category_list.html'):
     category_slug = request.GET.get('category', None)
 
     if category_slug == 'all':
@@ -35,27 +40,35 @@ def category_list(request):
     elif category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         books = EBook.objects.filter(category=category)
-    else:    
+    else:
         books = EBook.objects.all()
 
     categories = Category.objects.all()
 
-    return render(request, 'library/category_list.html', {
+    return render(request, template_name, {
         'categories': categories,
         'books': books,
     })
 
 
 # Detail view for a specific eBook
+@login_required
 def ebook_detail(request, slug):
     ebook = get_object_or_404(EBook, slug=slug)
     category = ebook.category
     ebook_tags = ebook.tags.all()
+    cart_product_form = CartAddProductForm()
     
     
     recommended_books = EBook.objects.filter(tags__in=ebook_tags).exclude(id=ebook.id).distinct()
     downloads = EBookDownload.objects.filter(user=request.user.libraryuser)
-    return render(request, 'library/ebook_detail.html', {'ebook': ebook,'category':category,'recommended_books': recommended_books, 'downloads': downloads})
+    context = {
+        'ebook': ebook,'category':category,
+        'recommended_books': recommended_books, 
+        'downloads': downloads, 
+        'cart_product_form':cart_product_form
+    }
+    return render(request, 'library/ebook_detail.html', context)
    
 
 # List all reading history for the logged-in user
@@ -114,7 +127,8 @@ def search_books(request):
         'query': query  
     })
 
-# students notes lists
+
+# students notes lists uploaded by lecturers
 def notes_list(request):
     department_slug = request.GET.get('department', None)
 
@@ -133,7 +147,7 @@ def notes_list(request):
         'notes': notes,
     })
 
-#Notes detail
+# Notes detail for each note uploaded per course
 def notes_detail(request, id, slug):
     note = get_object_or_404(Note, id=id, slug=slug)
     return render (request, 'library/notes_detail.html', {'note', note})

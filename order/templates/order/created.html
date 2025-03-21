@@ -1,0 +1,18 @@
+{% extends 'library/shop_home.html' %}
+{% load django_bootstrap5 %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    {{ebook.title}} 
+{% endblock %}
+
+
+{% block content %}
+<h1>Thankyou</h1>
+<div class="created">
+    <p> Your order has been successfully placed.Your order number is 
+        <strong>{{ order.id }}</strong>
+    </p>
+</div>
+
+{% endblock %}
